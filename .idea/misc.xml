@@ -3,6 +3,7 @@
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="FrameworkDetectionExcludesConfiguration">
     <file type="web" url="file://$PROJECT_DIR$/crm-auth-server" />
+    <file type="web" url="file://$PROJECT_DIR$/crm-bff" />
     <file type="web" url="file://$PROJECT_DIR$/store-auth-server" />
     <file type="web" url="file://$PROJECT_DIR$/store-bff" />
   </component>
