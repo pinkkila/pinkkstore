@@ -20,6 +20,15 @@
           </set>
         </option>
       </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/store-bff" />
+        <option name="gradleJvm" value="#JAVA_HOME" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/store-bff" />
+          </set>
+        </option>
+      </GradleProjectSettings>
     </option>
   </component>
 </project>
