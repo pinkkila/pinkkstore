@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/crm-api/crm-api.iml" filepath="$PROJECT_DIR$/crm-api/crm-api.iml" />
       <module fileurl="file://$PROJECT_DIR$/pinkkstore.iml" filepath="$PROJECT_DIR$/pinkkstore.iml" />
+      <module fileurl="file://$PROJECT_DIR$/store-frontend/store-frontend.iml" filepath="$PROJECT_DIR$/store-frontend/store-frontend.iml" />
     </modules>
   </component>
 </project>
