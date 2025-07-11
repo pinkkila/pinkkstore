@@ -1,3 +1,30 @@
+server:
+  port: 8091
+
 spring:
   application:
     name: crm-api
+
+
+  datasource:
+    username: myuser
+    password: secret
+    url: "jdbc:postgresql://127.0.0.1:5432/pinkkstore_db"
+
+  sql:
+    init:
+      mode: always
+      schema-locations: file:api-db/schema.sql
+      data-locations: file:api-db/data.sql
+
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:9001/oauth2/jwks
+
+
+logging:
+  level:
+    org.springframework.security: trace
