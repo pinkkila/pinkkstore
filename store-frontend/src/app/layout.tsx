@@ -5,6 +5,8 @@ import React from "react";
 import Container from "@/components/container";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
+import AuthContextProvider from "@/contexts/auth-context-provider";
+import CsrfContextProvider from "@/contexts/csrf-context-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -18,8 +20,8 @@ const geistMono = Geist_Mono({
 
 const openSans = Open_Sans({
   variable: "--font-open-sans",
-  subsets: ["latin"]
-})
+  subsets: ["latin"],
+});
 
 export const metadata: Metadata = {
   title: "Pinkk Store",
@@ -36,11 +38,15 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased dark ${openSans.className}`}
       >
-      <Container>
-        <Header />
-        {children}
-        <Footer />
-      </Container>
+        <CsrfContextProvider>
+          <AuthContextProvider>
+            <Container>
+              <Header />
+              {children}
+              <Footer />
+            </Container>
+          </AuthContextProvider>
+        </CsrfContextProvider>
       </body>
     </html>
   );

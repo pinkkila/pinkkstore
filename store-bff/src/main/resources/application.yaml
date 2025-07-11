@@ -1,3 +1,58 @@
+server:
+  port: 8080
+
 spring:
   application:
     name: store-bff
+
+
+  security:
+    oauth2:
+      client:
+        registration:
+          store-client-oidc:
+            provider: spring
+            client-id: store-client
+            client-secret: secret
+            authorization-grant-type: authorization_code
+            redirect-uri: "http://127.0.0.1:8080/login/oauth2/code/{registrationId}"
+            scope: openid,profile
+            client-name: store-client-oidc
+          store-client-authorization-code:
+            provider: spring
+            client-id: store-client
+            client-secret: secret
+            authorization-grant-type: authorization_code
+            redirect-uri: "http://127.0.0.1:8080/authorized"
+            scope: openid,profile
+            client-name: store-client-authorization-code
+        provider:
+          spring:
+            issuer-uri: http://localhost:9000
+
+
+  cloud:
+    gateway:
+      server:
+        webmvc:
+          routes:
+          - id: userinfo
+            uri: http://localhost:9000
+            predicates:
+              - Path=/userinfo
+            filters:
+              - TokenRelay=
+          - id: products
+            uri: http://localhost:8090
+            predicates:
+              - Path=/products/**
+            filters:
+              - TokenRelay=
+
+
+app:
+  base-uri: http://127.0.0.1:3000/
+
+logging:
+  level:
+    org.springframework.security: trace

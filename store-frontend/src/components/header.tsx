@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Authentication from "@/components/authentication";
 
 export default function Header() {
   return (
@@ -6,6 +7,7 @@ export default function Header() {
       <Link href="/">
         <h2 className="text-3xl text-fuchsia-600">Pinkk Store</h2>
       </Link>
+      <Authentication />
     </div>
   );
 }
