@@ -1,3 +1,58 @@
+server:
+  port: 8081
+
 spring:
   application:
     name: crm-bff
+
+
+  security:
+    oauth2:
+      client:
+        registration:
+          crm-client-oidc:
+            provider: spring
+            client-id: crm-client
+            client-secret: secret
+            authorization-grant-type: authorization_code
+            redirect-uri: "http://127.0.0.1:8081/login/oauth2/code/{registrationId}"
+            scope: openid,profile
+            client-name: crm-client-oidc
+          crm-client-authorization-code:
+            provider: spring
+            client-id: crm-client
+            client-secret: secret
+            authorization-grant-type: authorization_code
+            redirect-uri: "http://127.0.0.1:8081/authorized"
+            scope: openid,profile
+            client-name: crm-client-authorization-code
+        provider:
+          spring:
+            issuer-uri: http://localhost:9001
+
+
+  cloud:
+    gateway:
+      server:
+        webmvc:
+          routes:
+            - id: userinfo
+              uri: http://localhost:9001
+              predicates:
+                - Path=/userinfo
+              filters:
+                - TokenRelay=
+            - id: products
+              uri: http://localhost:8091
+              predicates:
+                - Path=/products/**
+              filters:
+                - TokenRelay=
+
+
+app:
+  base-uri: http://127.0.0.1:3001/
+
+logging:
+  level:
+    org.springframework.security: trace
