@@ -6,7 +6,6 @@ import Container from "@/components/container";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import AuthContextProvider from "@/contexts/auth-context-provider";
-import CsrfContextProvider from "@/contexts/csrf-context-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -38,15 +37,13 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased dark ${openSans.className}`}
       >
-        <CsrfContextProvider>
-          <AuthContextProvider>
-            <Container>
-              <Header />
-              {children}
-              <Footer />
-            </Container>
-          </AuthContextProvider>
-        </CsrfContextProvider>
+        <AuthContextProvider>
+          <Container>
+            <Header />
+            {children}
+            <Footer />
+          </Container>
+        </AuthContextProvider>
       </body>
     </html>
   );

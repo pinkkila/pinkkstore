@@ -3,7 +3,6 @@ package com.pinkkstore.crmbff.security;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.config.Customizer;
@@ -54,7 +53,7 @@ public class SecurityConfig {
                         .authenticationEntryPoint(authenticationEntryPoint())
                 )
                 .oauth2Login(oauth2Login -> oauth2Login
-                        .successHandler(new SimpleUrlAuthenticationSuccessHandler(this.appBaseUri)))
+                        .successHandler(new SimpleUrlAuthenticationSuccessHandler(this.appBaseUri + "/app")))
                 .logout(logout -> logout
                         .addLogoutHandler(logoutHandler(cookieCsrfTokenRepository))
                         .logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler(HttpStatus.OK))

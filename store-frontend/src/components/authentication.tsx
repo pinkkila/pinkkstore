@@ -1,25 +1,27 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { useAuthContext, useCsrfContext } from "@/lib/hooks";
+import { useAuthContext } from "@/lib/hooks";
+import { getCsrfToken } from "@/lib/utils";
 
 const BACKEND_URL = "http://127.0.0.1:8080";
 
 export default function Authentication() {
   const { username, setUsername } = useAuthContext();
-  const {csrfToken} = useCsrfContext();
 
   const handleLogin = () => {
     window.location.href = BACKEND_URL;
   };
 
   const handleLogout = () => {
+    const csrfToken = getCsrfToken()
+
     fetch(BACKEND_URL + "/logout", {
       credentials: "include",
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "X-XSRF-TOKEN": csrfToken,
+        ...(csrfToken ? { "X-XSRF-TOKEN": csrfToken } : {}),
       },
     })
       .then(() => {
