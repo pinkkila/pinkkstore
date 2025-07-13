@@ -12,6 +12,5 @@ public class CartRow {
     @Id
     private Long id;
     private int productQty;
-    private double rowPrice;
     private Long productId;
 }

@@ -6,6 +6,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.MappedCollection;
 import org.springframework.data.relational.core.mapping.Table;
 
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Data
@@ -14,8 +15,8 @@ import java.util.Set;
 public class Cart {
     @Id
     private Long id;
-    private double cartPrice;
-    private String sessionId;
+    private String appUsername;
+    private LocalDateTime lastModified;
     @MappedCollection(idColumn = "cart_id")
     private Set<CartRow> cartRows;
 }
