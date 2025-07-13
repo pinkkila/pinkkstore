@@ -12,7 +12,7 @@ public class Product {
     @Id
     private Long id;
     private String productName;
-    private String productDescription;
+    private String productDesc;
     private int stockQty;
     private int reservedQty;
     private double price;
