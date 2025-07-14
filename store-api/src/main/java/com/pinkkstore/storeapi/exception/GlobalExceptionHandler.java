@@ -1,5 +1,6 @@
 package com.pinkkstore.storeapi.exception;
 
+import com.pinkkstore.storeapi.cart.CartNotFoundException;
 import com.pinkkstore.storeapi.product.ProductNotFoundException;
 import com.pinkkstore.storeapi.product.ProductNotEnoughStockException;
 import lombok.extern.slf4j.Slf4j;
@@ -30,6 +31,17 @@ public class GlobalExceptionHandler {
                 ex.getMessage()
         );
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception);
+    }
+    
+    @ExceptionHandler(CartNotFoundException.class)
+    public ResponseEntity<ApiException> handleCartNotFound(CartNotFoundException ex) {
+        log.error(ex.getMessage());
+        var exception = new ApiException(
+                HttpStatus.NOT_FOUND.value(),
+                "Cart not found.",
+                "Service was not able to find the cart."
+        );
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception);
     }
     
     @ExceptionHandler(Exception.class)

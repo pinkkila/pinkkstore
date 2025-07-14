@@ -1,11 +1,11 @@
 "use client"
 
-import { Button } from "@/components/ui/button";
 import { getCsrfToken } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
 
-export default function TestNewCart() {
-  const newCartRequest = {
-    productQty: 3,
+export default function TestUpdateCart() {
+  const cartUpdateRequest = {
+    productQty: 10,
     productId: 99,
   }
 
@@ -13,14 +13,14 @@ export default function TestNewCart() {
     const csrfToken = getCsrfToken()
 
     try {
-      const response = await fetch("http://127.0.0.1:8080/carts", {
-        method: "POST",
+      const response = await fetch("http://127.0.0.1:8080/carts/1", {
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
           ...(csrfToken ? { "X-XSRF-TOKEN": csrfToken } : {}),
         },
         credentials: "include",
-        body: JSON.stringify(newCartRequest),
+        body: JSON.stringify(cartUpdateRequest),
       });
       if (!response.ok) {
         throw new Error(response.statusText);
@@ -31,6 +31,6 @@ export default function TestNewCart() {
   }
 
   return (
-    <Button onClick={handleOnClick}>new cart test</Button>
+    <Button onClick={handleOnClick}> test update cart</Button>
   );
 }

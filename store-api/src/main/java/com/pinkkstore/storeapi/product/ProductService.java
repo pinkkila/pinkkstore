@@ -24,7 +24,7 @@ public class ProductService {
                 .orElseThrow(() -> new ProductNotFoundException(productId));
     }
     
-    public void increaseReservedQty(Long productId, int reservedQty) {
+    public void changeReservedQty(Long productId, int reservedQty) {
         var product = productRepository.findById(productId)
                 .orElseThrow(() -> new ProductNotFoundException(productId));
         

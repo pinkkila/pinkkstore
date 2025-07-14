@@ -3,10 +3,7 @@ package com.pinkkstore.storeapi.cart;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
@@ -18,14 +15,19 @@ public class CartController {
     private final CartService cartService;
     
     @PostMapping
-    private ResponseEntity<Cart> addCart(@RequestBody NewCartRequest newCartRequest, Authentication authentication, UriComponentsBuilder ucb) {
-        var cart = cartService.createNewCart(newCartRequest, authentication);
-        var newId = cart.getId();
-        URI locationOfNewCart = ucb
-                .path("/comments/{id}")
-                .buildAndExpand(newId)
+    private ResponseEntity<Cart> createCart(@RequestBody CartRequest cartRequest, Authentication authentication, UriComponentsBuilder ucb) {
+        var createdCart = cartService.createNewCart(cartRequest, authentication);
+        URI locationOfCreatedCart = ucb
+                .path("/carts/{id}")
+                .buildAndExpand(createdCart.getId())
                 .toUri();
-        return ResponseEntity.created(locationOfNewCart).body(cart);
+        return ResponseEntity.created(locationOfCreatedCart).body(createdCart);
+    }
+    
+    @PutMapping("/{cartId}")
+    private ResponseEntity<Cart> updateCart(@PathVariable Long cartId, @RequestBody CartRequest cartRequest, Authentication authentication) {
+        var updatedCart = cartService.updateCart(cartId, cartRequest, authentication);
+        return ResponseEntity.ok(updatedCart);
     }
     
 }
