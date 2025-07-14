@@ -5,7 +5,7 @@ import { getCsrfToken } from "@/lib/utils";
 
 export default function TestNewCart() {
   const newCartRequest = {
-    productQty: 2,
+    productQty: 200,
     productId: 99,
   }
 

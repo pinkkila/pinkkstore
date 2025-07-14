@@ -18,7 +18,7 @@ public class CartCleanupJob {
     
     @Transactional
 //    @Scheduled(fixedDelay = 15 * 60 * 1000) // every 15 minutes
-    @Scheduled(fixedDelay = 2 * 60 * 1000) // every 15 minutes
+    @Scheduled(fixedDelay = 2 * 60 * 1000) // every 2 minutes
     public void cleanupAbandonedCarts() {
 //        LocalDateTime cutoff = LocalDateTime.now().minusMinutes(60);
         LocalDateTime cutoff = LocalDateTime.now().minusMinutes(3);

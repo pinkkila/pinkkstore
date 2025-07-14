@@ -17,4 +17,25 @@ public class ProductService {
                 .map(productMapper::toProductDto)
                 .collect(Collectors.toList());
     }
+    
+    public ProductDto getProductDto(Long productId) {
+        return productRepository.findById(productId)
+                .map(productMapper::toProductDto)
+                .orElseThrow(() -> new ProductNotFoundException(productId));
+    }
+    
+    public void increaseReservedQty(Long productId, int reservedQty) {
+        var product = productRepository.findById(productId)
+                .orElseThrow(() -> new ProductNotFoundException(productId));
+        
+        int newReserved = product.getReservedQty() + reservedQty;
+        
+        if (product.getStockQty() < newReserved) {
+            throw new ProductNotEnoughStockException(productId);
+        }
+        
+        product.setReservedQty(newReserved);
+        productRepository.save(product);
+    }
+    
 }
