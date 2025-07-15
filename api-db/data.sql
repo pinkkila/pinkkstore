@@ -11,4 +11,4 @@ values (99, 'banana poster', 'Really beautiful picture of bananaj', 45, 0, 19.95
 
 SELECT setval('product_id_seq', (SELECT MAX(id) from product));
 SELECT setval('public.cart_id_seq', (SELECT MAX(id) from cart));
-SELECT setval('public.cart_row_id_seq', (SELECT MAX(id) from cart_row));
+SELECT setval('public.cart_item_id_seq', (SELECT MAX(id) from cart_item));

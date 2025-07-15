@@ -19,7 +19,7 @@ create table if not exists cart
     last_modified timestamp not null
 );
 
-create table if not exists cart_row
+create table if not exists cart_item
 (
     id          bigserial primary key,
     product_qty integer not null,

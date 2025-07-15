@@ -17,7 +17,6 @@ public class CartCleanupJob {
     private final CartRepository cartRepository;
     private final ProductRepository productRepository;
     
-    
     @Transactional
     @Scheduled(fixedDelay = 15 * 60 * 1000) // every 15 minutes
 //    @Scheduled(fixedDelay = 2 * 60 * 1000) // every 2 minutes
@@ -27,9 +26,9 @@ public class CartCleanupJob {
         List<Cart> expiredCarts = cartRepository.findByLastModifiedBefore(cutoff);
         
         for (Cart cart : expiredCarts) {
-            for (CartRow row : cart.getCartRows()) {
-                productRepository.findById(row.getProductId()).ifPresent(product -> {
-                    product.setReservedQty(product.getReservedQty() - row.getProductQty());
+            for (CartItem item : cart.getCartItems()) {
+                productRepository.findById(item.getProductId()).ifPresent(product -> {
+                    product.setReservedQty(product.getReservedQty() - item.getProductQty());
                     productRepository.save(product);
                 });
             }

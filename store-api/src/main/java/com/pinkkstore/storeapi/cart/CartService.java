@@ -20,8 +20,8 @@ public class CartService {
         productService.changeReservedQty(cartRequest.productId(), cartRequest.productQty());
         
         // add mapper later? cartDto with price?
-        var newCartRow = new CartRow(null, cartRequest.productQty(), cartRequest.productId());
-        var newCart = new Cart(null, authentication.getName(), LocalDateTime.now(), Set.of(newCartRow));
+        var newCartItem = new CartItem(null, cartRequest.productQty(), cartRequest.productId());
+        var newCart = new Cart(null, authentication.getName(), LocalDateTime.now(), Set.of(newCartItem));
         
         return cartRepository.save(newCart);
     }
@@ -33,24 +33,24 @@ public class CartService {
         
         productService.changeReservedQty(cartRequest.productId(), cartRequest.productQty());
         
-        var existingRow = cart.getCartRows().stream()
-                .filter(row -> row.getProductId().equals(cartRequest.productId()))
+        var existingCartItem = cart.getCartItems().stream()
+                .filter(item -> item.getProductId().equals(cartRequest.productId()))
                 .findFirst();
         
-        if (existingRow.isPresent()) {
-            var row = existingRow.get();
-            int newQty = row.getProductQty() + cartRequest.productQty();
+        if (existingCartItem.isPresent()) {
+            var item = existingCartItem.get();
+            int newQty = item.getProductQty() + cartRequest.productQty();
             
             if (newQty > 0) {
-                row.setProductQty(newQty);
+                item.setProductQty(newQty);
             } else {
-                cart.getCartRows().remove(row);
+                cart.getCartItems().remove(item);
             }
             
         } else {
             if (cartRequest.productQty() > 0) {
-                var newRow = new CartRow(null, cartRequest.productQty(), cartRequest.productId());
-                cart.getCartRows().add(newRow);
+                var newItem = new CartItem(null, cartRequest.productQty(), cartRequest.productId());
+                cart.getCartItems().add(newItem);
             }
         }
         

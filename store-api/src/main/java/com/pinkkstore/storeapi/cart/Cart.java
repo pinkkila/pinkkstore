@@ -18,5 +18,5 @@ public class Cart {
     private String appUsername;
     private LocalDateTime lastModified;
     @MappedCollection(idColumn = "cart_id")
-    private Set<CartRow> cartRows;
+    private Set<CartItem> cartItems;
 }

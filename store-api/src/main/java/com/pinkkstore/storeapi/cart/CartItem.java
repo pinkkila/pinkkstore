@@ -7,8 +7,8 @@ import org.springframework.data.relational.core.mapping.Table;
 
 @Data
 @AllArgsConstructor
-@Table("cart_row")
-public class CartRow {
+@Table("cart_item")
+public class CartItem {
     @Id
     private Long id;
     private int productQty;
