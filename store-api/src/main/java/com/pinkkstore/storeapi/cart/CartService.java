@@ -15,17 +15,6 @@ public class CartService {
     private final CartRepository cartRepository;
     private final ProductService productService;
     
-    @Transactional
-    public Cart createNewCart(CartRequest cartRequest, Authentication authentication) {
-        productService.changeReservedQty(cartRequest.productId(), cartRequest.productQty());
-        
-        // add mapper later? cartDto with price?
-        var newCartItem = new CartItem(null, cartRequest.productQty(), cartRequest.productId());
-        var newCart = new Cart(null, authentication.getName(), LocalDateTime.now(), Set.of(newCartItem));
-        
-        return cartRepository.save(newCart);
-    }
-    
     public Cart getCart(Authentication authentication) {
         return cartRepository.findByAppUsername(authentication.getName())
                 .orElseGet(() -> {

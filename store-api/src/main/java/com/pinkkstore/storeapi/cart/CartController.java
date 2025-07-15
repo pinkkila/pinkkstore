@@ -14,16 +14,6 @@ import java.net.URI;
 public class CartController {
     private final CartService cartService;
     
-    @PostMapping
-    private ResponseEntity<Cart> createCart(@RequestBody CartRequest cartRequest, Authentication authentication, UriComponentsBuilder ucb) {
-        var createdCart = cartService.createNewCart(cartRequest, authentication);
-        URI locationOfCreatedCart = ucb
-                .path("/carts/{id}")
-                .buildAndExpand(createdCart.getId())
-                .toUri();
-        return ResponseEntity.created(locationOfCreatedCart).body(createdCart);
-    }
-    
     @GetMapping
     private ResponseEntity<Cart> getCart(Authentication authentication) {
         var cart = cartService.getCart(authentication);

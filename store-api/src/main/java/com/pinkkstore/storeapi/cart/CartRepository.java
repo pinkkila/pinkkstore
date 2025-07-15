@@ -8,6 +8,5 @@ import java.util.Optional;
 
 public interface CartRepository extends ListCrudRepository<Cart, Long> {
     List<Cart> findByLastModifiedBefore(LocalDateTime cutoffTime);
-    Optional<Cart> findByIdAndAppUsername(Long cartId, String appUsername);
     Optional<Cart> findByAppUsername(String appUsername);
 }
