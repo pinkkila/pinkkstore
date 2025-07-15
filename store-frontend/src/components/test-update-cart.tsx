@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 
 export default function TestUpdateCart() {
   const cartUpdateRequest = {
-    productQty: 10,
+    productQty: -10,
     productId: 99,
   }
 
@@ -13,7 +13,7 @@ export default function TestUpdateCart() {
     const csrfToken = getCsrfToken()
 
     try {
-      const response = await fetch("http://127.0.0.1:8080/carts/1", {
+      const response = await fetch("http://127.0.0.1:8080/carts", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

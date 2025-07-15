@@ -1,11 +1,13 @@
 package com.pinkkstore.storeapi.product;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ProductService {
@@ -32,6 +34,11 @@ public class ProductService {
         
         if (product.getStockQty() < newReserved) {
             throw new ProductNotEnoughStockException(productId);
+        }
+        
+        if (newReserved < 0) {
+            log.warn("Reserved quantity went below zero for product ID {}. Adjusting to 0. Change attempted: {}. Reserved was {}", productId, reservedQty, product.getReservedQty());
+            newReserved = 0;
         }
         
         product.setReservedQty(newReserved);

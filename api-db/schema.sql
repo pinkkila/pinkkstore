@@ -1,4 +1,4 @@
-drop table if exists cart_row;
+drop table if exists cart_item;
 drop table if exists cart;
 drop table if exists product;
 

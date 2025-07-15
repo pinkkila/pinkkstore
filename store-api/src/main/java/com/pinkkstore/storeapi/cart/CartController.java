@@ -24,9 +24,15 @@ public class CartController {
         return ResponseEntity.created(locationOfCreatedCart).body(createdCart);
     }
     
-    @PutMapping("/{cartId}")
-    private ResponseEntity<Cart> updateCart(@PathVariable Long cartId, @RequestBody CartRequest cartRequest, Authentication authentication) {
-        var updatedCart = cartService.updateCart(cartId, cartRequest, authentication);
+    @GetMapping
+    private ResponseEntity<Cart> getCart(Authentication authentication) {
+        var cart = cartService.getCart(authentication);
+        return ResponseEntity.ok(cart);
+    }
+    
+    @PutMapping
+    private ResponseEntity<Cart> updateCart(@RequestBody CartRequest cartRequest, Authentication authentication) {
+        var updatedCart = cartService.updateCart(cartRequest, authentication);
         return ResponseEntity.ok(updatedCart);
     }
     

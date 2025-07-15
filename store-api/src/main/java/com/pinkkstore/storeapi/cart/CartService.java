@@ -26,10 +26,18 @@ public class CartService {
         return cartRepository.save(newCart);
     }
     
+    public Cart getCart(Authentication authentication) {
+        return cartRepository.findByAppUsername(authentication.getName())
+                .orElseGet(() -> {
+                    var cart = new Cart(null, authentication.getName(), LocalDateTime.now(), Set.of());
+                    return cartRepository.save(cart);
+                });
+    }
+    
     @Transactional
-    public Cart updateCart(Long cartId, CartRequest cartRequest, Authentication authentication) {
-        var cart  = cartRepository.findByIdAndAppUsername(cartId, authentication.getName())
-                .orElseThrow(() ->  new CartNotFoundException(cartId, authentication));
+    public Cart updateCart(CartRequest cartRequest, Authentication authentication) {
+        var cart = cartRepository.findByAppUsername(authentication.getName())
+                .orElseThrow(() -> new CartNotFoundException(authentication));
         
         productService.changeReservedQty(cartRequest.productId(), cartRequest.productQty());
         
