@@ -15,9 +15,9 @@ import java.util.List;
 public class ProductController {
     private final ProductService productService;
     
-    @GetMapping("/{productId}")
-    private ResponseEntity<ProductDto> getProduct(@PathVariable Long productId) {
-        return ResponseEntity.ok(this.productService.getProductDto(productId));
+    @GetMapping("/{requestedId}")
+    private ResponseEntity<ProductDto> getProduct(@PathVariable Long requestedId) {
+        return ResponseEntity.ok(this.productService.getProductDto(requestedId));
     }
     
     @GetMapping

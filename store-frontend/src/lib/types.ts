@@ -10,3 +10,19 @@ export type TCartItem = {
   productQty: number;
   productId: number;
 }
+
+export type TCartRequest = {
+  productId: number;
+  productQty: number;
+}
+
+export type TOrderRequest = {
+  totalPrice: number;
+  orderItems: TOrderItemRequest[]
+}
+
+type TOrderItemRequest = {
+  productQty: number;
+  productPrice: number;
+  productId: number;
+}
