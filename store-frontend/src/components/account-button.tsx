@@ -4,9 +4,10 @@ import { Button } from "@/components/ui/button";
 
 export default function AccountButton() {
   return (
-    <Button asChild className="rounded-3xl" size="lg" variant="secondary">
+    <Button asChild className="rounded-3xl" size="lg">
       <Link href={"/account"}>
-        <User />
+        {/*For some reason a size does not change https://github.com/shadcn-ui/ui/issues/6316*/}
+        <User className="!size-5" />
       </Link>
     </Button>
   );

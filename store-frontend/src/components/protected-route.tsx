@@ -9,17 +9,17 @@ export default function ProtectedRoute({ children }: { children: React.ReactNode
   const router = useRouter();
 
   useEffect(() => {
-    if ( !isLoading && username === "") {
-      router.push("/");
+    if ( !isLoading && !username) {
+      router.replace("/");
     }
   }, [username, isLoading, router]);
 
-  // refactor with loading sprinner after implementing useQuery
+  // TODO refactor with loading sprinner after implementing useQuery
   if (isLoading) {
     return null;
   }
 
-  if (username === "") {
+  if (!username) {
     return null;
   }
 

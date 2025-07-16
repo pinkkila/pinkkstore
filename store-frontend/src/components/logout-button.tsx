@@ -21,7 +21,7 @@ export default function LogoutButton() {
       },
     })
       .then(() => {
-        setUsername("");
+        setUsername(null);
       })
       .catch((err) => {
         console.error(err);

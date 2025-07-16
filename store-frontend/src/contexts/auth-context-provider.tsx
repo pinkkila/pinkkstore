@@ -3,8 +3,9 @@
 import React, { createContext, useEffect, useState } from "react";
 
 type AuthContextProvider = {
-  username: string;
-  setUsername: React.Dispatch<React.SetStateAction<string>>;
+  username: string | null;
+  setUsername: React.Dispatch<React.SetStateAction<string | null>>
+  isLoading: boolean;
 };
 
 export const AuthContext = createContext<AuthContextProvider | null>(null);
@@ -14,30 +15,35 @@ export default function AuthContextProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const [username, setUsername] = useState<string>("");
+  const [username, setUsername] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    const getUsername = async () => {
+      try {
+        const response = await fetch("http://127.0.0.1:8080/userinfo", {
+          credentials: "include",
+        });
+        if (!response.ok) {
+          setUsername(null);
+          return;
+        }
+        const userData = await response.json();
+        setUsername(userData.sub);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
     getUsername();
   }, []);
 
-  const getUsername = async () => {
-    try {
-      const response = await fetch("http://127.0.0.1:8080/userinfo", {
-        credentials: "include",
-      });
-      if (!response.ok) {
-        setUsername("");
-        return;
-      }
-      const userData = await response.json();
-      setUsername(userData.sub);
-    } catch (err) {
-      console.error(err);
-    }
-  };
+
 
   return (
-    <AuthContext.Provider value={{ username, setUsername }}>
+    <AuthContext.Provider value={{ username, setUsername, isLoading }}>
       {children}
     </AuthContext.Provider>
   );

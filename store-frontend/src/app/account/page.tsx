@@ -1,3 +1,8 @@
+import LogoutButton from "@/components/logout-button";
+
 export default function Page() {
-  return <div>This is account page</div>;
+  return <main>
+    <h2>Your account</h2>
+    <LogoutButton/>
+  </main>;
 }
