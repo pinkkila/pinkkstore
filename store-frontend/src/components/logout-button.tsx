@@ -1,4 +1,4 @@
-"use client";
+"use client"
 
 import { Button } from "@/components/ui/button";
 import { useAuthContext } from "@/lib/hooks";
@@ -6,12 +6,8 @@ import { getCsrfToken } from "@/lib/utils";
 
 const BACKEND_URL = "http://127.0.0.1:8080";
 
-export default function Authentication() {
-  const { username, setUsername } = useAuthContext();
-
-  const handleLogin = () => {
-    window.location.href = BACKEND_URL;
-  };
+export default function LogoutButton() {
+  const {setUsername} = useAuthContext();
 
   const handleLogout = () => {
     const csrfToken = getCsrfToken()
@@ -33,25 +29,13 @@ export default function Authentication() {
   };
 
   return (
-    <>
-      {username ? (
-        <Button
-          className="rounded-3xl"
-          size="lg"
-          onClick={handleLogout}
-          variant="secondary"
-        >
-          Logout
-        </Button>
-      ) : (
-        <Button
-          className="rounded-3xl"
-          onClick={handleLogin}
-          size="lg"
-        >
-          Login
-        </Button>
-      )}
-    </>
+    <Button
+      className="rounded-3xl"
+      size="lg"
+      onClick={handleLogout}
+      variant="secondary"
+    >
+      Logout
+    </Button>
   );
 }
