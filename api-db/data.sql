@@ -8,13 +8,15 @@ delete
 from product;
 
 insert into product(id, product_name, product_desc, stock_qty, reserved_qty, price)
-values (99, 'banana poster', 'Really beautiful picture of bananaj', 45, 0, 19.95);
+values (99, 'Banana poster', 'Really beautiful picture of banana', 45, 0, 19.95),
+       (100, 'Orange poster', 'Amazing potret of an orange', 66, 0, 24.95);
 
 insert into customer_order(id, app_username, order_date, total_price)
-values (50, 'user', '2025-01-28T17:23:19', 19.95);
+values (50, 'user', '2025-01-28T17:23:19', 69.85);
 
 insert into order_item(id, product_qty, product_price, product_id, customer_order_id)
-values (200, 1, 19.95, 99, 50);
+values (200, 1, 19.95, 99, 50),
+        (201, 2, 24.95, 100, 50);
 
 SELECT setval('product_id_seq', (SELECT MAX(id) from product));
 SELECT setval('public.cart_id_seq', (SELECT MAX(id) from cart));

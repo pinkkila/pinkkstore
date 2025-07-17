@@ -2,12 +2,13 @@
 
 import { useEffect, useState } from "react";
 import { TOrder } from "@/lib/types";
+import OrderPageView from "@/components/order-page-view";
 
 type OrderDetailsProps = {
   orderId: string;
 };
 
-export default function OrderDetails({ orderId }: OrderDetailsProps) {
+export default function OrderPageClient({ orderId }: OrderDetailsProps) {
   const [order, setOrder] = useState<TOrder | undefined>();
 
   useEffect(() => {
@@ -30,9 +31,7 @@ export default function OrderDetails({ orderId }: OrderDetailsProps) {
 
   return <div>
     {order && (
-      <>
-        <p>{order.id}</p>
-      </>
+     <OrderPageView order={order} />
     )}
   </div>;
 }

@@ -30,7 +30,7 @@ type TOrderItemRequest = {
 export type TOrder = {
   id: number;
   appUsername: string;
-  orderDate: Date;
+  orderDate: string; //TODO refactor to date
   totalPrice: number;
   orderItems: TOrderItem[]
 }
