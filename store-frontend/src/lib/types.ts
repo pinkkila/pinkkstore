@@ -35,7 +35,7 @@ export type TOrder = {
   orderItems: TOrderItem[]
 }
 
-type TOrderItem = {
+export type TOrderItem = {
   id: number;
   productQty: number;
   productPrice: number;
