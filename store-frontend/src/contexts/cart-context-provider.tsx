@@ -2,6 +2,7 @@
 
 import React, { createContext, useEffect, useState } from "react";
 import { TCart } from "@/lib/types";
+import { useAuthContext } from "@/lib/hooks";
 
 type CartContext = {
   cart: TCart | undefined;
@@ -17,10 +18,13 @@ export default function CartContextProvider({
   children: React.ReactNode;
 }) {
   const [cart, setCart] = useState<TCart | undefined>();
+  const { username, isLoading } = useAuthContext()
 
   useEffect(() => {
-    getCart();
-  }, []);
+    if (!isLoading && username) {
+      getCart();
+    }
+  }, [username, isLoading]);
 
   const getCart = async () => {
     try {
