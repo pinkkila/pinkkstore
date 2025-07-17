@@ -1,8 +1,8 @@
 drop table if exists cart_item;
 drop table if exists cart;
-drop table if exists product;
 drop table if exists order_item;
 drop table if exists customer_order;
+drop table if exists product;
 
 create table if not exists product
 (
@@ -33,7 +33,7 @@ create table if not exists customer_order
 (
     id           bigserial primary key,
     app_username text      not null,
-    orderDate    timestamp not null,
+    order_date    timestamp not null,
     total_price  decimal   not null
 );
 

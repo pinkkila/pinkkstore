@@ -26,3 +26,18 @@ type TOrderItemRequest = {
   productPrice: number;
   productId: number;
 }
+
+export type TOrder = {
+  id: number;
+  appUsername: string;
+  orderDate: Date;
+  totalPrice: number;
+  orderItems: TOrderItem[]
+}
+
+type TOrderItem = {
+  id: number;
+  productQty: number;
+  productPrice: number;
+  productId: number;
+}

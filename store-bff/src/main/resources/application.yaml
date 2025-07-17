@@ -54,6 +54,12 @@ spring:
               - Path=/carts/**
             filters:
               - TokenRelay=
+          - id: orders
+            uri: http://localhost:8090
+            predicates:
+              - Path=/orders/**
+            filters:
+              - TokenRelay=
 
 
 app:
