@@ -1,10 +1,10 @@
-import TestUpdateCart from "@/components/test-update-cart";
-
 export default function Home() {
   return (
-    <div className="flex justify-center items-center mt-30 gap-4">
-      This is home page!
-      <TestUpdateCart />
-    </div>
+    <main className="flex flex-col justify-center items-center mt-15">
+      <h1 className="text-3xl lg:text-5xl font-bold">
+        Welcome to <span className="text-fuchsia-500">Pinkk Store</span>
+      </h1>
+
+    </main>
   );
 }

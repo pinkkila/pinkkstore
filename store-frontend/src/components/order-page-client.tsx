@@ -14,9 +14,12 @@ export default function OrderPageClient({ orderId }: OrderDetailsProps) {
   useEffect(() => {
     const fetchOrder = async () => {
       try {
-        const response = await fetch(`http://127.0.0.1:8080/orders/${orderId}`, {
-          credentials: "include",
-        });
+        const response = await fetch(
+          `http://127.0.0.1:8080/orders/${orderId}`,
+          {
+            credentials: "include",
+          },
+        );
         if (!response.ok) {
           throw new Error(response.statusText);
         }
@@ -29,9 +32,5 @@ export default function OrderPageClient({ orderId }: OrderDetailsProps) {
     fetchOrder();
   }, [orderId]);
 
-  return <div>
-    {order && (
-     <OrderPageView order={order} />
-    )}
-  </div>;
+  return <>{order && <OrderPageView order={order} />}</>;
 }

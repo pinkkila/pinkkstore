@@ -8,7 +8,7 @@ export default async function OrderPage({ params }: OrderPageProps) {
   const id = (await params).id;
 
   return (
-    <main className="">
+    <main>
      <OrderPageClient orderId={id} />
     </main>
   );

@@ -17,8 +17,8 @@ export default function OrderPageView({ order }: OrderPageViewProps) {
   const formattedOrderDate = formatDate(order.orderDate)
 
   return (
-    <section className="flex justify-center items-center">
-      <Card className="mt-6 w-full max-w-2xl">
+    <section className="flex justify-center items-center mt-30">
+      <Card className="w-full max-w-2xl">
         <CardHeader>
           <CardTitle className="text-3xl">
             Order from {formattedOrderDate}
