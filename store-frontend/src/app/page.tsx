@@ -1,4 +1,5 @@
-import HomeCarousel from "@/components/home-carousel";
+import AddCarousel from "@/components/add-carousel";
+import ProductCategories from "@/components/product-categories";
 
 export default function Home() {
   return (
@@ -6,7 +7,8 @@ export default function Home() {
       <h1 className="text-3xl lg:text-5xl font-bold">
         Welcome to <span className="text-fuchsia-500">Pinkk Store</span>
       </h1>
-      <HomeCarousel/>
+      <AddCarousel/>
+      <ProductCategories/>
     </main>
   );
 }

@@ -10,9 +10,9 @@ import {
 } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
 
-export default function HomeCarousel() {
+export default function AddCarousel() {
   return (
-    <div className="mt-25 md:w-full group md:px-16">
+    <section className="mt-25 md:w-full group md:px-16">
       <Carousel
         opts={{
           align: "start",
@@ -41,6 +41,6 @@ export default function HomeCarousel() {
         <CarouselPrevious className="invisible md:group-hover:visible duration-200" />
         <CarouselNext className="invisible md:group-hover:visible duration-200" />
       </Carousel>
-     </div>
+     </section>
   );
 }
