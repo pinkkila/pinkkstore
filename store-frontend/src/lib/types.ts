@@ -41,3 +41,10 @@ export type TOrderItem = {
   productPrice: number;
   productId: number;
 }
+
+export type TProduct = {
+  id: number;
+  productName: string;
+  productDesc: string;
+  price: number;
+}

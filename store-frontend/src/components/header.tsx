@@ -9,7 +9,7 @@ export default function Header() {
       <div className="flex items-center gap-6">
         <Hamburger />
         <Link href="/">
-          <h2 className="text-3xl text-fuchsia-600">Pinkk Store</h2>
+          <h2 className="text-3xl text-fuchsia-500">Pinkk Store</h2>
         </Link>
       </div>
       <div className="flex items-center gap-6 ">

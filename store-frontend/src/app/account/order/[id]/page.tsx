@@ -1,4 +1,4 @@
-import OrderPageClient from "@/components/order-page-client";
+import OrderDetails from "@/components/order-details";
 
 type OrderPageProps = {
   params: Promise<{ id: string }>;
@@ -9,7 +9,7 @@ export default async function OrderPage({ params }: OrderPageProps) {
 
   return (
     <main>
-     <OrderPageClient orderId={id} />
+     <OrderDetails orderId={id} className="mt-30" />
     </main>
   );
 }

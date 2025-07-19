@@ -1,9 +1,9 @@
-import OrdersList from "@/components/orders-list";
+import OrderList from "@/components/order-list";
 
 export default function Page() {
   return (
-    <div>
-      <OrdersList />
-    </div>
+    <main>
+      <OrderList />
+    </main>
   );
 }

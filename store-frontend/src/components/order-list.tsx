@@ -4,7 +4,7 @@ import { TOrder } from "@/lib/types";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 
-export default function OrdersList() {
+export default function OrderList() {
   const [orders, setOrders] = useState<TOrder[]>([]);
 
   useEffect(() => {
