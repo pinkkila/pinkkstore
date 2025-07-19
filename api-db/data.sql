@@ -7,9 +7,15 @@ from customer_order;
 delete
 from product;
 
+delete
+from category;
+
+insert into category(id, category_name)
+values (1, 'pictures');
+
 insert into product(id, product_name, product_desc, stock_qty, reserved_qty, price)
-values (99, 'Banana poster', 'Really beautiful picture of banana', 45, 0, 19.95),
-       (100, 'Orange poster', 'Amazing potret of an orange', 66, 0, 24.95);
+values (99, 'Banana poster', 'Really beautiful picture of banana', 45, 0, 19.95, 1),
+       (100, 'Orange poster', 'Amazing potret of an orange', 66, 0, 24.95, 1);
 
 insert into customer_order(id, app_username, order_date, total_price)
 values (50, 'user', '2025-01-28T17:23:19', 69.85);

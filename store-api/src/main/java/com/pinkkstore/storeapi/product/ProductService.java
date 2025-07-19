@@ -1,5 +1,7 @@
 package com.pinkkstore.storeapi.product;
 
+import com.pinkkstore.storeapi.category.CategoryRepository;
+import com.pinkkstore.storeapi.category.CategoryService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -13,6 +15,7 @@ import java.util.stream.Collectors;
 public class ProductService {
     private final ProductRepository productRepository;
     private final ProductMapper productMapper;
+    private final CategoryService categoryService;
     
     public List<ProductDto> getAllProducts() {
         return productRepository.findAll().stream()
@@ -43,6 +46,14 @@ public class ProductService {
         
         product.setReservedQty(newReserved);
         productRepository.save(product);
+    }
+    
+    public List<ProductDto> getAllProductsDtoByCategoryName(String categoryName) {
+         var category = categoryService.getCategoryByName(categoryName);
+         return productRepository.findAllByCategoryId(category.getId()).stream()
+                 .map(productMapper::toProductDto)
+                 .collect(Collectors.toList());
+        
     }
     
 }

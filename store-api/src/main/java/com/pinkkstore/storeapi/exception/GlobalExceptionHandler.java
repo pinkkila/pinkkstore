@@ -1,6 +1,7 @@
 package com.pinkkstore.storeapi.exception;
 
 import com.pinkkstore.storeapi.cart.CartNotFoundException;
+import com.pinkkstore.storeapi.category.CategoryNotFoundException;
 import com.pinkkstore.storeapi.order.OrderNotFoundException;
 import com.pinkkstore.storeapi.product.ProductNotFoundException;
 import com.pinkkstore.storeapi.product.ProductNotEnoughStockException;
@@ -52,6 +53,16 @@ public class GlobalExceptionHandler {
                 HttpStatus.NOT_FOUND.value(),
                 "Order not found.",
                 "Service was not able to find the order."
+        );
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception);
+    }
+    
+    @ExceptionHandler(CategoryNotFoundException.class)
+    public ResponseEntity<ApiException> handleCategoryNotFound(CategoryNotFoundException ex) {
+        var exception = new ApiException(
+                HttpStatus.NOT_FOUND.value(),
+                "Category not found.",
+                ex.getMessage()
         );
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception);
     }

@@ -16,4 +16,5 @@ public class Product {
     private int stockQty;
     private int reservedQty;
     private double price;
+    private Long categoryId;
 }
