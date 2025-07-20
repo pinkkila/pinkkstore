@@ -1,3 +1,9 @@
+// import CartPageClient from "@/components/cart-page-client";
+
 export default function Page() {
-  return <div>This is Cart Page</div>;
+  return (
+    <main>
+      {/*<CartPageClient className="mt-10" />*/}
+    </main>
+  );
 }
