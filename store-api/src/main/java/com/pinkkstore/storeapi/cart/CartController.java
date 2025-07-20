@@ -15,13 +15,13 @@ public class CartController {
     private final CartService cartService;
     
     @GetMapping
-    private ResponseEntity<Cart> getCart(Authentication authentication) {
-        var cart = cartService.getCart(authentication);
+    public ResponseEntity<CartDto> getCart(Authentication authentication) {
+        var cart = cartService.getCartDto(authentication);
         return ResponseEntity.ok(cart);
     }
     
     @PutMapping
-    private ResponseEntity<Cart> updateCart(@RequestBody CartRequest cartRequest, Authentication authentication) {
+    public ResponseEntity<CartDto> updateCart(@RequestBody CartRequest cartRequest, Authentication authentication) {
         var updatedCart = cartService.updateCart(cartRequest, authentication);
         return ResponseEntity.ok(updatedCart);
     }

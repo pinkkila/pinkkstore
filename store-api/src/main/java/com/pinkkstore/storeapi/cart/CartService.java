@@ -14,17 +14,20 @@ import java.util.Set;
 public class CartService {
     private final CartRepository cartRepository;
     private final ProductService productService;
+    private final CartMapper cartMapper;
     
-    public Cart getCart(Authentication authentication) {
+    public CartDto getCartDto(Authentication authentication) {
         return cartRepository.findByAppUsername(authentication.getName())
+                .map(cartMapper::toCartDto)
                 .orElseGet(() -> {
                     var cart = new Cart(null, authentication.getName(), LocalDateTime.now(), Set.of());
-                    return cartRepository.save(cart);
+                    var savedCart = cartRepository.save(cart);
+                    return cartMapper.toCartDto(savedCart);
                 });
     }
     
     @Transactional
-    public Cart updateCart(CartRequest cartRequest, Authentication authentication) {
+    public CartDto updateCart(CartRequest cartRequest, Authentication authentication) {
         var cart = cartRepository.findByAppUsername(authentication.getName())
                 .orElseThrow(() -> new CartNotFoundException(authentication));
         
@@ -44,16 +47,14 @@ public class CartService {
                 cart.getCartItems().remove(item);
             }
             
-        } else {
-            if (cartRequest.productQty() > 0) {
-                var newItem = new CartItem(null, cartRequest.productQty(), cartRequest.productId());
-                cart.getCartItems().add(newItem);
-            }
+        } else if (cartRequest.productQty() > 0) {
+            cart.getCartItems().add(new CartItem(null, cartRequest.productQty(), cartRequest.productId()));
         }
         
         cart.setLastModified(LocalDateTime.now());
         
-        return cartRepository.save(cart);
+        var savedCart = cartRepository.save(cart);
+        return cartMapper.toCartDto(savedCart);
     }
     
 }
