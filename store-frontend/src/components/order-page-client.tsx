@@ -12,7 +12,7 @@ type OrderPageClientProps = {
   className?: string;
 };
 
-export default function OrderDetails({ orderId, className}: OrderPageClientProps) {
+export default function OrderPageClient({ orderId, className}: OrderPageClientProps) {
   const [order, setOrder] = useState<TOrder | undefined>();
   const formattedOrderDate = order ? formatDate(order.orderDate) : "";
 
@@ -40,8 +40,7 @@ export default function OrderDetails({ orderId, className}: OrderPageClientProps
   return (
     <>
       {order && (
-        <section className={cn("flex justify-center items-center", className)}>
-          <Card className="w-full max-w-2xl">
+          <Card className={cn("w-full max-w-2xl", className)}>
             <CardHeader>
               <CardTitle className="text-3xl">
                 Order from {formattedOrderDate}
@@ -70,7 +69,6 @@ export default function OrderDetails({ orderId, className}: OrderPageClientProps
               <p className="text-lg">Total price: {order.totalPrice} coins</p>
             </CardContent>
           </Card>
-        </section>
       )}
     </>
   );

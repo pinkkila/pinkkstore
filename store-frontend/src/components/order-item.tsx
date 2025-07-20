@@ -13,7 +13,7 @@ export default function OrderItem({ item, className }: OrderItemProps) {
       <div className="flex items-center justify-between">
         <div className="">
           <p className="text-sm text-muted-foreground">ITEM ID</p>
-          <p className="text-sm">{item.productPrice}</p>
+          <p className="text-sm">{item.productId}</p>
         </div>
         <div className="">
           <p className="text-sm text-muted-foreground">UNIT PRICE</p>

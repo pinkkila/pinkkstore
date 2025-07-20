@@ -3,6 +3,7 @@
 import { cn } from "@/lib/utils";
 import { useEffect, useState } from "react";
 import { TProduct } from "@/lib/types";
+import Link from "next/link";
 
 type CategoryProductsListProps = {
   categoryName: string;
@@ -37,7 +38,7 @@ export default function CategoryProductList({
     <section className={cn("", className)}>
       <ul>
         {products.map((product) => (
-          <li key={product.id}>{product.productName}</li>
+          <li key={product.id}><Link href={`/product/${product.id}`}>{product.productName}</Link></li>
         ))}
       </ul>
     </section>
