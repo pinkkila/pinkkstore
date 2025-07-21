@@ -26,7 +26,7 @@ public class OrderController {
     }
     
     @PostMapping
-    ResponseEntity<Order> createOrder(@RequestBody OrderRequest orderRequest, Authentication authentication, UriComponentsBuilder ucb) {
+    public ResponseEntity<Order> createOrder(@RequestBody OrderRequest orderRequest, Authentication authentication, UriComponentsBuilder ucb) {
         var createdOrder = orderService.createOrder(authentication, orderRequest);
         URI locationOfCreatedOrder = ucb
                 .path("/orders/{id}")

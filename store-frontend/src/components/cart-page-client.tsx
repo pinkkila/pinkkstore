@@ -8,6 +8,7 @@
 // };
 //
 // export default function CartPageClient({ className }: CartPageClientProps) {
+//   // fetch carts/cartsview or something
 //
 //   return (
 //     <div className={cn("", className)}>

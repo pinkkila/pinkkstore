@@ -16,17 +16,17 @@ public class ProductController {
     private final ProductService productService;
     
     @GetMapping("/{requestedId}")
-    private ResponseEntity<ProductDto> getProduct(@PathVariable Long requestedId) {
+    public ResponseEntity<ProductDto> getProduct(@PathVariable Long requestedId) {
         return ResponseEntity.ok(this.productService.getProductDto(requestedId));
     }
     
     @GetMapping
-    private ResponseEntity<List<ProductDto>> findAll() {
+    public ResponseEntity<List<ProductDto>> findAll() {
         return ResponseEntity.ok(this.productService.getAllProducts());
     }
     
     @GetMapping("/categories/{categoryName}")
-    private ResponseEntity<List<ProductDto>> findAllByCategoryName(@PathVariable String categoryName) {
+    public ResponseEntity<List<ProductDto>> findAllByCategoryName(@PathVariable String categoryName) {
         return ResponseEntity.ok(this.productService.getAllProductsDtoByCategoryName(categoryName));
     }
     
