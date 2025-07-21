@@ -13,6 +13,7 @@ public class Product {
     private Long id;
     private String productName;
     private String productDesc;
+    private String imageUrl;
     private int stockQty;
     private int reservedQty;
     private double price;
