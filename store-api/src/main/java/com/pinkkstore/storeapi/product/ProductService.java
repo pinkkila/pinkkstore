@@ -56,4 +56,10 @@ public class ProductService {
         
     }
     
+    public ProductDetailsSmallDto getProductDetailsSmallDto(Long productId) {
+        return productRepository.findById(productId)
+                .map(productMapper::toProductDetailsSmallDto)
+                .orElseThrow(() -> new ProductNotFoundException(productId));
+    }
+    
 }

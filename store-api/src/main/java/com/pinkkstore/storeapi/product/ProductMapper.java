@@ -17,6 +17,7 @@ public class ProductMapper {
     
     public ProductDetailsSmallDto toProductDetailsSmallDto(Product product) {
         return new ProductDetailsSmallDto(
+                product.getId(),
                 product.getProductName(),
                 product.getImageUrl(),
                 product.getPrice(),

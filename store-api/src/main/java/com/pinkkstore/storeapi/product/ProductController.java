@@ -30,5 +30,9 @@ public class ProductController {
         return ResponseEntity.ok(this.productService.getAllProductsDtoByCategoryName(categoryName));
     }
     
+    @GetMapping("/details/{requestedId}")
+    public ResponseEntity<ProductDetailsSmallDto> getProductDetails(@PathVariable Long requestedId) {
+        return ResponseEntity.ok(this.productService.getProductDetailsSmallDto(requestedId));
+    }
     
 }

@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { AuthContext } from "@/contexts/auth-context-provider";
 import { CartContext } from "@/contexts/cart-context-provider";
+import { CartProductsContext } from "@/contexts/cart-products-context-provider";
 
 export function useAuthContext() {
   const context = useContext(AuthContext);
@@ -14,6 +15,14 @@ export function useCartContext() {
   const context = useContext(CartContext);
   if (!context) {
     throw new Error("useCartContext must be used within an CartContextProvider");
+  }
+  return context;
+}
+
+export function useCartProductsContext() {
+  const context = useContext(CartProductsContext);
+  if (!context) {
+    throw new Error("useCartProductsContext must be used within an CartProductsContextProvider");
   }
   return context;
 }
