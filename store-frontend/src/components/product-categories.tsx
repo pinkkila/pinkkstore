@@ -1,5 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function ProductCategories() {
   return (
@@ -9,17 +10,17 @@ export default function ProductCategories() {
         <CategoriesCard
           categoryName="Pictures"
           categoryDesc="Amazing AI generated Pics."
-          categoryImageUrl="ImageUrl"
+          categoryImageUrl="/images/pictures-category.jpg"
         />
         <CategoriesCard
           categoryName="Poets"
           categoryDesc="Poets from AI world."
-          categoryImageUrl="ImageUrl"
+          categoryImageUrl="/images/poets-category.jpg"
         />
         <CategoriesCard
           categoryName="Short Novels"
           categoryDesc="Stories that might suprise you."
-          categoryImageUrl="ImageUrl"
+          categoryImageUrl="/images/novels-category.jpg"
         />
       </div>
     </section>
@@ -32,12 +33,18 @@ type CategoryPageProps = {
   categoryImageUrl: string;
 };
 
-function CategoriesCard({ categoryName, categoryDesc }: CategoryPageProps) {
+function CategoriesCard({ categoryName, categoryDesc, categoryImageUrl }: CategoryPageProps) {
   return (
     <Link href={`/categories/${categoryName.toLowerCase()}`}>
       <Card className="bg-transparent">
         <CardContent className="flex">
-          <p>image here</p>
+          <Image
+            className="rounded-md"
+            src={categoryImageUrl}
+            alt={`${categoryName} category image`}
+            width={80}
+            height={80}
+          />
           <div>
             <h3>{categoryName}</h3>
             <p>{categoryDesc}</p>

@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Minus, Plus, Trash2 } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { Card, CardContent } from "@/components/ui/card";
+import Image from "next/image";
 
 type CartPageClientProps = {
   className?: string;
@@ -30,7 +31,6 @@ export default function CartPageClient({ className }: CartPageClientProps) {
 
       <section>
         <div className="flex md:flex-row flex-col  w-full gap-8 mt-3">
-
           <div className="md:w-2/3">
             <ul>
               {cart?.items.map((item) => {
@@ -39,7 +39,11 @@ export default function CartPageClient({ className }: CartPageClientProps) {
 
                 return (
                   <li key={item.productId}>
-                    <CartRow cartItem={item} productDetails={productDetails} handleCartChange={handleCartChange} />
+                    <CartRow
+                      cartItem={item}
+                      productDetails={productDetails}
+                      handleCartChange={handleCartChange}
+                    />
                     <Separator className="my-2" />
                   </li>
                 );
@@ -56,7 +60,9 @@ export default function CartPageClient({ className }: CartPageClientProps) {
                     {totalPrice?.toFixed(2)} coins
                   </p>
                 </div>
-                <Button size="lg" className="w-full mt-4 text-lg">To Checkout</Button>
+                <Button size="lg" className="w-full mt-4 text-lg">
+                  To Checkout
+                </Button>
               </CardContent>
             </Card>
           </div>
@@ -75,8 +81,27 @@ type CartRowProps = {
 function CartRow({ cartItem, productDetails, handleCartChange }: CartRowProps) {
   return (
     <div className="flex items-center mt-2">
-      <div className="h-[80px] w-[80px] bg-white/50">
-        {productDetails.imageUrl}
+      <div className="h-[80px] w-[80px]">
+        {/*{productDetails.imageUrl}*/}
+
+        {productDetails.productName === "Banana poster" ? (
+          <Image
+            className="rounded-md"
+            src="/images/banana.jpg"
+            alt="Banana image"
+            width={80}
+            height={80}
+          />
+        ) : (
+          <Image
+            className="rounded-md"
+            src="/images/orange.jpg"
+            alt="Orange image"
+            width={80}
+            height={80}
+          />
+        )}
+
       </div>
 
       <div>
@@ -89,16 +114,35 @@ function CartRow({ cartItem, productDetails, handleCartChange }: CartRowProps) {
       </div>
 
       <div className="flex pl-10 ">
-        <Button onClick={() => handleCartChange({productId: cartItem.productId, productQty: -1})} size="icon">
+        <Button
+          onClick={() =>
+            handleCartChange({ productId: cartItem.productId, productQty: -1 })
+          }
+          size="icon"
+        >
           <Minus className="!size-5" />
         </Button>
         <p className="text-3xl px-3">{cartItem.productQty}</p>
-        <Button onClick={() => handleCartChange({productId: cartItem.productId, productQty: 1})} size="icon">
+        <Button
+          onClick={() =>
+            handleCartChange({ productId: cartItem.productId, productQty: 1 })
+          }
+          size="icon"
+        >
           <Plus className="!size-5" />
         </Button>
       </div>
 
-      <Button onClick={() => handleCartChange({productId: cartItem.productId, productQty: - cartItem.productQty})} size="icon" className="mx-4 bg-transparent hover:bg-red-500">
+      <Button
+        onClick={() =>
+          handleCartChange({
+            productId: cartItem.productId,
+            productQty: -cartItem.productQty,
+          })
+        }
+        size="icon"
+        className="mx-4 bg-transparent hover:bg-red-500"
+      >
         <Trash2 className="!size-7 text-white " />
       </Button>
 
