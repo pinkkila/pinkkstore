@@ -29,8 +29,9 @@ export default function CartPageClient({ className }: CartPageClientProps) {
       </h1>
 
       <section>
-        <div className="flex w-full gap-8 mt-3">
-          <div className="w-2/3">
+        <div className="flex md:flex-row flex-col  w-full gap-8 mt-3">
+
+          <div className="md:w-2/3">
             <ul>
               {cart?.items.map((item) => {
                 const productDetails = productDetailsMap.get(item.productId);
@@ -46,12 +47,12 @@ export default function CartPageClient({ className }: CartPageClientProps) {
             </ul>
           </div>
 
-          <div className="w-1/3">
+          <div className="md:w-1/3">
             <Card>
               <CardContent>
                 <div className="flex justify-between items-center">
-                  <p className="text-3xl">Total:</p>
-                  <p className="text-4xl font-bold">
+                  <p className="text-2xl lg:text-3xl">Total:</p>
+                  <p className="text-3xl lg:text-4xl font-bold">
                     {totalPrice?.toFixed(2)} coins
                   </p>
                 </div>
