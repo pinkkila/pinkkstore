@@ -9,4 +9,5 @@ import java.util.List;
 
 public interface ProductRepository extends ListCrudRepository<Product, Long>, PagingAndSortingRepository<Product, Long> {
     Page<Product> findAllByCategoryId(Long categoryId, Pageable pageable);
+    Page<Product> findAllByCategoryIdAndPriceBetween(Long categoryId, double minPrice, double maxPrice, Pageable pageable);
 }

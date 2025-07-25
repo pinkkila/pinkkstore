@@ -50,11 +50,16 @@ public class ProductService {
         productRepository.save(product);
     }
     
-    public Page<ProductDto> getAllProductsDtoByCategoryName(String categoryName, Pageable pageable) {
+    public Page<ProductDto> getProductsDtoByCategoryName(String categoryName, Pageable pageable) {
          var category = categoryService.getCategoryByName(categoryName);
          return productRepository.findAllByCategoryId(category.getId(), pageable)
                  .map(productMapper::toProductDto);
-        
+    }
+    
+    public Page<ProductDto> getProductsDtoByCategoryNameAndPriceRange(String categoryName, double minPrice, double maxPrice,  Pageable pageable) {
+        var category = categoryService.getCategoryByName(categoryName);
+        return productRepository.findAllByCategoryIdAndPriceBetween(category.getId(), minPrice, maxPrice, pageable)
+                .map(productMapper::toProductDto);
     }
     
     public ProductDetailsSmallDto getProductDetailsSmallDto(Long productId) {

@@ -51,10 +51,28 @@ export default function CategoryProductList({
     }
   };
 
+  const fetchProductsBetweenPrice = async () => {
+    try {
+      const response = await fetch(
+        `http://127.0.0.1:8080/products/categories/${categoryName}/price-range?minPrice=15&maxPrice=20&page=0&size=2&sort=price,desc`,
+      );
+      if (!response.ok) {
+        throw new Error(response.statusText);
+      }
+      const data = await response.json();
+      setProducts(data.content);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+
+
   return (
     <div className={cn("flex flex-col", className)}>
       <h1 className="text-4xl font-bold mb-4">{categoryName}</h1>
       <Button onClick={fetchLowToHigh}>Price low to high</Button>
+      <Button onClick={fetchProductsBetweenPrice}>Products between price 15.00 and 20.00</Button>
 
       <div className="flex">
         <section className="w-1/3">
