@@ -6,23 +6,33 @@ import { TProduct } from "@/lib/types";
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 
 type CategoryProductsListProps = {
   categoryName: string;
   className?: string;
 };
 
+// type TSort = "price" | "productName";
+
 export default function CategoryProductList({
   categoryName,
   className,
 }: CategoryProductsListProps) {
   const [products, setProducts] = useState<TProduct[]>([]);
+  const [sortBy, setSortBy] = useState<string>("popularity,desc");
 
   useEffect(() => {
     const fetchOrder = async () => {
       try {
         const response = await fetch(
-          `http://127.0.0.1:8080/products/categories/${categoryName}?page=0&size=1&sort=price,desc`,
+          `http://127.0.0.1:8080/products/categories/${categoryName}?page=0&size=10&sort=${sortBy}`,
         );
         if (!response.ok) {
           throw new Error(response.statusText);
@@ -34,45 +44,43 @@ export default function CategoryProductList({
       }
     };
     fetchOrder();
-  }, [categoryName]);
+  }, [categoryName, sortBy]);
 
-  const fetchLowToHigh = async () => {
-    try {
-      const response = await fetch(
-        `http://127.0.0.1:8080/products/categories/${categoryName}?page=0&size=1&sort=price,asc`,
-      );
-      if (!response.ok) {
-        throw new Error(response.statusText);
-      }
-      const data = await response.json();
-      setProducts(data.content);
-    } catch (e) {
-      console.error(e);
-    }
-  };
 
-  const fetchProductsBetweenPrice = async () => {
-    try {
-      const response = await fetch(
-        `http://127.0.0.1:8080/products/categories/${categoryName}/price-range?minPrice=15&maxPrice=20&page=0&size=2&sort=price,desc`,
-      );
-      if (!response.ok) {
-        throw new Error(response.statusText);
-      }
-      const data = await response.json();
-      setProducts(data.content);
-    } catch (e) {
-      console.error(e);
-    }
-  };
+  // const fetchProductsBetweenPrice = async () => {
+  //   try {
+  //     const response = await fetch(
+  //       `http://127.0.0.1:8080/products/categories/${categoryName}/price-range?minPrice=15&maxPrice=20&page=0&size=2&sort=price,desc`,
+  //     );
+  //     if (!response.ok) {
+  //       throw new Error(response.statusText);
+  //     }
+  //     const data = await response.json();
+  //     setProducts(data.content);
+  //   } catch (e) {
+  //     console.error(e);
+  //   }
+  // };
 
 
 
   return (
     <div className={cn("flex flex-col", className)}>
       <h1 className="text-4xl font-bold mb-4">{categoryName}</h1>
-      <Button onClick={fetchLowToHigh}>Price low to high</Button>
-      <Button onClick={fetchProductsBetweenPrice}>Products between price 15.00 and 20.00</Button>
+
+      {/*<Button onClick={fetchProductsBetweenPrice}>Products between price 15.00 and 20.00</Button>*/}
+
+      <Select onValueChange={setSortBy} >
+        <SelectTrigger className="w-[180px]">
+          <SelectValue placeholder="Sort by" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="popularity,desc">Popularity</SelectItem>
+          <SelectItem value="price,asc">Price Low to High</SelectItem>
+          <SelectItem value="price,desc">Price High to Low</SelectItem>
+          <SelectItem value="productName">Product name</SelectItem>
+        </SelectContent>
+      </Select>
 
       <div className="flex">
         <section className="w-1/3">

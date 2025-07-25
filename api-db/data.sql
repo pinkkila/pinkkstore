@@ -13,9 +13,9 @@ from category;
 insert into category(id, category_name)
 values (1, 'pictures');
 
-insert into product(id, product_name, product_desc, image_url, stock_qty, reserved_qty, price, category_id)
-values (99, 'Banana poster', 'Really beautiful picture of banana', 'imageUrl', 45, 0, 19.95, 1),
-       (100, 'Orange poster', 'Amazing potret of an orange', 'imageUrl', 66, 0, 24.95, 1);
+insert into product(id, product_name, product_desc, image_url, stock_qty, reserved_qty, price, popularity, category_id)
+values (99, 'Banana poster', 'Really beautiful picture of banana', 'imageUrl', 45, 0, 19.95, 88, 1),
+       (100, 'Orange poster', 'Amazing potret of an orange', 'imageUrl', 66, 0, 24.95, 70, 1);
 
 insert into customer_order(id, app_username, order_date, total_price)
 values (50, 'user', '2025-01-28T17:23:19', 69.85);

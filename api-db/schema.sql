@@ -20,6 +20,7 @@ create table if not exists product
     stock_qty    integer not null,
     reserved_qty integer not null,
     price        decimal not null,
+    popularity   integer not null,
     category_id  bigint  not null references category (id)
 );
 
