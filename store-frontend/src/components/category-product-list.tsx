@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { TProduct } from "@/lib/types";
 import Link from "next/link";
 import Image from "next/image";
@@ -13,6 +13,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useCartContext } from "@/lib/hooks";
 
 type CategoryProductsListProps = {
   categoryName: string;
@@ -73,24 +74,21 @@ export default function CategoryProductList({
         <div className="flex items-center gap-2">
           <p className="font-semibold">Sort by:</p>
           <Select onValueChange={setSortBy}>
-          <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="Popularity" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="popularity,desc">Popularity</SelectItem>
-            <SelectItem value="price,asc">Price Low to High</SelectItem>
-            <SelectItem value="price,desc">Price High to Low</SelectItem>
-            <SelectItem value="productName">Product name</SelectItem>
-          </SelectContent>
-        </Select></div>
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder="Popularity" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="popularity,desc">Popularity</SelectItem>
+              <SelectItem value="price,asc">Price Low to High</SelectItem>
+              <SelectItem value="price,desc">Price High to Low</SelectItem>
+              <SelectItem value="productName">Product name</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
       </div>
 
       <div className="flex">
-        <section className="w-1/3">
-
-
-
-        </section>
+        <section className="w-1/3"></section>
         <section className="w-2/3">
           <ul>
             {products.map((product) => (
@@ -112,6 +110,14 @@ type ProductListElementProps = {
 };
 
 function ProductListElement({ product }: ProductListElementProps) {
+  const { handleCartChange } = useCartContext();
+
+  const handleAddCartClick = (event: React.MouseEvent<HTMLElement>) => {
+    event.preventDefault();
+    event.stopPropagation();
+    handleCartChange({productId: product.id, productQty: 1})
+  }
+
   return (
     <div className="flex items-center justify-between bg-white/10 hover:bg-white/15 rounded-md my-4">
       <div className="flex items-center">
@@ -139,7 +145,7 @@ function ProductListElement({ product }: ProductListElementProps) {
 
       <div className="text-center pr-2">
         <p className="text-2xl font-bold mb-1">{product.price}</p>
-        <Button>Add to cart</Button>
+        <Button onClick={handleAddCartClick}>Add to cart</Button>
       </div>
     </div>
   );
