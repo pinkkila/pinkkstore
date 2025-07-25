@@ -14,6 +14,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useCartContext } from "@/lib/hooks";
+import { Slider } from "@/components/ui/slider";
 
 type CategoryProductsListProps = {
   categoryName: string;
@@ -28,6 +29,7 @@ export default function CategoryProductList({
 }: CategoryProductsListProps) {
   const [products, setProducts] = useState<TProduct[]>([]);
   const [sortBy, setSortBy] = useState<string>("popularity,desc");
+  const [priceRange, setPriceRange] = useState<[number, number]>([10, 90]);
 
   useEffect(() => {
     const fetchOrder = async () => {
@@ -88,7 +90,32 @@ export default function CategoryProductList({
       </div>
 
       <div className="flex">
-        <section className="w-1/3"></section>
+        <section className="w-1/3">
+
+          {/*<Slider defaultValue={[33]} max={100} step={1}  />*/}
+
+          {/*<Slider*/}
+          {/*  defaultValue={[33, 100]}*/}
+          {/*  minStepsBetweenThumbs={10_000}*/}
+          {/*  max={300_000}*/}
+          {/*  min={0}*/}
+          {/*  step={1}*/}
+          {/*  className={cn("w-full")}*/}
+          {/*/>*/}
+
+          <Slider
+            value={priceRange}
+            onValueChange={(value) => setPriceRange(value as [number, number])}
+            min={0}
+            max={100}
+            step={1}
+          />
+
+          <p className="mt-2">
+            Price between: {priceRange[0]}€ – {priceRange[1]}€
+          </p>
+
+        </section>
         <section className="w-2/3">
           <ul>
             {products.map((product) => (
