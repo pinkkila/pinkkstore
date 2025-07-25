@@ -44,6 +44,7 @@ export type TProduct = {
   productName: string;
   productDesc: string;
   price: number;
+  inStock: boolean;
 };
 
 export type TProductDetailsSmall = {

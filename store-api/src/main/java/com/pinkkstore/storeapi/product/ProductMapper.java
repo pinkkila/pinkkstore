@@ -11,7 +11,8 @@ public class ProductMapper {
                 product.getProductName(),
                 product.getProductDesc(),
                 product.getImageUrl(),
-                product.getPrice()
+                product.getPrice(),
+                product.getStockQty() - product.getReservedQty() > 0
         );
     }
     
