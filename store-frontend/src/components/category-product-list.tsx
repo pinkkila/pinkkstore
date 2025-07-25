@@ -6,7 +6,6 @@ import { TProduct } from "@/lib/types";
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
 
 type CategoryProductsListProps = {
   categoryName: string;
@@ -23,13 +22,13 @@ export default function CategoryProductList({
     const fetchOrder = async () => {
       try {
         const response = await fetch(
-          `http://127.0.0.1:8080/products/categories/${categoryName}`,
+          `http://127.0.0.1:8080/products/categories/${categoryName}?page=0&size=1&sort=price,desc`,
         );
         if (!response.ok) {
           throw new Error(response.statusText);
         }
         const data = await response.json();
-        setProducts(data);
+        setProducts(data.content);
       } catch (e) {
         console.error(e);
       }
@@ -37,22 +36,43 @@ export default function CategoryProductList({
     fetchOrder();
   }, [categoryName]);
 
-  return (
-    <section className={cn("flex", className)}>
-      <div className="w-1/3">
-        <h2 className="text-xl font-semibold">Filters</h2>
+  const fetchLowToHigh = async () => {
+    try {
+      const response = await fetch(
+        `http://127.0.0.1:8080/products/categories/${categoryName}?page=0&size=1&sort=price,asc`,
+      );
+      if (!response.ok) {
+        throw new Error(response.statusText);
+      }
+      const data = await response.json();
+      setProducts(data.content);
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
+  return (
+    <div className={cn("flex flex-col", className)}>
+      <h1 className="text-4xl font-bold mb-4">{categoryName}</h1>
+      <Button onClick={fetchLowToHigh}>Price low to high</Button>
+
+      <div className="flex">
+        <section className="w-1/3">
+          <h2 className="text-xl font-semibold">Filters</h2>
+        </section>
+        <section className="w-2/3">
+          <ul>
+            {products.map((product) => (
+              <li key={product.id}>
+                <Link href={`/product/${product.id}`}>
+                  <ProductListElement product={product} />
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
       </div>
-      <ul className="w-2/3">
-        {products.map((product) => (
-          <li key={product.id}>
-            <Link href={`/product/${product.id}`}>
-              <ProductListElement product={product} />
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </section>
+    </div>
   );
 }
 
@@ -64,20 +84,22 @@ function ProductListElement({ product }: ProductListElementProps) {
   return (
     <div className="flex items-center justify-between bg-white/7 rounded-lg my-4">
       <div className="flex items-center">
-      <Image
-        className="rounded-md"
-        src="/images/banana.jpg"
-        alt={`Product picture of ${product.productName}`}
-        width={100}
-        height={100}
-      />
+        <Image
+          className="rounded-md"
+          src="/images/banana.jpg"
+          alt={`Product picture of ${product.productName}`}
+          width={100}
+          height={100}
+        />
 
-        <div><p className="text-2xl px-4">{product.productName}</p>
+        <div>
+          <p className="text-2xl px-4">{product.productName}</p>
           {product.inStock ? (
             <p className="text-green-500 px-4">In Stock</p>
           ) : (
             <p className="text-red-700 px-4">Not in Stock</p>
-          )}</div>
+          )}
+        </div>
       </div>
 
       <div>
@@ -88,9 +110,6 @@ function ProductListElement({ product }: ProductListElementProps) {
         <p className="text-2xl font-bold mb-1">{product.price}</p>
         <Button>Add to cart</Button>
       </div>
-
     </div>
-
-
   );
 }

@@ -4,6 +4,8 @@ import com.pinkkstore.storeapi.category.CategoryRepository;
 import com.pinkkstore.storeapi.category.CategoryService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -48,11 +50,10 @@ public class ProductService {
         productRepository.save(product);
     }
     
-    public List<ProductDto> getAllProductsDtoByCategoryName(String categoryName) {
+    public Page<ProductDto> getAllProductsDtoByCategoryName(String categoryName, Pageable pageable) {
          var category = categoryService.getCategoryByName(categoryName);
-         return productRepository.findAllByCategoryId(category.getId()).stream()
-                 .map(productMapper::toProductDto)
-                 .collect(Collectors.toList());
+         return productRepository.findAllByCategoryId(category.getId(), pageable)
+                 .map(productMapper::toProductDto);
         
     }
     
