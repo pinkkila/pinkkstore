@@ -12,7 +12,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
+} from "@/components/ui/select";
 
 type CategoryProductsListProps = {
   categoryName: string;
@@ -46,7 +46,6 @@ export default function CategoryProductList({
     fetchOrder();
   }, [categoryName, sortBy]);
 
-
   // const fetchProductsBetweenPrice = async () => {
   //   try {
   //     const response = await fetch(
@@ -62,29 +61,35 @@ export default function CategoryProductList({
   //   }
   // };
 
-
-
   return (
     <div className={cn("flex flex-col", className)}>
-      <h1 className="text-4xl font-bold mb-4">{categoryName}</h1>
+      <h1 className="text-4xl font-bold mb-6">{categoryName}</h1>
 
       {/*<Button onClick={fetchProductsBetweenPrice}>Products between price 15.00 and 20.00</Button>*/}
 
-      <Select onValueChange={setSortBy} >
-        <SelectTrigger className="w-[180px]">
-          <SelectValue placeholder="Sort by" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="popularity,desc">Popularity</SelectItem>
-          <SelectItem value="price,asc">Price Low to High</SelectItem>
-          <SelectItem value="price,desc">Price High to Low</SelectItem>
-          <SelectItem value="productName">Product name</SelectItem>
-        </SelectContent>
-      </Select>
+      <div className="flex justify-between">
+        <h2 className="text-xl font-semibold">Filters</h2>
+
+        <div className="flex items-center gap-2">
+          <p className="font-semibold">Sort by:</p>
+          <Select onValueChange={setSortBy}>
+          <SelectTrigger className="w-[180px]">
+            <SelectValue placeholder="Popularity" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="popularity,desc">Popularity</SelectItem>
+            <SelectItem value="price,asc">Price Low to High</SelectItem>
+            <SelectItem value="price,desc">Price High to Low</SelectItem>
+            <SelectItem value="productName">Product name</SelectItem>
+          </SelectContent>
+        </Select></div>
+      </div>
 
       <div className="flex">
         <section className="w-1/3">
-          <h2 className="text-xl font-semibold">Filters</h2>
+
+
+
         </section>
         <section className="w-2/3">
           <ul>
@@ -108,7 +113,7 @@ type ProductListElementProps = {
 
 function ProductListElement({ product }: ProductListElementProps) {
   return (
-    <div className="flex items-center justify-between bg-white/7 rounded-lg my-4">
+    <div className="flex items-center justify-between bg-white/10 hover:bg-white/15 rounded-md my-4">
       <div className="flex items-center">
         <Image
           className="rounded-md"
