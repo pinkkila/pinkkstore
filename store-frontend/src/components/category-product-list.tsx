@@ -29,7 +29,7 @@ export default function CategoryProductList({
 }: CategoryProductsListProps) {
   const [products, setProducts] = useState<TProduct[]>([]);
   const [sortBy, setSortBy] = useState<string>("popularity,desc");
-  const [priceRange, setPriceRange] = useState<[number, number]>([10, 90]);
+  const [priceRange, setPriceRange] = useState<[number, number]>([0, 100]);
 
   useEffect(() => {
     const fetchOrder = async () => {
@@ -92,28 +92,23 @@ export default function CategoryProductList({
       <div className="flex">
         <section className="w-1/3">
 
-          {/*<Slider defaultValue={[33]} max={100} step={1}  />*/}
-
-          {/*<Slider*/}
-          {/*  defaultValue={[33, 100]}*/}
-          {/*  minStepsBetweenThumbs={10_000}*/}
-          {/*  max={300_000}*/}
-          {/*  min={0}*/}
-          {/*  step={1}*/}
-          {/*  className={cn("w-full")}*/}
-          {/*/>*/}
-
-          <Slider
-            value={priceRange}
-            onValueChange={(value) => setPriceRange(value as [number, number])}
-            min={0}
-            max={100}
-            step={1}
-          />
-
-          <p className="mt-2">
-            Price between: {priceRange[0]}€ – {priceRange[1]}€
-          </p>
+          <div className="w-[80%] mt-4 border-2 p-4 rounded-lg">
+            <p className="text-2xl font-bold mb-2">Price</p>
+            <div className="flex justify-between mb-4">
+              <p className="text-xl font-semibold">{priceRange[0]} coins</p>
+              <p className="text-xl font-semibold">{priceRange[1]} coins</p>
+            </div>
+            <Slider
+              value={priceRange}
+              onValueChange={(value) =>
+                setPriceRange(value as [number, number])
+              }
+              min={0}
+              max={100}
+              step={5}
+              minStepsBetweenThumbs={1}
+            />
+          </div>
 
         </section>
         <section className="w-2/3">
@@ -142,8 +137,8 @@ function ProductListElement({ product }: ProductListElementProps) {
   const handleAddCartClick = (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault();
     event.stopPropagation();
-    handleCartChange({productId: product.id, productQty: 1})
-  }
+    handleCartChange({ productId: product.id, productQty: 1 });
+  };
 
   return (
     <div className="flex items-center justify-between bg-white/10 hover:bg-white/15 rounded-md my-4">
