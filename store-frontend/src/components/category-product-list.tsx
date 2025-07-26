@@ -13,7 +13,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useCartContext } from "@/lib/hooks";
+import { useCartContext, useDebounce } from "@/lib/hooks";
 import { Slider } from "@/components/ui/slider";
 
 type CategoryProductsListProps = {
@@ -30,12 +30,18 @@ export default function CategoryProductList({
   const [products, setProducts] = useState<TProduct[]>([]);
   const [sortBy, setSortBy] = useState<string>("popularity,desc");
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 100]);
+  const debouncedPriceRange = useDebounce(priceRange, 1000);
 
   useEffect(() => {
+    let endpointParams = `?page=0&size=10&sort=${sortBy}`
+    if (debouncedPriceRange[0] !== 0 || debouncedPriceRange[1] !== 100) {
+      endpointParams = `/price-range?minPrice=${debouncedPriceRange[0]}&maxPrice=${debouncedPriceRange[1]}&page=0&size=10&sort=${sortBy}`
+    }
+
     const fetchOrder = async () => {
       try {
         const response = await fetch(
-          `http://127.0.0.1:8080/products/categories/${categoryName}?page=0&size=10&sort=${sortBy}`,
+          `http://127.0.0.1:8080/products/categories/${categoryName}${endpointParams}`,
         );
         if (!response.ok) {
           throw new Error(response.statusText);
@@ -47,28 +53,13 @@ export default function CategoryProductList({
       }
     };
     fetchOrder();
-  }, [categoryName, sortBy]);
+  }, [categoryName, sortBy, debouncedPriceRange]);
 
-  // const fetchProductsBetweenPrice = async () => {
-  //   try {
-  //     const response = await fetch(
-  //       `http://127.0.0.1:8080/products/categories/${categoryName}/price-range?minPrice=15&maxPrice=20&page=0&size=2&sort=price,desc`,
-  //     );
-  //     if (!response.ok) {
-  //       throw new Error(response.statusText);
-  //     }
-  //     const data = await response.json();
-  //     setProducts(data.content);
-  //   } catch (e) {
-  //     console.error(e);
-  //   }
-  // };
 
   return (
     <div className={cn("flex flex-col", className)}>
       <h1 className="text-4xl font-bold mb-6">{categoryName}</h1>
 
-      {/*<Button onClick={fetchProductsBetweenPrice}>Products between price 15.00 and 20.00</Button>*/}
 
       <div className="flex justify-between">
         <h2 className="text-xl font-semibold">Filters</h2>
