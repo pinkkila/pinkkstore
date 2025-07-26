@@ -23,3 +23,7 @@ export function formatDate(dateStr: string): string {
 
   return `${day}.${month}.${year}`;
 }
+
+export function capitalize(str: string) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}

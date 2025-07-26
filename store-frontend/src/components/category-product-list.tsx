@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "@/lib/utils";
+import { capitalize, cn } from "@/lib/utils";
 import React, { useEffect, useState } from "react";
 import { TProduct } from "@/lib/types";
 import Link from "next/link";
@@ -21,7 +21,7 @@ type CategoryProductsListProps = {
   className?: string;
 };
 
-// type TSort = "price" | "productName";
+// type SortOption = "popularity,desc" | "price,asc" | "price,desc" | "productName";
 
 export default function CategoryProductList({
   categoryName,
@@ -58,13 +58,13 @@ export default function CategoryProductList({
 
   return (
     <div className={cn("flex flex-col", className)}>
-      <h1 className="text-4xl font-bold mb-6">{categoryName}</h1>
-
+      <h1 className="text-4xl font-bold mb-6">{capitalize(categoryName)}</h1>
 
       <div className="flex justify-between">
         <h2 className="text-xl font-semibold">Filters</h2>
 
         <div className="flex items-center gap-2">
+          {/*TODO add different view options*/}
           <p className="font-semibold">Sort by:</p>
           <Select onValueChange={setSortBy}>
             <SelectTrigger className="w-[180px]">
@@ -84,7 +84,7 @@ export default function CategoryProductList({
         <section className="w-1/3">
 
           <div className="w-[80%] mt-4 border-2 p-4 rounded-lg">
-            <p className="text-2xl font-bold mb-2">Price</p>
+            <h3 className="text-2xl font-bold mb-2">Price</h3>
             <div className="flex justify-between mb-4">
               <p className="text-xl font-semibold">{priceRange[0]} coins</p>
               <p className="text-xl font-semibold">{priceRange[1]} coins</p>
