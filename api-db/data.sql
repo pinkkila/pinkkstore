@@ -10,6 +10,8 @@ from product;
 delete
 from category;
 
+delete from account;
+
 insert into category(id, category_name)
 values (1, 'pictures');
 
@@ -24,10 +26,16 @@ insert into order_item(id, product_qty, product_price, product_id, customer_orde
 values (200, 1, 19.95, 99, 50),
         (201, 2, 24.95, 100, 50);
 
-SELECT setval('category_id_seq', (SELECT MAX(id) from category));
-SELECT setval('product_id_seq', (SELECT MAX(id) from product));
-SELECT setval('public.cart_id_seq', (SELECT MAX(id) from cart));
-SELECT setval('public.cart_item_id_seq', (SELECT MAX(id) from cart_item));
-SELECT setval('public.customer_order_id_seq', (SELECT MAX(id) from customer_order));
-SELECT setval('public.order_item_id_seq', (SELECT MAX(id) from public.order_item));
+insert into account(id, app_username, coins)
+values (1, 'user', 100.00);
+
+
+-- Reset sequences to the max ID values (or 1 if table is empty)
+SELECT setval('public.category_id_seq',       COALESCE((SELECT MAX(id) FROM public.category), 1), false);
+SELECT setval('public.product_id_seq',        COALESCE((SELECT MAX(id) FROM public.product), 1), false);
+SELECT setval('public.cart_id_seq',           COALESCE((SELECT MAX(id) FROM public.cart), 1), false);
+SELECT setval('public.cart_item_id_seq',      COALESCE((SELECT MAX(id) FROM public.cart_item), 1), false);
+SELECT setval('public.customer_order_id_seq', COALESCE((SELECT MAX(id) FROM public.customer_order), 1), false);
+SELECT setval('public.order_item_id_seq',     COALESCE((SELECT MAX(id) FROM public.order_item), 1), false);
+SELECT setval('public.account_id_seq',        COALESCE((SELECT MAX(id) FROM public.account), 1), false);
 

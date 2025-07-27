@@ -4,6 +4,7 @@ drop table if exists order_item;
 drop table if exists customer_order;
 drop table if exists product;
 drop table if exists category;
+drop table if exists account;
 
 create table if not exists category
 (
@@ -54,4 +55,11 @@ create table if not exists order_item
     product_price     decimal not null,
     product_id        bigint  not null references product (id),
     customer_order_id bigint  not null references customer_order (id)
+);
+
+create table if not exists account
+(
+    id bigserial primary key,
+    app_username text not null,
+    coins decimal not null
 )
