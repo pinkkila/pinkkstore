@@ -1,6 +1,5 @@
 package com.pinkkstore.storeapi.product;
 
-import com.pinkkstore.storeapi.category.CategoryRepository;
 import com.pinkkstore.storeapi.category.CategoryService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,25 +30,6 @@ public class ProductService {
                 .orElseThrow(() -> new ProductNotFoundException(productId));
     }
     
-    public void changeReservedQty(Long productId, int reservedQty) {
-        var product = productRepository.findById(productId)
-                .orElseThrow(() -> new ProductNotFoundException(productId));
-        
-        int newReserved = product.getReservedQty() + reservedQty;
-        
-        if (product.getStockQty() < newReserved) {
-            throw new ProductNotEnoughStockException(productId);
-        }
-        
-        if (newReserved < 0) {
-            log.warn("Reserved quantity went below zero for product ID {}. Adjusting to 0. Change attempted: {}. Reserved was {}", productId, reservedQty, product.getReservedQty());
-            newReserved = 0;
-        }
-        
-        product.setReservedQty(newReserved);
-        productRepository.save(product);
-    }
-    
     public Page<ProductDto> getProductsDtoByCategoryName(String categoryName, Pageable pageable) {
          var category = categoryService.getCategoryByName(categoryName);
          return productRepository.findAllByCategoryId(category.getId(), pageable)
@@ -62,10 +42,34 @@ public class ProductService {
                 .map(productMapper::toProductDto);
     }
     
+    // TODO: Change inStock to cart (this is not called when product already is in cart)
     public ProductDetailsSmallDto getProductDetailsSmallDto(Long productId) {
         return productRepository.findById(productId)
                 .map(productMapper::toProductDetailsSmallDto)
                 .orElseThrow(() -> new ProductNotFoundException(productId));
+    }
+    
+    public void assertProductAvailability(Long productId, int quantity ) {
+        var product = productRepository.findById(productId)
+                .orElseThrow(() -> new ProductNotFoundException(productId));
+        
+        var availability = product.getStockQty() - product.getReservedQty();
+        if (availability < quantity) {
+            throw new ProductNotEnoughStockException(productId);
+        }
+    }
+    
+    public void reduceStockQty(Long productId, int stockReduction) {
+        var product = productRepository.findById(productId)
+                .orElseThrow(() -> new ProductNotFoundException(productId));
+        
+        var availability = product.getStockQty() - product.getReservedQty();
+        if (availability < stockReduction) {
+            throw new ProductNotEnoughStockException(productId);
+        }
+        
+        product.setStockQty(product.getStockQty() - stockReduction);
+        productRepository.save(product);
     }
     
 }

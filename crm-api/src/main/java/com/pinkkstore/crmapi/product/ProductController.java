@@ -18,4 +18,7 @@ public class ProductController {
     private ResponseEntity<List<Product>> findAll() {
         return ResponseEntity.ok(this.productService.getAllProducts());
     }
+    
+    
+    
 }

@@ -31,30 +31,33 @@ public class CartService {
         var cart = cartRepository.findByAppUsername(authentication.getName())
                 .orElseThrow(() -> new CartNotFoundException(authentication));
         
-        productService.changeReservedQty(cartRequest.productId(), cartRequest.productQty());
+        if (cartRequest.productQty() > 0) {
+            productService.assertProductAvailability(cartRequest.productId(), cartRequest.productQty());
+        }
         
-        var existingCartItem = cart.getCartItems().stream()
+        updateOrRemoveCartItem(cart, cartRequest);
+        cart.setLastModified(LocalDateTime.now());
+        
+        var savedCart = cartRepository.save(cart);
+        return cartMapper.toCartDto(savedCart);
+    }
+    
+    private void updateOrRemoveCartItem(Cart cart, CartRequest cartRequest) {
+        var itemOptional = cart.getCartItems().stream()
                 .filter(item -> item.getProductId().equals(cartRequest.productId()))
                 .findFirst();
         
-        if (existingCartItem.isPresent()) {
-            var item = existingCartItem.get();
+        if (itemOptional.isPresent()) {
+            var item = itemOptional.get();
             int newQty = item.getProductQty() + cartRequest.productQty();
-            
             if (newQty > 0) {
                 item.setProductQty(newQty);
             } else {
                 cart.getCartItems().remove(item);
             }
-            
         } else if (cartRequest.productQty() > 0) {
             cart.getCartItems().add(new CartItem(null, cartRequest.productQty(), cartRequest.productId()));
         }
-        
-        cart.setLastModified(LocalDateTime.now());
-        
-        var savedCart = cartRepository.save(cart);
-        return cartMapper.toCartDto(savedCart);
     }
     
 }
