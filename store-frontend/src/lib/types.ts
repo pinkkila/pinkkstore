@@ -6,6 +6,7 @@ export type TCart = {
 export type TCartItem = {
   productId: number;
   productQty: number;
+  inStock: boolean;
 };
 
 export type TCartRequest = {

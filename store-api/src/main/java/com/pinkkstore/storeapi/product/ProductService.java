@@ -24,6 +24,10 @@ public class ProductService {
                 .collect(Collectors.toList());
     }
     
+    public List<Product> getAllById(List<Long> productIds) {
+        return productRepository.findAllById(productIds);
+    }
+    
     public ProductDto getProductDto(Long productId) {
         return productRepository.findById(productId)
                 .map(productMapper::toProductDto)
@@ -58,6 +62,14 @@ public class ProductService {
             throw new ProductNotEnoughStockException(productId);
         }
     }
+    
+//    public boolean isProductInStock(Long productId) {
+//        var product = productRepository.findById(productId)
+//                .orElseThrow(() -> new ProductNotFoundException(productId));
+//
+//        var availability = product.getStockQty() - product.getReservedQty();
+//        return availability > 0;
+//    }
     
     public void reduceStockQty(Long productId, int stockReduction) {
         var product = productRepository.findById(productId)

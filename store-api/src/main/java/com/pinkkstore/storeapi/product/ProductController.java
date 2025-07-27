@@ -42,7 +42,7 @@ public class ProductController {
         return ResponseEntity.ok(this.productService.getProductsDtoByCategoryNameAndPriceRange(categoryName, minPrice, maxPrice, pageable));
     }
         
-        @GetMapping("/details/{requestedId}")
+    @GetMapping("/details/{requestedId}")
     public ResponseEntity<ProductDetailsSmallDto> getProductDetails(@PathVariable Long requestedId) {
         return ResponseEntity.ok(this.productService.getProductDetailsSmallDto(requestedId));
     }

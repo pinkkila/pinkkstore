@@ -106,7 +106,7 @@ function CartRow({ cartItem, productDetails, handleCartChange }: CartRowProps) {
 
       <div>
         <p className="text-2xl px-4">{productDetails.productName}</p>
-        {productDetails.inStock ? (
+        {cartItem.inStock ? (
           <p className="text-green-500 px-4">In Stock</p>
         ) : (
           <p className="text-red-700 px-4">Not in Stock</p>
