@@ -8,6 +8,7 @@ import { Minus, Plus, Trash2 } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { Card, CardContent } from "@/components/ui/card";
 import Image from "next/image";
+import Link from "next/link";
 
 type CartPageClientProps = {
   className?: string;
@@ -60,8 +61,8 @@ export default function CartPageClient({ className }: CartPageClientProps) {
                     {totalPrice?.toFixed(2)} coins
                   </p>
                 </div>
-                <Button size="lg" className="w-full mt-4 text-lg">
-                  To Checkout
+                <Button asChild size="lg" className="w-full mt-4 text-lg">
+                  <Link href="/checkout">Proceed to checkout</Link>
                 </Button>
               </CardContent>
             </Card>
