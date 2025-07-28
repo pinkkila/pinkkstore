@@ -14,6 +14,7 @@ type CartPageClientProps = {
   className?: string;
 };
 
+
 export default function CartPageClient({ className }: CartPageClientProps) {
   const { cart, handleCartChange } = useCartContext();
   const { productDetailsMap } = useCartProductsContext();
@@ -24,51 +25,61 @@ export default function CartPageClient({ className }: CartPageClientProps) {
     return sum + item.productQty * productDetails.price;
   }, 0);
 
+  if (!cart || cart.items.length === 0) {
+    return (
+      <div className="text-center mt-10">
+        <h1 className="text-3xl font-bold mb-2">Your cart is empty</h1>
+        <Link href="/" className="text-muted-foreground hover:underline">
+          Back to shop
+        </Link>
+      </div>
+    );
+  }
+
   return (
-    <div className={cn("", className)}>
-      <h1 className="text-3xl font-bold">
-        {cart?.items.length === 0 ? "Your cart is empty" : "Your Cart"}
-      </h1>
+    <div className={cn(className)}>
+      <h1 className="text-4xl font-bold text-center mb-10">Your Cart</h1>
 
-      <section>
-        <div className="flex md:flex-row flex-col  w-full gap-8 mt-3">
-          <div className="md:w-2/3">
-            <ul>
-              {cart?.items.map((item) => {
-                const productDetails = productDetailsMap.get(item.productId);
-                if (!productDetails) return null; // TODO: Loading spinner??
+      <div className="flex flex-col md:flex-row gap-8">
+        <div className="md:w-2/3">
+          <Card>
+            <CardContent className="px-4">
+              <ul className="divide-y divide-border">
+                {cart.items.map((item) => {
+                  const productDetails = productDetailsMap.get(item.productId);
+                  if (!productDetails) return null; // TODO: add Loading spinner
 
-                return (
-                  <li key={item.productId}>
-                    <CartRow
-                      cartItem={item}
-                      productDetails={productDetails}
-                      handleCartChange={handleCartChange}
-                    />
-                    <Separator className="my-2" />
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-
-          <div className="md:w-1/3">
-            <Card>
-              <CardContent>
-                <div className="flex justify-between items-center">
-                  <p className="text-2xl lg:text-3xl">Total:</p>
-                  <p className="text-3xl lg:text-4xl font-bold">
-                    {totalPrice?.toFixed(2)} coins
-                  </p>
-                </div>
-                <Button asChild size="lg" className="w-full mt-4 text-lg">
-                  <Link href="/checkout">Proceed to checkout</Link>
-                </Button>
-              </CardContent>
-            </Card>
-          </div>
+                  return (
+                    <li key={item.productId}>
+                      <CartRow
+                        cartItem={item}
+                        productDetails={productDetails}
+                        handleCartChange={handleCartChange}
+                      />
+                    </li>
+                  );
+                })}
+              </ul>
+            </CardContent>
+          </Card>
         </div>
-      </section>
+
+        <div className="md:w-1/3">
+          <Card>
+            <CardContent className="py-4 px-6">
+              <div className="flex justify-between items-center mb-4">
+                <p className="text-xl font-medium">Total</p>
+                <p className="text-2xl font-bold">
+                  {totalPrice?.toFixed(2)} coins
+                </p>
+              </div>
+              <Button asChild size="lg" className="w-full text-base">
+                <Link href="/checkout">Proceed to Checkout</Link>
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
     </div>
   );
 }
@@ -80,76 +91,86 @@ type CartRowProps = {
 };
 
 function CartRow({ cartItem, productDetails, handleCartChange }: CartRowProps) {
+  const total = (cartItem.productQty * productDetails.price).toFixed(2);
+
   return (
-    <div className="flex items-center mt-2">
-      <div className="h-[80px] w-[80px]">
-        {/*{productDetails.imageUrl}*/}
-
-        {productDetails.productName === "Banana poster" ? (
-          <Image
-            className="rounded-md"
-            src="/images/banana.jpg"
-            alt="Banana image"
-            width={80}
-            height={80}
-          />
-        ) : (
-          <Image
-            className="rounded-md"
-            src="/images/orange.jpg"
-            alt="Orange image"
-            width={80}
-            height={80}
-          />
-        )}
-
-      </div>
-
-      <div>
-        <p className="text-2xl px-4">{productDetails.productName}</p>
-        {cartItem.inStock ? (
-          <p className="text-green-500 px-4">In Stock</p>
-        ) : (
-          <p className="text-red-700 px-4">Not in Stock</p>
-        )}
-      </div>
-
-      <div className="flex pl-10 ">
-        <Button
-          onClick={() =>
-            handleCartChange({ productId: cartItem.productId, productQty: -1 })
+    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center py-4">
+      <div className="flex items-center gap-4">
+        <Image
+          src={
+            productDetails.productName === "Banana poster"
+              ? "/images/banana.jpg"
+              : "/images/orange.jpg"
           }
-          size="icon"
-        >
-          <Minus className="!size-5" />
-        </Button>
-        <p className="text-3xl px-3">{cartItem.productQty}</p>
-        <Button
-          onClick={() =>
-            handleCartChange({ productId: cartItem.productId, productQty: 1 })
-          }
-          size="icon"
-        >
-          <Plus className="!size-5" />
-        </Button>
+          alt={productDetails.productName}
+          width={80}
+          height={80}
+          className="rounded-md"
+        />
+        <div>
+          <p className="text-lg font-medium">{productDetails.productName}</p>
+          <p
+            className={`text-sm ${
+              cartItem.inStock ? "text-green-600" : "text-red-600"
+            }`}
+          >
+            {cartItem.inStock ? "In Stock" : "Not in Stock"}
+          </p>
+          <p className="text-sm text-muted-foreground mt-1">
+            {productDetails.price} coins × {cartItem.productQty}
+          </p>
+        </div>
       </div>
 
-      <Button
-        onClick={() =>
-          handleCartChange({
-            productId: cartItem.productId,
-            productQty: -cartItem.productQty,
-          })
-        }
-        size="icon"
-        className="mx-4 bg-transparent hover:bg-red-500"
-      >
-        <Trash2 className="!size-7 text-white " />
-      </Button>
+      <div className="flex flex-col sm:items-end mt-4 sm:mt-0 gap-3">
+        <div className="flex items-center">
+          <Button
+            onClick={() =>
+              handleCartChange({
+                productId: cartItem.productId,
+                productQty: -1,
+              })
+            }
+            size="icon"
+            variant="outline"
+          >
+            <Minus className="w-4 h-4" />
+          </Button>
 
-      <p className="text-3xl font-bold px-8 ml-auto">
-        {(cartItem.productQty * productDetails.price).toFixed(2)}
-      </p>
+          <p className="mx-3 text-lg font-semibold">{cartItem.productQty}</p>
+          <Button
+
+            onClick={() =>
+              handleCartChange({
+                productId: cartItem.productId,
+                productQty: 1,
+              })
+            }
+            size="icon"
+            variant="outline"
+          >
+            <Plus className="w-4 h-4" />
+          </Button>
+
+          <Button
+            onClick={() =>
+              handleCartChange({
+                productId: cartItem.productId,
+                productQty: -cartItem.productQty,
+              })
+            }
+            size="icon"
+            variant="ghost"
+            className="ml-2 hover:text-destructive"
+          >
+            <Trash2 className="w-5 h-5" />
+          </Button>
+        </div>
+
+        <div>
+          <p className="text-xl font-bold">{total} coins</p>
+        </div>
+      </div>
     </div>
   );
 }

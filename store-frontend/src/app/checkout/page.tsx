@@ -1,14 +1,13 @@
 import CheckoutPageClient from "@/components/checkout-page-client";
 import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
 
 export default function Page() {
   return (
     <main className="py-10 px-4">
       <div className="max-w-5xl mx-auto">
-        <Link
-          href="/cart"
-          className="text-sm text-muted-foreground hover:text-foreground transition-colors inline-flex items-center mb-4"
-        >
+        <Link href="/cart" className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
+          <ArrowLeft className="w-4 h-4" />
           Back to Cart
         </Link>
         <header className="mb-10 text-center space-y-2">
