@@ -122,7 +122,7 @@ function CartRow({ cartItem, productDetails, handleCartChange }: CartRowProps) {
         </div>
       </div>
 
-      <div className="flex items-center mt-4 gap-3">
+      <div className="flex items-center justify-between mt-4 gap-3">
         <div className="flex items-center">
           <Button
             onClick={() =>
@@ -161,7 +161,7 @@ function CartRow({ cartItem, productDetails, handleCartChange }: CartRowProps) {
             }
             size="icon"
             variant="ghost"
-            className="ml-2 hover:text-destructive"
+            className="ml-2 sm:mr-10 lg:mr-12 hover:text-destructive"
           >
             <Trash2 className="w-5 h-5" />
           </Button>
