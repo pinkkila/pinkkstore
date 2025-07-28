@@ -34,9 +34,9 @@ values (1, 'user', 100.00);
 -- Reset sequences to the max ID values (or 1 if table is empty)
 SELECT setval('public.category_id_seq', COALESCE((SELECT MAX(id) FROM public.category), 1), false);
 SELECT setval('public.product_id_seq', COALESCE((SELECT MAX(id) FROM public.product), 1), false);
-SELECT setval('public.cart_id_seq', COALESCE((SELECT MAX(id) FROM public.cart), 1), false);
+SELECT setval('public.cart_id_seq', COALESCE((SELECT MAX(id) FROM public.cart), 1), true);
 SELECT setval('public.cart_item_id_seq', COALESCE((SELECT MAX(id) FROM public.cart_item), 1), false);
-SELECT setval('public.customer_order_id_seq', COALESCE((SELECT MAX(id) FROM public.customer_order), 1), false);
-SELECT setval('public.order_item_id_seq', COALESCE((SELECT MAX(id) FROM public.order_item), 1), false);
+SELECT setval('public.customer_order_id_seq', COALESCE((SELECT MAX(id) FROM public.customer_order), 1), true);
+SELECT setval('public.order_item_id_seq', COALESCE((SELECT MAX(id) FROM public.order_item), 1), true);
 SELECT setval('public.account_id_seq', COALESCE((SELECT MAX(id) FROM public.account), 1), false);
 

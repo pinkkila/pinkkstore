@@ -17,7 +17,7 @@ public class OrderController {
     
     @GetMapping
     public ResponseEntity<List<Order>> getAll(Authentication authentication) {
-        return ResponseEntity.ok(orderService.getOrders(authentication));
+        return ResponseEntity.ok(orderService.getAllOrders(authentication));
     }
     
     @GetMapping("/{requestedId}")

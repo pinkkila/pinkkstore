@@ -5,6 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { TCartItem, TProductDetailsSmall } from "@/lib/types";
+import { getCsrfToken } from "@/lib/utils";
 
 export default function CheckoutPageClient() {
   const { cart } = useCartContext();
@@ -16,10 +17,39 @@ export default function CheckoutPageClient() {
     return sum + item.productQty * productDetails.price;
   }, 0);
 
+  const handleOnClick = async () => {
+    const newOrderRequest = {
+      orderItems: cart?.items.map((item) => ({
+        productId: item.productId,
+        productQty: item.productQty,
+      })),
+    };
+    const csrfToken = getCsrfToken();
+
+    try {
+      const response = await fetch("http://127.0.0.1:8080/orders", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          ...(csrfToken ? { "X-XSRF-TOKEN": csrfToken } : {}),
+        },
+        credentials: "include",
+        body: JSON.stringify(newOrderRequest),
+      });
+      if (!response.ok) {
+        throw new Error(response.statusText);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   if (!cart || cart.items.length === 0) {
     return (
       <section className="max-w-4xl mx-auto px-4 mt-6">
-        <p className="text-center text-xl text-muted-foreground">Your cart is empty.</p>
+        <p className="text-center text-xl text-muted-foreground">
+          Your cart is empty.
+        </p>
       </section>
     );
   }
@@ -49,7 +79,7 @@ export default function CheckoutPageClient() {
             <h2 className="text-xl font-semibold">Total</h2>
             <p className="text-2xl font-bold">{totalPrice?.toFixed(2)} coins</p>
           </div>
-          <Button size="lg" className="w-full mt-6 text-base">
+          <Button onClick={handleOnClick} size="lg" className="w-full mt-6 text-base">
             Confirm and Pay
           </Button>
         </CardContent>

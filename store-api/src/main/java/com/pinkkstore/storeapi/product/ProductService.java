@@ -18,6 +18,11 @@ public class ProductService {
     private final ProductMapper productMapper;
     private final CategoryService categoryService;
     
+    public Product getById(Long productId) {
+        return productRepository.findById(productId)
+                .orElseThrow(() -> new ProductNotFoundException(productId));
+    }
+    
     public List<ProductDto> getAllProducts() {
         return productRepository.findAll().stream()
                 .map(productMapper::toProductDto)
@@ -35,25 +40,25 @@ public class ProductService {
     }
     
     public Page<ProductDto> getProductsDtoByCategoryName(String categoryName, Pageable pageable) {
-         var category = categoryService.getCategoryByName(categoryName);
-         return productRepository.findAllByCategoryId(category.getId(), pageable)
-                 .map(productMapper::toProductDto);
+        var category = categoryService.getCategoryByName(categoryName);
+        return productRepository.findAllByCategoryId(category.getId(), pageable)
+                .map(productMapper::toProductDto);
     }
     
-    public Page<ProductDto> getProductsDtoByCategoryNameAndPriceRange(String categoryName, double minPrice, double maxPrice,  Pageable pageable) {
+    public Page<ProductDto> getProductsDtoByCategoryNameAndPriceRange(String categoryName, double minPrice, double maxPrice, Pageable pageable) {
         var category = categoryService.getCategoryByName(categoryName);
         return productRepository.findAllByCategoryIdAndPriceBetween(category.getId(), minPrice, maxPrice, pageable)
                 .map(productMapper::toProductDto);
     }
     
-    // TODO: Change inStock to cart (this is not called when product already is in cart)
+    // TODO: Does this need inStock (already in cart)
     public ProductDetailsSmallDto getProductDetailsSmallDto(Long productId) {
         return productRepository.findById(productId)
                 .map(productMapper::toProductDetailsSmallDto)
                 .orElseThrow(() -> new ProductNotFoundException(productId));
     }
     
-    public void assertProductAvailability(Long productId, int quantity ) {
+    public void assertProductAvailability(Long productId, int quantity) {
         var product = productRepository.findById(productId)
                 .orElseThrow(() -> new ProductNotFoundException(productId));
         
@@ -62,7 +67,7 @@ public class ProductService {
             throw new ProductNotEnoughStockException(productId);
         }
     }
-    
+
 //    public boolean isProductInStock(Long productId) {
 //        var product = productRepository.findById(productId)
 //                .orElseThrow(() -> new ProductNotFoundException(productId));
@@ -71,7 +76,7 @@ public class ProductService {
 //        return availability > 0;
 //    }
     
-    public void reduceStockQty(Long productId, int stockReduction) {
+    public Product reduceStockQty(Long productId, int stockReduction) {
         var product = productRepository.findById(productId)
                 .orElseThrow(() -> new ProductNotFoundException(productId));
         
@@ -81,7 +86,7 @@ public class ProductService {
         }
         
         product.setStockQty(product.getStockQty() - stockReduction);
-        productRepository.save(product);
+        return productRepository.save(product);
     }
     
 }

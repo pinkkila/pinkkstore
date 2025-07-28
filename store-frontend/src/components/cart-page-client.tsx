@@ -5,7 +5,6 @@ import { TCartItem, TCartRequest, TProductDetailsSmall } from "@/lib/types";
 import { useCartContext, useCartProductsContext } from "@/lib/hooks";
 import { Button } from "@/components/ui/button";
 import { Minus, Plus, Trash2 } from "lucide-react";
-import { Separator } from "@/components/ui/separator";
 import { Card, CardContent } from "@/components/ui/card";
 import Image from "next/image";
 import Link from "next/link";
