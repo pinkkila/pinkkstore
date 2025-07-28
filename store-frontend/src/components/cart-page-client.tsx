@@ -122,7 +122,7 @@ function CartRow({ cartItem, productDetails, handleCartChange }: CartRowProps) {
         </div>
       </div>
 
-      <div className="flex flex-col sm:items-end mt-4 sm:mt-0 gap-3">
+      <div className="flex items-center mt-4 gap-3">
         <div className="flex items-center">
           <Button
             onClick={() =>
