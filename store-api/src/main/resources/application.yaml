@@ -25,9 +25,16 @@ spring:
         jwt:
           jwk-set-uri: http://localhost:9000/oauth2/jwks
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+
 
 logging:
   level:
     org.springframework.security: trace
 #    org.springframework.data: trace
 #    org.springframework.web: trace
+
