@@ -14,8 +14,9 @@ spring:
   sql:
     init:
       mode: always
-      schema-locations: file:api-db/schema.sql
-      data-locations: file:api-db/data.sql
+#       When locally developing both Store and CRM, you can use shared schema and data.
+#      schema-locations: file:api-db/schema.sql
+#      data-locations: file:api-db/data.sql
 
 
   security:

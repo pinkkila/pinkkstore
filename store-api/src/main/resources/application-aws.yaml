@@ -1,0 +1,14 @@
+spring:
+  config:
+    import: aws-secretsmanager:/secrets/pinkkstore_db-secrets;
+
+  datasource:
+    username: ${username}
+    password: ${password}
+    url: jdbc:postgresql://${host}:${port}/${dbname}
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: https://auth.pinkkstore.com/oauth2/jwks
