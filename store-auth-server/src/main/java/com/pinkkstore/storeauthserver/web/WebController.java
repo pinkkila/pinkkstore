@@ -3,6 +3,7 @@ package com.pinkkstore.storeauthserver.web;
 import com.pinkkstore.storeauthserver.appuser.AppUser;
 import com.pinkkstore.storeauthserver.appuser.AppUserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +14,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class WebController {
     private final AppUserRepository appUserRepository;
+    private final PasswordEncoder passwordEncoder;
     
     @GetMapping("/login")
     String login() {
@@ -24,9 +26,9 @@ public class WebController {
         String username = "customer_" + UUID.randomUUID().toString().substring(0, 8);
         String password = UUID.randomUUID().toString().substring(0, 12);
         
-        String noopPassword = "{noop}" + password;
+        String encryptedPassword = passwordEncoder.encode(password);
         
-        appUserRepository.save(new AppUser(null, username, noopPassword));
+        appUserRepository.save(new AppUser(null, username, encryptedPassword));
         
         model.addAttribute("username", username);
         model.addAttribute("password", password);

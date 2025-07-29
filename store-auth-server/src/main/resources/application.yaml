@@ -23,7 +23,7 @@ spring:
           store-client:
             registration:
               client-id: "store-client"
-              client-secret: "{noop}secret"
+              client-secret: "$2a$10$urICP3Nt8Ni8riaVQCYi0OAxkYvqL7TXBo3u/7z8IaTNb3tivS2W2"
               client-authentication-methods:
                 - "client_secret_basic"
               authorization-grant-types:
