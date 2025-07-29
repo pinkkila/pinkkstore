@@ -92,6 +92,7 @@ type CartRowProps = {
 function CartRow({ cartItem, productDetails, handleCartChange }: CartRowProps) {
   const total = (cartItem.productQty * productDetails.price).toFixed(2);
 
+  // TODO check: icon sizing is not probably working and if not defaults are fine.
   return (
     <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center py-4">
       <div className="flex items-center gap-4">
