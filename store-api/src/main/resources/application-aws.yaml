@@ -1,6 +1,6 @@
 spring:
   config:
-    import: aws-secretsmanager:/secrets/pinkkstore_db-secrets;
+    import: aws-secretsmanager:pinkkstore_db-secrets;
 
   datasource:
     username: ${username}
