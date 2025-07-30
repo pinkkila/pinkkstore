@@ -1,7 +1,7 @@
 spring:
-#  config:
-#    import:
-#      - aws-secretsmanager:client-secrets
+  config:
+    import:
+      - aws-secretsmanager:client-secrets
 
 
   security:
