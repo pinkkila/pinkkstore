@@ -65,6 +65,12 @@ spring:
 app:
   base-uri: http://127.0.0.1:3000
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+
 logging:
   level:
     org.springframework.security: trace

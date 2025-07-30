@@ -46,6 +46,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/products/**").permitAll()
                         .requestMatchers("/favicon.ico").permitAll()
                         .requestMatchers("/error").permitAll()
+                        .requestMatchers("/actuator/health").permitAll()
                         .anyRequest().authenticated()
                 )
                 .csrf(csrf -> csrf

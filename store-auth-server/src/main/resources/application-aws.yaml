@@ -1,0 +1,35 @@
+spring:
+  config:
+    import:
+      - aws-secretsmanager:pinkkstore_db-secrets
+      - aws-secretsmanager:client-secrets
+
+  datasource:
+    username: ${username}
+    password: ${password}
+    url: jdbc:postgresql://${host}:${port}/${dbname}
+
+  security:
+    oauth2:
+      authorizationserver:
+        issuer: https://auth.pinkkstore.com
+        client:
+          store-client:
+            registration:
+              client-id: "store-client"
+              client-secret: ${auth-client}
+              client-authentication-methods:
+                - "client_secret_basic"
+              authorization-grant-types:
+                - "authorization_code"
+                - "refresh_token"
+                - "client_credentials"
+              redirect-uris:
+                - "https://bff.pinkkstore.com/login/oauth2/code/store-client-oidc"
+                - "https://bff.pinkkstore.com/authorized"
+              post-logout-redirect-uris:
+                - "https://bff.pinkkstore.com/logged-out"
+              scopes:
+                - "openid"
+                - "profile"
+            require-authorization-consent: true

@@ -55,6 +55,7 @@ public class SecurityConfig {
                         .requestMatchers("/styles.css").permitAll()
                         .requestMatchers("/login").permitAll()
                         .requestMatchers("/register").permitAll()
+                        .requestMatchers("/actuator/health").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
