@@ -14,7 +14,7 @@ export default function TestUpdateCart() {
 
     try {
       // const response = await fetch("http://127.0.0.1:8080/carts", {
-      const response = await fetch("https://pinkkstore.com/bff/carts", {
+      const response = await fetch("https://bff.pinkkstore.com/carts", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

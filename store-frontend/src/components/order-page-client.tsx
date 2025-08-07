@@ -21,7 +21,7 @@ export default function OrderPageClient({ orderId, className}: OrderPageClientPr
       try {
         const response = await fetch(
           // `http://127.0.0.1:8080/orders/${orderId}`,
-          `https://pinkkstore.com/bff/orders/${orderId}`,
+          `https://bff.pinkkstore.com/orders/${orderId}`,
           {
             credentials: "include",
           },

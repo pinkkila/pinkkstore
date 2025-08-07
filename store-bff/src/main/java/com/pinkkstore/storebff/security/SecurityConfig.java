@@ -38,9 +38,6 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         CookieCsrfTokenRepository cookieCsrfTokenRepository = CookieCsrfTokenRepository.withHttpOnlyFalse();
-        // a line below was added to a test if put starts to work in aws
-//        cookieCsrfTokenRepository.setCookieCustomizer(builder -> builder.secure(true).sameSite("None").path("/").domain("bff.pinkkstore.com"));
-//        cookieCsrfTokenRepository.setCookieCustomizer(builder -> builder.sameSite("None"));
         CsrfTokenRequestAttributeHandler csrfTokenRequestAttributeHandler = new CsrfTokenRequestAttributeHandler();
         csrfTokenRequestAttributeHandler.setCsrfRequestAttributeName(null);
         

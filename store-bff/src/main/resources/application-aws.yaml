@@ -1,10 +1,6 @@
 # test if this is really needed:
 server:
   forward-headers-strategy: native
-#  forward-headers-strategy: framework
-
-#  tomcat:
-#    redirect-context-root: false
 
 spring:
   config:
@@ -51,24 +47,21 @@ spring:
             - id: products
               uri: https://api.pinkkstore.com
               predicates:
-                - Path=/bff/products/**
+                - Path=/products/**
               filters:
                 - TokenRelay=
-                - RewritePath=/bff/products/?(?<segment>.*), /products/$\{segment}
             - id: carts
               uri: https://api.pinkkstore.com
               predicates:
-                - Path=/bff/carts/**
+                - Path=/carts/**
               filters:
                 - TokenRelay=
-                - RewritePath=/bff/carts/?(?<segment>.*), /carts/$\{segment}
             - id: orders
               uri: https://api.pinkkstore.com
               predicates:
-                - Path=/bff/orders/**
+                - Path=/orders/**
               filters:
                 - TokenRelay=
-                - RewritePath=/bff/orders/?(?<segment>.*), /orders/$\{segment}
 
 
 app:
