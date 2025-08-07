@@ -19,7 +19,6 @@ spring:
               predicates:
                 - Path=/api/**
 
-
 management:
   endpoints:
     web:
