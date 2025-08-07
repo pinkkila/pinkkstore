@@ -29,7 +29,8 @@ export default function CartContextProvider({
 
   const getCart = async () => {
     try {
-      const response = await fetch("http://127.0.0.1:8080/carts", {
+      // const response = await fetch("http://127.0.0.1:8080/carts", {
+      const response = await fetch("https://pinkkstore.com/bff/carts", {
         credentials: "include",
       });
       if (!response.ok) {
@@ -46,7 +47,8 @@ export default function CartContextProvider({
     const csrfToken = getCsrfToken();
 
     try {
-      const response = await fetch("http://127.0.0.1:8080/carts", {
+      // const response = await fetch("http://127.0.0.1:8080/carts", {
+      const response = await fetch("https://pinkkstore.com/bff/carts", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

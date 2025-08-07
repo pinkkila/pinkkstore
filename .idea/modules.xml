@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/crm-frontend/crm-frontend.iml" filepath="$PROJECT_DIR$/crm-frontend/crm-frontend.iml" />
       <module fileurl="file://$PROJECT_DIR$/pinkkstore.iml" filepath="$PROJECT_DIR$/pinkkstore.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/store-api.main.iml" filepath="$PROJECT_DIR$/.idea/modules/store-api.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/store-auth-server.main.iml" filepath="$PROJECT_DIR$/.idea/modules/store-auth-server.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/store-bff.main.iml" filepath="$PROJECT_DIR$/.idea/modules/store-bff.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/store-frontend/store-frontend.iml" filepath="$PROJECT_DIR$/store-frontend/store-frontend.iml" />
     </modules>

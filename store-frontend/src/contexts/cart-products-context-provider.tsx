@@ -32,7 +32,8 @@ export default function CartProductsContextProvider({
       try {
         const newDetails: TProductDetailsSmall[] = await Promise.all(
           idsToFetch.map((id) =>
-            fetch(`http://127.0.0.1:8080/products/details/${id}`).then((res) =>
+            // fetch(`http://127.0.0.1:8080/products/details/${id}`).then((res) =>
+            fetch(`https://pinkkstore.com/bff/products/details/${id}`).then((res) =>
               res.json(),
             ),
           ),
