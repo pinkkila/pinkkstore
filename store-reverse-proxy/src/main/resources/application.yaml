@@ -1,0 +1,27 @@
+server:
+  port: 8070
+
+spring:
+  application:
+    name: store-reverse-proxy
+
+  cloud:
+    gateway:
+      server:
+        webflux:
+          routes:
+            - id: frontend
+              uri: https://frontend.pinkkstore.com
+              predicates:
+                - Path=/**
+            - id: bff
+              uri: https://bff.pinkkstore.com
+              predicates:
+                - Path=/api/**
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
