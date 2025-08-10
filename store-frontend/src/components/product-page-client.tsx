@@ -23,7 +23,7 @@ export default function ProductPageClient({
       try {
         const response = await fetch(
           // `http://127.0.0.1:8080/products/${productId}`,
-          `https://bff.pinkkstore.com/products/${productId}`,
+          `/api/products/${productId}`,
         );
         if (!response.ok) {
           throw new Error(response.statusText);

@@ -42,7 +42,7 @@ export default function CategoryProductList({
       try {
         const response = await fetch(
           // `http://127.0.0.1:8080/products/categories/${categoryName}${endpointParams}`,
-          `https://bff.pinkkstore.com/products/categories/${categoryName}${endpointParams}`,
+          `/api/products/categories/${categoryName}${endpointParams}`,
         );
         if (!response.ok) {
           throw new Error(response.statusText);

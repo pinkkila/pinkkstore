@@ -25,10 +25,10 @@ spring:
                 - "refresh_token"
                 - "client_credentials"
               redirect-uris:
-                - "https://bff.pinkkstore.com/login/oauth2/code/store-client-oidc"
-                - "https://bff.pinkkstore.com/authorized"
+                - "https://pinkkstore.com/login/oauth2/code/store-client-oidc"
+                - "https://pinkkstore.com/authorized"
               post-logout-redirect-uris:
-                - "https://bff.pinkkstore.com/logged-out"
+                - "https://pinkkstore.com/logged-out"
               scopes:
                 - "openid"
                 - "profile"

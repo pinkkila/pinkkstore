@@ -30,7 +30,7 @@ export default function CartContextProvider({
   const getCart = async () => {
     try {
       // const response = await fetch("http://127.0.0.1:8080/carts", {
-      const response = await fetch("https://bff.pinkkstore.com/carts", {
+      const response = await fetch("/api/carts", {
         credentials: "include",
       });
       if (!response.ok) {
@@ -48,7 +48,7 @@ export default function CartContextProvider({
 
     try {
       // const response = await fetch("http://127.0.0.1:8080/carts", {
-      const response = await fetch("https://bff.pinkkstore.com/carts", {
+      const response = await fetch("/api/carts", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

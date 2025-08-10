@@ -5,7 +5,7 @@ import { useAuthContext } from "@/lib/hooks";
 import { getCsrfToken } from "@/lib/utils";
 
 // const BACKEND_URL = "http://127.0.0.1:8080";
-const BACKEND_URL = "https://bff.pinkkstore.com";
+const BACKEND_URL = "/bff";
 
 export default function LogoutButton() {
   const {setUsername} = useAuthContext();

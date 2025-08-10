@@ -22,7 +22,7 @@ export default function AuthContextProvider({
     const getUsername = async () => {
       try {
         // const response = await fetch("http://127.0.0.1:8080/userinfo", {
-        const response = await fetch("https://bff.pinkkstore.com/userinfo", {
+        const response = await fetch("/bff/userinfo", {
           credentials: "include",
         });
         if (!response.ok) {

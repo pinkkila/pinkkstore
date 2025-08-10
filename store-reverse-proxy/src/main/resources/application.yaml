@@ -1,5 +1,6 @@
 server:
   port: 8070
+  forward-headers-strategy: native
 
 spring:
   application:
@@ -9,15 +10,55 @@ spring:
     gateway:
       server:
         webflux:
+          forwarded:
+            enabled: true
+          default-filters:
+            - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
           routes:
+            - id: oauth2-login
+              uri: https://bff.pinkkstore.com
+              predicates:
+                - Path=/oauth2/authorization/**
+#              filters:
+#                - PreserveHostHeader
+            - id: oauth2-callback
+              uri: https://bff.pinkkstore.com
+              predicates:
+                - Path=/login/**
+#              filters:
+#                - PreserveHostHeader
+            - id: oauth2-authorized
+              uri: https://bff.pinkkstore.com
+              predicates:
+                - Path=/authorized
+#              filters:
+#                - PreserveHostHeader
+            - id: logout
+              uri: https://bff.pinkkstore.com
+              predicates:
+                - Path=/logged-out
+#              filters:
+#                - PreserveHostHeader
+            - id: bff-api
+              uri: https://bff.pinkkstore.com
+              predicates:
+                - Path=/api/**
+            - id: bff
+              uri: https://bff.pinkkstore.com
+              predicates:
+                - Path=/bff/**
+              filters:
+                - StripPrefix=1
+            - id: auth
+              uri: https://auth.pinkkstore.com
+              predicates:
+                - Path=/auth/**
+              filters:
+                - StripPrefix=1
             - id: frontend
               uri: https://frontend.pinkkstore.com
               predicates:
                 - Path=/**
-            - id: bff
-              uri: https://bff.pinkkstore.com
-              predicates:
-                - Path=/api/**
 
 management:
   endpoints:

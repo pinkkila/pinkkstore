@@ -7,7 +7,6 @@ spring:
     import:
       - aws-secretsmanager:client-secrets
 
-
   security:
     oauth2:
       client:
@@ -17,7 +16,7 @@ spring:
             client-id: store-client
             client-secret: ${bff-client}
             authorization-grant-type: authorization_code
-            redirect-uri: "https://bff.pinkkstore.com/login/oauth2/code/{registrationId}"
+            redirect-uri: "https://pinkkstore.com/login/oauth2/code/{registrationId}"
             scope: openid,profile
             client-name: store-client-oidc
           store-client-authorization-code:
@@ -25,13 +24,12 @@ spring:
             client-id: store-client
             client-secret: ${bff-client}
             authorization-grant-type: authorization_code
-            redirect-uri: "https://bff.pinkkstore.com/authorized"
+            redirect-uri: "https://pinkkstore.com/authorized"
             scope: openid,profile
             client-name: store-client-authorization-code
         provider:
           spring:
             issuer-uri: https://auth.pinkkstore.com
-
 
   cloud:
     gateway:
@@ -44,25 +42,13 @@ spring:
                 - Path=/userinfo
               filters:
                 - TokenRelay=
-            - id: products
+            - id: resource-server
               uri: https://api.pinkkstore.com
               predicates:
-                - Path=/products/**
+                - Path=/api/**
               filters:
                 - TokenRelay=
-            - id: carts
-              uri: https://api.pinkkstore.com
-              predicates:
-                - Path=/carts/**
-              filters:
-                - TokenRelay=
-            - id: orders
-              uri: https://api.pinkkstore.com
-              predicates:
-                - Path=/orders/**
-              filters:
-                - TokenRelay=
-
+                - StripPrefix=1
 
 app:
   base-uri: https://pinkkstore.com

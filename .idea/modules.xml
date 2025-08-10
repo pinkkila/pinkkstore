@@ -8,7 +8,6 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/store-auth-server.main.iml" filepath="$PROJECT_DIR$/.idea/modules/store-auth-server.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/store-bff.main.iml" filepath="$PROJECT_DIR$/.idea/modules/store-bff.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/store-frontend/store-frontend.iml" filepath="$PROJECT_DIR$/store-frontend/store-frontend.iml" />
-      <module fileurl="file://$PROJECT_DIR$/store-reverse-proxy/store-reverse-proxy.iml" filepath="$PROJECT_DIR$/store-reverse-proxy/store-reverse-proxy.iml" />
     </modules>
   </component>
 </project>

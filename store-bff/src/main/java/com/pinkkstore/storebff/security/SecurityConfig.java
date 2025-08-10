@@ -70,7 +70,7 @@ public class SecurityConfig {
     
     private AuthenticationEntryPoint authenticationEntryPoint() {
         AuthenticationEntryPoint authenticationEntryPoint =
-                new LoginUrlAuthenticationEntryPoint("/oauth2/authorization/store-client-oidc");
+                new LoginUrlAuthenticationEntryPoint("https://pinkkstore.com/oauth2/authorization/store-client-oidc");
         MediaTypeRequestMatcher textHtmlMatcher =
                 new MediaTypeRequestMatcher(MediaType.TEXT_HTML);
         textHtmlMatcher.setUseEquals(true);
