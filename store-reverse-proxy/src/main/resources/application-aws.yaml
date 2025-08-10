@@ -1,11 +1,4 @@
-server:
-  port: 8070
-  forward-headers-strategy: native
-
 spring:
-  application:
-    name: store-reverse-proxy
-
   cloud:
     gateway:
       server:
@@ -16,44 +9,38 @@ spring:
             - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
           routes:
             - id: oauth2-login
-              uri: http://127.0.0.1:8080
+              uri: https://bff.pinkkstore.com
               predicates:
                 - Path=/oauth2/authorization/**
             - id: oauth2-callback
-              uri: http://127.0.0.1:8080
+              uri: https://bff.pinkkstore.com
               predicates:
                 - Path=/login/**
             - id: oauth2-authorized
-              uri: http://127.0.0.1:8080
+              uri: https://bff.pinkkstore.com
               predicates:
                 - Path=/authorized
             - id: logout
-              uri: http://127.0.0.1:8080
+              uri: https://bff.pinkkstore.com
               predicates:
                 - Path=/logged-out
             - id: bff-api
-              uri: http://127.0.0.1:8080
+              uri: https://bff.pinkkstore.com
               predicates:
                 - Path=/api/**
             - id: bff
-              uri: http://127.0.0.1:8080
+              uri: https://bff.pinkkstore.com
               predicates:
                 - Path=/bff/**
               filters:
                 - StripPrefix=1
             - id: auth
-              uri: http://localhost:9000
+              uri: https://auth.pinkkstore.com
               predicates:
                 - Path=/auth/**
               filters:
                 - StripPrefix=1
             - id: frontend
-              uri: http://127.0.0.1:3000
+              uri: https://frontend.pinkkstore.com
               predicates:
                 - Path=/**
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: health

@@ -5,7 +5,6 @@ spring:
   application:
     name: store-bff
 
-
   security:
     oauth2:
       client:
@@ -15,7 +14,7 @@ spring:
             client-id: store-client
             client-secret: secret
             authorization-grant-type: authorization_code
-            redirect-uri: "http://127.0.0.1:8080/login/oauth2/code/{registrationId}"
+            redirect-uri: "http://127.0.0.1:8070/login/oauth2/code/{registrationId}"
             scope: openid,profile
             client-name: store-client-oidc
           store-client-authorization-code:
@@ -23,48 +22,36 @@ spring:
             client-id: store-client
             client-secret: secret
             authorization-grant-type: authorization_code
-            redirect-uri: "http://127.0.0.1:8080/authorized"
+            redirect-uri: "http://127.0.0.1:8070/authorized"
             scope: openid,profile
             client-name: store-client-authorization-code
         provider:
           spring:
             issuer-uri: http://localhost:9000
 
-
   cloud:
     gateway:
       server:
         webmvc:
           routes:
-          - id: userinfo
-            uri: http://localhost:9000
-            predicates:
-              - Path=/userinfo
-            filters:
-              - TokenRelay=
-          - id: products
-            uri: http://localhost:8090
-            predicates:
-              - Path=/products/**
-            filters:
-              - TokenRelay=
-          - id: carts
-            uri: http://localhost:8090
-            predicates:
-              - Path=/carts/**
-            filters:
-              - TokenRelay=
-          - id: orders
-            uri: http://localhost:8090
-            predicates:
-              - Path=/orders/**
-            filters:
-              - TokenRelay=
-
+            - id: userinfo
+              uri: http://localhost:9000
+              predicates:
+                - Path=/userinfo
+              filters:
+                - TokenRelay=
+            - id: resource-server
+              uri: http://localhost:8090
+              predicates:
+                - Path=/api/**
+              filters:
+                - TokenRelay=
+                - StripPrefix=1
 
 app:
-  base-uri: http://127.0.0.1:3000
-  authentication-entry-point: /oauth2/authorization/store-client-oidc
+  base-uri: http://127.0.0.1:8070
+  authentication-entry-point: http://127.0.0.1:8070/oauth2/authorization/store-client-oidc
+#  authentication-entry-point: /oauth2/authorization/store-client-oidc
 
 management:
   endpoints:

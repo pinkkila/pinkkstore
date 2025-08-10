@@ -5,7 +5,6 @@ spring:
   application:
     name: store-auth-server
 
-
   datasource:
     username: myuser
     password: secret
@@ -14,7 +13,6 @@ spring:
   sql:
     init:
       mode: always
-
 
   security:
     oauth2:
@@ -31,15 +29,14 @@ spring:
                 - "refresh_token"
                 - "client_credentials"
               redirect-uris:
-                - "http://127.0.0.1:8080/login/oauth2/code/store-client-oidc"
-                - "http://127.0.0.1:8080/authorized"
+                - "http://127.0.0.1:8070/login/oauth2/code/store-client-oidc"
+                - "http://127.0.0.1:8070/authorized"
               post-logout-redirect-uris:
-                - "http://127.0.0.1:8080/logged-out"
+                - "http://127.0.0.1:8070/logged-out"
               scopes:
                 - "openid"
                 - "profile"
             require-authorization-consent: true
-
 
 management:
   endpoints:
