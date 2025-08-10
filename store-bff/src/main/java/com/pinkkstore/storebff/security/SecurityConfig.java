@@ -35,6 +35,9 @@ public class SecurityConfig {
     @Value("${app.base-uri}")
     private String appBaseUri;
     
+    @Value("${app.authentication-entry-point}")
+    private String loginUrlAuthenticationEntryPoint;
+    
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         CookieCsrfTokenRepository cookieCsrfTokenRepository = CookieCsrfTokenRepository.withHttpOnlyFalse();
@@ -70,7 +73,7 @@ public class SecurityConfig {
     
     private AuthenticationEntryPoint authenticationEntryPoint() {
         AuthenticationEntryPoint authenticationEntryPoint =
-                new LoginUrlAuthenticationEntryPoint("https://pinkkstore.com/oauth2/authorization/store-client-oidc");
+                new LoginUrlAuthenticationEntryPoint(this.loginUrlAuthenticationEntryPoint);
         MediaTypeRequestMatcher textHtmlMatcher =
                 new MediaTypeRequestMatcher(MediaType.TEXT_HTML);
         textHtmlMatcher.setUseEquals(true);

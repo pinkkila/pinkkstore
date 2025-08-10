@@ -52,3 +52,4 @@ spring:
 
 app:
   base-uri: https://pinkkstore.com
+  authentication-entry-point: https://pinkkstore.com/oauth2/authorization/store-client-oidc

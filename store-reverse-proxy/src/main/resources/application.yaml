@@ -19,26 +19,18 @@ spring:
               uri: https://bff.pinkkstore.com
               predicates:
                 - Path=/oauth2/authorization/**
-#              filters:
-#                - PreserveHostHeader
             - id: oauth2-callback
               uri: https://bff.pinkkstore.com
               predicates:
                 - Path=/login/**
-#              filters:
-#                - PreserveHostHeader
             - id: oauth2-authorized
               uri: https://bff.pinkkstore.com
               predicates:
                 - Path=/authorized
-#              filters:
-#                - PreserveHostHeader
             - id: logout
               uri: https://bff.pinkkstore.com
               predicates:
                 - Path=/logged-out
-#              filters:
-#                - PreserveHostHeader
             - id: bff-api
               uri: https://bff.pinkkstore.com
               predicates:

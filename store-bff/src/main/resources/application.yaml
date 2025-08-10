@@ -64,6 +64,7 @@ spring:
 
 app:
   base-uri: http://127.0.0.1:3000
+  authentication-entry-point: /oauth2/authorization/store-client-oidc
 
 management:
   endpoints:
