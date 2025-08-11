@@ -21,7 +21,6 @@ export default function AuthContextProvider({
   useEffect(() => {
     const getUsername = async () => {
       try {
-        // const response = await fetch("http://127.0.0.1:8080/userinfo", {
         const response = await fetch("/bff/userinfo", {
           credentials: "include",
         });

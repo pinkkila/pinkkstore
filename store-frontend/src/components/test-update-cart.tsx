@@ -13,7 +13,6 @@ export default function TestUpdateCart() {
     const csrfToken = getCsrfToken()
 
     try {
-      // const response = await fetch("http://127.0.0.1:8080/carts", {
       const response = await fetch("/api/carts", {
         method: "PUT",
         headers: {

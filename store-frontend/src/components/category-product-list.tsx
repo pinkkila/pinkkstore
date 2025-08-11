@@ -41,7 +41,6 @@ export default function CategoryProductList({
     const fetchOrder = async () => {
       try {
         const response = await fetch(
-          // `http://127.0.0.1:8080/products/categories/${categoryName}${endpointParams}`,
           `/api/products/categories/${categoryName}${endpointParams}`,
         );
         if (!response.ok) {

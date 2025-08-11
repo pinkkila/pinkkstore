@@ -27,7 +27,6 @@ export default function CheckoutPageClient() {
     const csrfToken = getCsrfToken();
 
     try {
-      // const response = await fetch("http://127.0.0.1:8080/orders", {
       const response = await fetch("/api/orders", {
         method: "POST",
         headers: {
