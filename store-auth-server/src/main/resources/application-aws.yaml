@@ -16,7 +16,7 @@ spring:
         client:
           store-client:
             registration:
-              client-id: "store-client"
+              client-id: "store-bff-client"
               client-secret: ${auth-client}
               client-authentication-methods:
                 - "client_secret_basic"
@@ -25,11 +25,14 @@ spring:
                 - "refresh_token"
                 - "client_credentials"
               redirect-uris:
-                - "https://pinkkstore.com/login/oauth2/code/store-client-oidc"
-                - "https://pinkkstore.com/authorized"
+                - "https://pinkkstore.com/login/oauth2/code/store-client"
               post-logout-redirect-uris:
                 - "https://pinkkstore.com/logged-out"
               scopes:
                 - "openid"
                 - "profile"
-            require-authorization-consent: true
+                - "cart.read"
+                - "cart.write"
+                - "order.read"
+                - "order.write"
+            require-authorization-consent: false

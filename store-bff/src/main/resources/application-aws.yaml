@@ -11,22 +11,14 @@ spring:
     oauth2:
       client:
         registration:
-          store-client-oidc:
+          store-client:
             provider: spring
-            client-id: store-client
+            client-id: store-bff-client
             client-secret: ${bff-client}
             authorization-grant-type: authorization_code
             redirect-uri: "https://pinkkstore.com/login/oauth2/code/{registrationId}"
-            scope: openid,profile
-            client-name: store-client-oidc
-          store-client-authorization-code:
-            provider: spring
-            client-id: store-client
-            client-secret: ${bff-client}
-            authorization-grant-type: authorization_code
-            redirect-uri: "https://pinkkstore.com/authorized"
-            scope: openid,profile
-            client-name: store-client-authorization-code
+            scope: openid,profile,cart.read,cart.write,order.read,order.write
+            client-name: store-client
         provider:
           spring:
             issuer-uri: https://auth.pinkkstore.com
@@ -52,4 +44,4 @@ spring:
 
 app:
   base-uri: https://pinkkstore.com
-  authentication-entry-point: https://pinkkstore.com/oauth2/authorization/store-client-oidc
+  authentication-entry-point: https://pinkkstore.com/oauth2/authorization/store-client

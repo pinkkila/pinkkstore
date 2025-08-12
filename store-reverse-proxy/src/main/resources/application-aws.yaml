@@ -16,10 +16,6 @@ spring:
               uri: https://bff.pinkkstore.com
               predicates:
                 - Path=/login/**
-            - id: oauth2-authorized
-              uri: https://bff.pinkkstore.com
-              predicates:
-                - Path=/authorized
             - id: logout
               uri: https://bff.pinkkstore.com
               predicates:
