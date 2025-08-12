@@ -20,7 +20,7 @@ spring:
         client:
           store-client:
             registration:
-              client-id: "store-client"
+              client-id: "store-bff-client"
               client-secret: "$2a$10$urICP3Nt8Ni8riaVQCYi0OAxkYvqL7TXBo3u/7z8IaTNb3tivS2W2"
               client-authentication-methods:
                 - "client_secret_basic"
@@ -29,14 +29,17 @@ spring:
                 - "refresh_token"
                 - "client_credentials"
               redirect-uris:
-                - "http://127.0.0.1:8070/login/oauth2/code/store-client-oidc"
-                - "http://127.0.0.1:8070/authorized"
+                - "http://127.0.0.1:8070/login/oauth2/code/store-client"
               post-logout-redirect-uris:
                 - "http://127.0.0.1:8070/logged-out"
               scopes:
                 - "openid"
                 - "profile"
-            require-authorization-consent: true
+                - "cart.read"
+                - "cart.write"
+                - "order.read"
+                - "order.write"
+            require-authorization-consent: false
 
 management:
   endpoints:

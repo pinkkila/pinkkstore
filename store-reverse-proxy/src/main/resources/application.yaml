@@ -23,10 +23,6 @@ spring:
               uri: http://127.0.0.1:8080
               predicates:
                 - Path=/login/**
-            - id: oauth2-authorized
-              uri: http://127.0.0.1:8080
-              predicates:
-                - Path=/authorized
             - id: logout
               uri: http://127.0.0.1:8080
               predicates:
