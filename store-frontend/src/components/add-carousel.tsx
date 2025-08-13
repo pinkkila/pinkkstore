@@ -9,6 +9,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
+import Image from "next/image";
 
 export default function AddCarousel() {
   return (
@@ -30,9 +31,9 @@ export default function AddCarousel() {
         <CarouselContent>
           {Array.from({ length: 5 }).map((_, index) => (
             <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
-              <Card>
+              <Card className="relative">
                 <CardContent className="flex items-center justify-center h-50">
-                  <span className="text-3xl font-semibold">{index + 1}</span>
+                  <Image src="/images/banana.jpg" alt="banana picture" fill={true} className="object-cover rounded-md"/>
                 </CardContent>
               </Card>
             </CarouselItem>
