@@ -44,6 +44,7 @@ export type TProduct = {
   id: number;
   productName: string;
   productDesc: string;
+  imageUrl: string;
   price: number;
   inStock: boolean;
 };

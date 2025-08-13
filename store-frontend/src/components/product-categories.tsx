@@ -3,26 +3,30 @@ import Link from "next/link";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 
-export default function ProductCategories() {
+type ProductCategoriesProps = {
+  className?: string;
+}
+
+export default function ProductCategories({className}: ProductCategoriesProps) {
   return (
-    <section className="felx flex-col mt-20">
+    <section className={cn("felx flex-col", className)}>
       <h2 className="text-2xl font-bold">Product Categories</h2>
 
       <div className="flex flex-col lg:flex-row gap-5 justify-between mt-5">
         <CategoriesCard
-          categoryName="Pictures"
-          categoryDesc="Amazing AI generated Pics."
-          categoryImageUrl="/images/pictures-category.jpg"
+          categoryName="Fruits"
+          categoryDesc="Amazing AI generated fruit pics."
+          categoryImageUrl="/images/categories/fruits-category.jpg"
         />
         <CategoriesCard
-          categoryName="Poets"
-          categoryDesc="Poets from AI world."
-          categoryImageUrl="/images/poets-category.jpg"
+          categoryName="Animals"
+          categoryDesc="Animals pics are always funny. Even when they are AI generated."
+          categoryImageUrl="/images/categories/animals-category.jpg"
         />
         <CategoriesCard
-          categoryName="Short Novels"
-          categoryDesc="Stories that might suprise you."
-          categoryImageUrl="/images/novels-category.jpg"
+          categoryName="Nature"
+          categoryDesc="Calming AI generated landscapes and everything that nature (and AI) can offer."
+          categoryImageUrl="/images/categories/nature-category.jpg"
         />
       </div>
     </section>

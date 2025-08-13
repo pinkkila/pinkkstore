@@ -97,11 +97,7 @@ function CartRow({ cartItem, productDetails, handleCartChange }: CartRowProps) {
     <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center py-4">
       <div className="flex items-center gap-4">
         <Image
-          src={
-            productDetails.productName === "Banana poster"
-              ? "/images/banana.jpg"
-              : "/images/orange.jpg"
-          }
+          src={productDetails.imageUrl}
           alt={productDetails.productName}
           width={80}
           height={80}

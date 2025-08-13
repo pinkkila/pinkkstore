@@ -8,7 +8,7 @@ export default function Home() {
         Welcome to <span className="text-fuchsia-500">PinkkStore</span>
       </h1>
       <AddCarousel/>
-      <ProductCategories/>
+      <ProductCategories className="my-20 "/>
     </main>
   );
 }

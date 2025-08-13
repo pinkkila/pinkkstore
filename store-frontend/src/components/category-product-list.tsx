@@ -136,7 +136,7 @@ function ProductListElement({ product }: ProductListElementProps) {
       <div className="flex items-center">
         <Image
           className="rounded-md"
-          src="/images/banana.jpg"
+          src={product.imageUrl}
           alt={`Product picture of ${product.productName}`}
           width={100}
           height={100}
