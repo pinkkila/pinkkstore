@@ -9,10 +9,10 @@ type ProductCategoriesProps = {
 
 export default function ProductCategories({className}: ProductCategoriesProps) {
   return (
-    <section className={cn("felx flex-col", className)}>
+    <section className={cn("flex flex-col", className)}>
       <h2 className="text-2xl font-bold">Product Categories</h2>
 
-      <div className="flex flex-col lg:flex-row gap-5 justify-between mt-5">
+      <div className="flex flex-col lg:flex-row gap-5 justify-between items-center mt-5">
         <CategoriesCard
           categoryName="Fruits"
           categoryDesc="Amazing AI generated fruit pics."
@@ -20,12 +20,12 @@ export default function ProductCategories({className}: ProductCategoriesProps) {
         />
         <CategoriesCard
           categoryName="Animals"
-          categoryDesc="Animals pics are always funny. Even when they are AI generated."
+          categoryDesc="Animal pics are always funny."
           categoryImageUrl="/images/categories/animals-category.jpg"
         />
         <CategoriesCard
           categoryName="Nature"
-          categoryDesc="Calming AI generated landscapes and everything that nature (and AI) can offer."
+          categoryDesc="Beautiful nature and landscapes."
           categoryImageUrl="/images/categories/nature-category.jpg"
         />
       </div>
@@ -43,8 +43,8 @@ type CategoryPageProps = {
 function CategoriesCard({ categoryName, categoryDesc, categoryImageUrl, className}: CategoryPageProps) {
   return (
     <Link href={`/categories/${categoryName.toLowerCase()}`} >
-      <Card className={cn("bg-transparent h-30 w-88 md:w-72 xl:w-96", className)}>
-        <CardContent className="flex">
+      <Card className={cn("bg-transparent h-32 w-88 lg:w-72 xl:w-96", className)}>
+        <CardContent className="flex items-center gap-4">
           <Image
             className="rounded-md object-cover"
             src={categoryImageUrl}
@@ -52,7 +52,7 @@ function CategoriesCard({ categoryName, categoryDesc, categoryImageUrl, classNam
             width={80}
             height={80}
           />
-          <div className="px-3">
+          <div className="leading-tight">
             <h3 className="text-lg font-semibold">{categoryName}</h3>
             <p className="text-sm text-muted-foreground">{categoryDesc}</p>
           </div>

@@ -29,8 +29,16 @@ const routes = [
     path: "/account",
   },
   {
-    label: "Pictures",
-    path: "/categories/pictures",
+    label: "Fruits",
+    path: "/categories/fruits",
+  },
+  {
+    label: "Animals",
+    path: "/categories/animals",
+  },
+  {
+    label: "Nature",
+    path: "/categories/nature",
   },
 ];
 
