@@ -21,7 +21,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { useMediaQuery } from "usehooks-ts";
+import { useMediaQuery } from "@/hooks/use-media-query";
 
 type CategoryProductsListProps = {
   categoryName: string;
