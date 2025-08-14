@@ -39,6 +39,13 @@ export default function CategoryProductList({
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 100]);
   const debouncedPriceRange = useDebounce(priceRange, 1000);
   const isMobile = useMediaQuery("(max-width: 768px)");
+  // Fix for Accordien hydration error.
+  const [isMounted,setIsMounted] = useState(false)
+
+  // Fix for Accordien hydration error.
+  useEffect(() => {
+    setIsMounted(true)
+  },[])
 
   useEffect(() => {
     let endpointParams = `?page=0&size=10&sort=${sortBy}`;
@@ -63,6 +70,11 @@ export default function CategoryProductList({
     fetchOrder();
   }, [categoryName, sortBy, debouncedPriceRange]);
 
+  // Fix for Accordien hydration error.
+  if(!isMounted){
+    return null
+  }
+
   return (
     <div className={cn("flex flex-col", className)}>
       <h1 className="text-4xl font-bold md:mb-6">{capitalize(categoryName)}</h1>
@@ -70,7 +82,7 @@ export default function CategoryProductList({
       <div className="flex flex-col md:flex-row justify-between">
 
         {isMobile && (
-          <Accordion type="single" collapsible>
+          <Accordion asChild type="single" collapsible>
             <AccordionItem value="item-1">
               <AccordionTrigger>
                 <h2 className="text-xl font-semibold">Filters</h2>
