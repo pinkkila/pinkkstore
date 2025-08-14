@@ -9,7 +9,7 @@ export default function Header() {
       <div className="flex items-center gap-6">
         <DrawerMenu />
         <Link href="/">
-          <h2 className="text-3xl text-fuchsia-500">PinkkStore</h2>
+          <h2 className="text-xl md:text-3xl text-fuchsia-500">PinkkStore</h2>
         </Link>
       </div>
       <div className="flex items-center gap-6 ">
