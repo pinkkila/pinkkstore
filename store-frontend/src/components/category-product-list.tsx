@@ -39,10 +39,10 @@ export default function CategoryProductList({
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 100]);
   const debouncedPriceRange = useDebounce(priceRange, 1000);
   const isMobile = useMediaQuery("(max-width: 768px)");
-  // Fix for Accordien hydration error.
+  // Fix for Accordion hydration error.
   const [isMounted,setIsMounted] = useState(false)
 
-  // Fix for Accordien hydration error.
+  // Fix for Accordion hydration error.
   useEffect(() => {
     setIsMounted(true)
   },[])
@@ -70,7 +70,7 @@ export default function CategoryProductList({
     fetchOrder();
   }, [categoryName, sortBy, debouncedPriceRange]);
 
-  // Fix for Accordien hydration error.
+  // Fix for Accordion hydration error.
   if(!isMounted){
     return null
   }
@@ -180,7 +180,7 @@ function ProductListElement({ product, isMobile}: ProductListElementProps) {
   };
 
   return (
-    <div className="flex items-center justify-between bg-white/10 hover:bg-white/15 rounded-md my-4">
+    <div className="flex items-center justify-between bg-white/10 hover:bg-white/15 rounded-md my-4 p-2">
       <div className="flex items-center">
         <Image
           className="rounded-md"
@@ -190,7 +190,7 @@ function ProductListElement({ product, isMobile}: ProductListElementProps) {
           height={100}
         />
 
-        <div>
+        <div className="flex flex-col px-4">
           <p className="text-2xl px-4">{product.productName}</p>
           {product.inStock ? (
             <p className="text-green-500 px-4">In Stock</p>
@@ -201,7 +201,7 @@ function ProductListElement({ product, isMobile}: ProductListElementProps) {
       </div>
 
       {!isMobile && (
-      <div>
+      <div className="ml-4 text-sm text-gray-300 break-words overflow-wrap-anywhere flex-1">
         <p>{product.productDesc}</p>
       </div>
       )}
