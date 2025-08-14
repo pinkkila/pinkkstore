@@ -15,6 +15,13 @@ import {
 } from "@/components/ui/select";
 import { useCartContext, useDebounce } from "@/lib/hooks";
 import { Slider } from "@/components/ui/slider";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { useMediaQuery } from "usehooks-ts";
 
 type CategoryProductsListProps = {
   categoryName: string;
@@ -31,11 +38,12 @@ export default function CategoryProductList({
   const [sortBy, setSortBy] = useState<string>("popularity,desc");
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 100]);
   const debouncedPriceRange = useDebounce(priceRange, 1000);
+  const isMobile = useMediaQuery("(max-width: 768px)");
 
   useEffect(() => {
-    let endpointParams = `?page=0&size=10&sort=${sortBy}`
+    let endpointParams = `?page=0&size=10&sort=${sortBy}`;
     if (debouncedPriceRange[0] !== 0 || debouncedPriceRange[1] !== 100) {
-      endpointParams = `/price-range?minPrice=${debouncedPriceRange[0]}&maxPrice=${debouncedPriceRange[1]}&page=0&size=10&sort=${sortBy}`
+      endpointParams = `/price-range?minPrice=${debouncedPriceRange[0]}&maxPrice=${debouncedPriceRange[1]}&page=0&size=10&sort=${sortBy}`;
     }
 
     const fetchOrder = async () => {
@@ -55,15 +63,31 @@ export default function CategoryProductList({
     fetchOrder();
   }, [categoryName, sortBy, debouncedPriceRange]);
 
-
   return (
     <div className={cn("flex flex-col", className)}>
-      <h1 className="text-4xl font-bold mb-6">{capitalize(categoryName)}</h1>
+      <h1 className="text-4xl font-bold md:mb-6">{capitalize(categoryName)}</h1>
 
-      <div className="flex justify-between">
-        <h2 className="text-xl font-semibold">Filters</h2>
+      <div className="flex flex-col md:flex-row justify-between">
 
-        <div className="flex items-center gap-2">
+        {isMobile && (
+          <Accordion type="single" collapsible>
+            <AccordionItem value="item-1">
+              <AccordionTrigger>
+                <h2 className="text-xl font-semibold">Filters</h2>
+              </AccordionTrigger>
+              <AccordionContent>
+                <PriceFilter
+                  priceRange={priceRange}
+                  setPriceRange={setPriceRange}
+                />
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+        )}
+
+        {!isMobile && <h2 className="text-xl font-semibold">Filters</h2>}
+
+        <div className="flex items-center justify-end gap-2">
           {/*TODO add different view options*/}
           <p className="font-semibold">Sort by:</p>
           <Select onValueChange={setSortBy}>
@@ -78,36 +102,20 @@ export default function CategoryProductList({
             </SelectContent>
           </Select>
         </div>
+
       </div>
 
-      <div className="flex">
-        <section className="w-1/3">
+      <div className="flex flex-col md:flex-row">
+        {!isMobile && (
+          <PriceFilter priceRange={priceRange} setPriceRange={setPriceRange} />
+        )}
 
-          <div className="w-[80%] mt-4 border-2 p-4 rounded-lg">
-            <h3 className="text-2xl font-bold mb-2">Price</h3>
-            <div className="flex justify-between mb-4">
-              <p className="text-xl font-semibold">{priceRange[0]} coins</p>
-              <p className="text-xl font-semibold">{priceRange[1]} coins</p>
-            </div>
-            <Slider
-              value={priceRange}
-              onValueChange={(value) =>
-                setPriceRange(value as [number, number])
-              }
-              min={0}
-              max={100}
-              step={5}
-              minStepsBetweenThumbs={1}
-            />
-          </div>
-
-        </section>
-        <section className="w-2/3">
+        <section className="md:w-2/3">
           <ul>
             {products.map((product) => (
               <li key={product.id}>
                 <Link href={`/product/${product.id}`}>
-                  <ProductListElement product={product} />
+                  <ProductListElement product={product} isMobile={isMobile} />
                 </Link>
               </li>
             ))}
@@ -118,11 +126,39 @@ export default function CategoryProductList({
   );
 }
 
-type ProductListElementProps = {
-  product: TProduct;
+type PriceFilterProps = {
+  priceRange: [number, number];
+  setPriceRange: React.Dispatch<React.SetStateAction<[number, number]>>;
 };
 
-function ProductListElement({ product }: ProductListElementProps) {
+function PriceFilter({ priceRange, setPriceRange }: PriceFilterProps) {
+  return (
+    <section className="md:w-1/3">
+      <div className="w-[80%] mb-4 md:mt-4 border-2 p-4 rounded-lg">
+        <h3 className="text-2xl font-bold mb-2">Price</h3>
+        <div className="flex justify-between mb-4">
+          <p className="text-xl font-semibold">{priceRange[0]} coins</p>
+          <p className="text-xl font-semibold">{priceRange[1]} coins</p>
+        </div>
+        <Slider
+          value={priceRange}
+          onValueChange={(value) => setPriceRange(value as [number, number])}
+          min={0}
+          max={100}
+          step={5}
+          minStepsBetweenThumbs={1}
+        />
+      </div>
+    </section>
+  );
+}
+
+type ProductListElementProps = {
+  product: TProduct;
+  isMobile: boolean;
+};
+
+function ProductListElement({ product, isMobile}: ProductListElementProps) {
   const { handleCartChange } = useCartContext();
 
   const handleAddCartClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -152,9 +188,11 @@ function ProductListElement({ product }: ProductListElementProps) {
         </div>
       </div>
 
+      {!isMobile && (
       <div>
         <p>{product.productDesc}</p>
       </div>
+      )}
 
       <div className="text-center pr-2">
         <p className="text-2xl font-bold mb-1">{product.price}</p>
