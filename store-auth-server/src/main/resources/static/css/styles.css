@@ -1,0 +1,136 @@
+/* RESET */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* This can be used to see where the element-boxes are. */
+    /*outline: 1px solid lime;*/
+}
+
+ul,
+ol {
+    list-style: none;
+}
+
+a {
+    color: inherit;
+    text-decoration: initial;
+}
+
+button {
+    font: inherit;
+    border: initial;
+    outline: initial; /* create alternative for focus state */
+    background-color: initial;
+}
+
+input {
+    border: initial;
+    outline: initial; /* create alternative for focus state */
+    font: inherit;
+}
+
+/* APP */
+
+body {
+    background-color: #000000;
+    min-height: 100vh;
+    display: flex;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto;
+    width: 100%;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    padding: 30px;
+    border:  1px solid white;
+    border-radius: 15px;
+}
+
+@media (max-width: 768px) {
+    .card {
+        width: 90%;
+        padding: 20px;
+    }
+}
+
+p {
+    color: white;
+}
+
+h1 {
+    color: white;
+    margin-bottom: 2rem;
+}
+
+.form-field {
+    margin-bottom: 1rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: white;
+}
+
+input {
+    width: -webkit-fill-available;
+    border-radius: 5px;
+    padding: 0.5rem;
+}
+
+.input-field {
+    background-color: rgb(255 255 255 / 0.9);
+}
+
+.input-field:hover {
+    background-color: rgb(255 255 255);
+    transition: 250ms;
+}
+
+.input-field:focus {
+    background-color: rgb(255 255 255);
+}
+
+.input-btn {
+    background-color: rgb(255 20 147 / 0.85);
+    margin-top: 1rem;
+    font-size: 1.2rem;
+    font-weight: 400;
+}
+
+.input-btn:hover {
+    cursor: pointer;
+    background: rgb(255 20 147);
+    transition: 250ms;
+}
+
+.input-btn:focus {
+    background: rgb(255 20 147);
+    transition: 250ms;
+}
+
+.register-info {
+    padding: 1rem;
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+a {
+    color: deeppink;
+    font-weight: 500;
+    text-decoration: underline;
+}
+

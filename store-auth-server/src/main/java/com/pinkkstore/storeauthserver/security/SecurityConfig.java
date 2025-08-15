@@ -52,7 +52,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests((authorize) -> authorize
                         .requestMatchers("/favicon.ico").permitAll()
                         .requestMatchers("/error").permitAll()
-                        .requestMatchers("/styles.css").permitAll()
+                        .requestMatchers("/css/styles.css").permitAll()
                         .requestMatchers("/login").permitAll()
                         .requestMatchers("/register").permitAll()
                         .requestMatchers("/actuator/health").permitAll()

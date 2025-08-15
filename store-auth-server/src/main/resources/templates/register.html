@@ -1,20 +1,27 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" lang="en">
 <head>
-    <title>Please Log In</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PinkkStore Register</title>
+    <link rel="stylesheet" href="/css/styles.css" th:href="@{/css/styles.css}"/>
 </head>
 <body>
-<h1>Please register as a new user</h1>
+<div class="container">
+    <h1>Please register as a new user</h1>
 
-<p><strong>Username:</strong> <span th:text="${username}"></span></p>
-<p><strong>Password:</strong> <span th:text="${password}"></span></p>
+    <div class="card">
+        <p><strong>Username:</strong> <span th:text="${username}"></span></p>
+        <p><strong>Password:</strong> <span th:text="${password}"></span></p>
 
-<form th:action="@{/login}" method="post">
-    <div>
-        <input type="hidden" name="username" th:value="${username}"/>
-        <input type="hidden" name="password" th:value="${password}"/>
+        <form th:action="@{/login}" method="post">
+            <div>
+                <input type="hidden" name="username" th:value="${username}"/>
+                <input type="hidden" name="password" th:value="${password}"/>
+            </div>
+            <input class="input-btn" type="submit" value="Register"/>
+        </form>
     </div>
-    <input type="submit" value="Log in"/>
-</form>
+</div>
 </body>
 </html>
