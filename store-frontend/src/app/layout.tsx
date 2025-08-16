@@ -8,6 +8,7 @@ import Footer from "@/components/footer";
 import AuthContextProvider from "@/contexts/auth-context-provider";
 import CartContextProvider from "@/contexts/cart-context-provider";
 import CartProductsContextProvider from "@/contexts/cart-products-context-provider";
+import QueryProvider from "@/contexts/query-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -39,17 +40,19 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased dark ${openSans.className}`}
       >
-        <AuthContextProvider>
-          <CartContextProvider>
-            <CartProductsContextProvider>
-            <Container>
-              <Header />
-              {children}
-              <Footer />
-            </Container>
-            </CartProductsContextProvider>
-          </CartContextProvider>
-        </AuthContextProvider>
+        <QueryProvider>
+          <AuthContextProvider>
+            <CartContextProvider>
+              <CartProductsContextProvider>
+                <Container>
+                  <Header />
+                  {children}
+                  <Footer />
+                </Container>
+              </CartProductsContextProvider>
+            </CartContextProvider>
+          </AuthContextProvider>
+        </QueryProvider>
       </body>
     </html>
   );
