@@ -1,15 +1,9 @@
-import { cn } from "@/lib/utils";
 import { Skeleton } from "@/components/ui/skeleton";
 import React from "react";
 
-export default function Loading({className}: {className: string}) {
+export default function Loading() {
   return (
-    <div
-      className={cn(
-        "w-full grid grid-rows-[45px_300px_500px] md:grid-cols-3 md:grid-rows-[70px_1fr] md:h-[800px] gap-4",
-        className
-      )}
-    >
+    <div className="grid grid-rows-[45px_300px_500px] md:grid-cols-3 md:grid-rows-[70px_1fr] md:h-[800px] gap-4">
       {/* Header */}
       <Skeleton className="md:col-start-1 md:col-span-2 md:row-start-1 md:row-span-1" />
 

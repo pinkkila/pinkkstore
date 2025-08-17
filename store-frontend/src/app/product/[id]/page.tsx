@@ -11,10 +11,10 @@ export default async function ProductPage({ params }: ProductPageProps) {
   const id = (await params).id;
 
   return (
-    <main className="flex justify-center">
+    <main>
       <ApiErrorBoundary>
-        <Suspense fallback={<Loading className="my-8 max-w-10/12" />}>
-          <ProductPageClient productId={id} className="my-8 max-w-10/12" />
+        <Suspense fallback={<Loading />}>
+          <ProductPageClient productId={id} />
         </Suspense>
       </ApiErrorBoundary>
     </main>

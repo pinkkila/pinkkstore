@@ -1,7 +1,7 @@
 "use client";
 
 import { TProductWithCategoryName } from "@/lib/types";
-import { capitalize, cn } from "@/lib/utils";
+import { capitalize } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import Image from "next/image";
@@ -11,16 +11,15 @@ import Breadcrumps from "@/components/breadcrumps";
 
 type ProductPageClientProps = {
   productId: string;
-  className?: string;
+
 };
 
 export default function ProductPageClient({
   productId,
-  className,
 }: ProductPageClientProps) {
   const { handleCartChange } = useCartContext();
   const {
-    data: {productDto: product, categoryName},
+    data: { productDto: product, categoryName },
   } = useSuspenseQuery({
     queryKey: ["product", productId],
     queryFn: () => getProduct(productId),
@@ -28,52 +27,57 @@ export default function ProductPageClient({
 
   return (
     <>
-    <Breadcrumps crumps={[{path: `/categories/${categoryName}`, name: capitalize(categoryName)}]} currentPage={product.productName} />
-    <div
-      className={cn(
-        "w-full grid grid-rows-[45px_300px_500px] md:grid-cols-3 md:grid-rows-[70px_1fr] md:h-[800px] gap-4",
-        className,
-      )}
-    >
-      <div className="md:row-start-1 md:row-span-1 md:col-start-1 md:col-span-2">
-        <div className="h-full w-full flex items-center ">
-          <h1 className="text-2xl lg:text-5xl font-bold pl-6">
-            {product.productName}
-          </h1>
+      <Breadcrumps
+        crumps={[
+          {
+            path: `/categories/${categoryName}`,
+            name: capitalize(categoryName),
+          },
+        ]}
+        currentPage={product.productName}
+      />
+      <div className="grid grid-rows-[45px_300px_500px] md:grid-cols-3 md:grid-rows-[70px_1fr] md:h-[800px] gap-4">
+        <div className="md:row-start-1 md:row-span-1 md:col-start-1 md:col-span-2">
+          <div className="h-full w-full flex items-center ">
+            <h1 className="text-2xl lg:text-5xl font-bold pl-6">
+              {product.productName}
+            </h1>
+          </div>
         </div>
-      </div>
 
-      <div className="md:row-start-2 md:row-span-full md:col-start-1 md:col-span-2">
-        <div className="h-full w-full relative">
-          <Image
-            className="rounded-md"
-            src={product.imageUrl}
-            alt={`Product picture of ${product.productName}`}
-            fill={true}
-          />
+        <div className="md:row-start-2 md:row-span-full md:col-start-1 md:col-span-2">
+          <div className="h-full w-full relative">
+            <Image
+              className="rounded-md"
+              src={product.imageUrl}
+              alt={`Product picture of ${product.productName}`}
+              fill={true}
+            />
+          </div>
         </div>
-      </div>
 
-      <div className="md:row-start-1 md:row-span-full md:col-start-3 md:col-span-full">
-        <div className="h-full w-full flex flex-col items-center md:items-start ">
-          <p className="text-4xl font-bold p-6">{product.price} coins</p>
-          <Button
-            onClick={() =>
-              handleCartChange({ productId: product.id, productQty: 1 })
-            }
-            className="w-11/12 mx-auto text-2xl font-bold p-7 rounded-4xl"
-          >
-            Add to cart
-          </Button>
-          <p>{product.productDesc}</p>
+        <div className="md:row-start-1 md:row-span-full md:col-start-3 md:col-span-full">
+          <div className="h-full w-full flex flex-col items-center md:items-start ">
+            <p className="text-4xl font-bold p-6">{product.price} coins</p>
+            <Button
+              onClick={() =>
+                handleCartChange({ productId: product.id, productQty: 1 })
+              }
+              className="w-11/12 mx-auto text-2xl font-bold p-7 rounded-4xl"
+            >
+              Add to cart
+            </Button>
+            <p>{product.productDesc}</p>
+          </div>
         </div>
       </div>
-    </div>
-      </>
+    </>
   );
 }
 
-const getProduct = async (productId: string): Promise<TProductWithCategoryName> => {
+const getProduct = async (
+  productId: string,
+): Promise<TProductWithCategoryName> => {
   await new Promise((resolve) => setTimeout(resolve, 2000));
   const response = await fetch(`/api/products/${productId}`);
   if (!response.ok) {

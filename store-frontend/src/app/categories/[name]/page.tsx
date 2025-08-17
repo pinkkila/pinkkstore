@@ -8,7 +8,7 @@ export default async function CategoriesPage({ params }: CategoriesPageProps) {
   const categoryName = (await params).name;
 
   return (
-    <main className="mt-10 mx-8">
+    <main>
       <CategoryProductList categoryName={categoryName} />
     </main>
   );

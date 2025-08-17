@@ -16,7 +16,7 @@ type AddCarouselProps = {
   className?: string;
 }
 
-export default function AddCarousel({className}: AddCarouselProps) {
+export default function AdCarousel({className}: AddCarouselProps) {
   return (
     <section className={cn("md:w-full group md:px-16", className)}>
       <Carousel
