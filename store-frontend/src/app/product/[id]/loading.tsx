@@ -1,8 +1,8 @@
-import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
+import { Skeleton } from "@/components/ui/skeleton";
 import React from "react";
 
-export default function SkeletonProduct({ className }: { className?: string }) {
+export default function Loading({className}: {className: string}) {
   return (
     <div
       className={cn(
@@ -19,5 +19,5 @@ export default function SkeletonProduct({ className }: { className?: string }) {
       {/* Sidebar */}
       <Skeleton className="md:col-start-3 md:col-span-1 md:row-start-1 md:row-span-2" />
     </div>
-);
+  );
 }

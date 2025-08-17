@@ -1,12 +1,10 @@
 "use client";
 
 import { TProduct } from "@/lib/types";
-// import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { useCartContext } from "@/lib/hooks";
-import { useQuery } from "@tanstack/react-query";
-import SkeletonProduct from "@/components/skeleton-product";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import React from "react";
 
@@ -22,20 +20,10 @@ export default function ProductPageClient({
   const { handleCartChange } = useCartContext();
   const {
     data: product,
-    isPending,
-    isError,
-  } = useQuery({
+  } = useSuspenseQuery({
     queryKey: ["product", productId],
     queryFn: () => getProduct(productId),
   });
-
-  if (isError) {
-    return <div>Error</div>;
-  }
-
-  if (isPending) {
-    return <SkeletonProduct className={className} />;
-  }
 
   return (
     <div
@@ -84,5 +72,8 @@ export default function ProductPageClient({
 const getProduct = async (productId: string): Promise<TProduct> => {
   await new Promise((resolve) => setTimeout(resolve, 2000));
   const response = await fetch(`/api/products/${productId}`);
+  if (!response.ok) {
+    throw new Error(response.statusText);
+  }
   return response.json();
 };
