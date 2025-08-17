@@ -2,12 +2,12 @@
 
 import { cn } from "@/lib/utils";
 import { TCartItem, TCartRequest, TProductDetailsSmall } from "@/lib/types";
-import { useCartContext, useCartProductsContext } from "@/lib/hooks";
 import { Button } from "@/components/ui/button";
 import { Minus, Plus, Trash2 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import Image from "next/image";
 import Link from "next/link";
+import { useCartContext, useCartProductsContext } from "@/hooks/use-contexts";
 
 type CartPageClientProps = {
   className?: string;

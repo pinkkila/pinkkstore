@@ -3,10 +3,10 @@
 import { TProduct } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { useCartContext } from "@/lib/hooks";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import React from "react";
+import { useCartContext } from "@/hooks/use-contexts";
 
 type ProductPageClientProps = {
   productId: string;

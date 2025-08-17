@@ -2,7 +2,7 @@
 
 import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { useAuthContext } from "@/lib/hooks";
+import { useAuthContext } from "@/hooks/use-contexts";
 
 export default function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const {username, isLoading} = useAuthContext()

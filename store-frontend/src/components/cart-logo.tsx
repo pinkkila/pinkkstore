@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ShoppingCart } from "lucide-react";
-import { useCartContext } from "@/lib/hooks";
+import { useCartContext } from "@/hooks/use-contexts";
 
 export default function CartLogo() {
   const { cart } = useCartContext();

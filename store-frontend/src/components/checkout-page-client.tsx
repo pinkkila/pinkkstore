@@ -1,11 +1,11 @@
 "use client";
 
-import { useCartContext, useCartProductsContext } from "@/lib/hooks";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { TCartItem, TProductDetailsSmall } from "@/lib/types";
 import { getCsrfToken } from "@/lib/utils";
+import { useCartContext, useCartProductsContext } from "@/hooks/use-contexts";
 
 export default function CheckoutPageClient() {
   const { cart } = useCartContext();

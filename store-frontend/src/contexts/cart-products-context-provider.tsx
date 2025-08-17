@@ -2,7 +2,7 @@
 
 import React, { createContext, useEffect, useState, useRef } from "react";
 import { TProductDetailsSmall } from "@/lib/types";
-import { useCartContext } from "@/lib/hooks";
+import { useCartContext } from "@/hooks/use-contexts";
 
 type CartProductsContext = {
   productDetailsMap: Map<number, TProductDetailsSmall>;

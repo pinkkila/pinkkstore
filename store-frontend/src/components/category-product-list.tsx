@@ -13,7 +13,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useCartContext, useDebounce } from "@/lib/hooks";
 import { Slider } from "@/components/ui/slider";
 import {
   Accordion,
@@ -22,6 +21,8 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { useMediaQuery } from "@/hooks/use-media-query";
+import { useCartContext } from "@/hooks/use-contexts";
+import { useDebounce } from "@/hooks/use-debounce";
 
 type CategoryProductsListProps = {
   categoryName: string;

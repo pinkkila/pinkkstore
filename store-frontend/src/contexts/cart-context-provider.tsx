@@ -2,8 +2,8 @@
 
 import React, { createContext, useEffect, useState } from "react";
 import { TCart, TCartRequest } from "@/lib/types";
-import { useAuthContext } from "@/lib/hooks";
 import { getCsrfToken } from "@/lib/utils";
+import { useAuthContext } from "@/hooks/use-contexts";
 
 type CartContext = {
   cart: TCart | undefined;

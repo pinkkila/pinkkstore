@@ -1,8 +1,8 @@
 "use client"
 
 import { Button } from "@/components/ui/button";
-import { useAuthContext } from "@/lib/hooks";
 import { getCsrfToken } from "@/lib/utils";
+import { useAuthContext } from "@/hooks/use-contexts";
 
 const BACKEND_URL = "/bff";
 
