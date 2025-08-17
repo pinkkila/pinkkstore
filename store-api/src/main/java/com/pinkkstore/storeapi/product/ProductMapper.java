@@ -25,4 +25,10 @@ public class ProductMapper {
                 product.getStockQty() - product.getReservedQty() > 0
         );
     }
+    
+    public ProductCategoryNameDto toProductCategoryNameDto(Product product,  String categoryName) {
+        var productDto = toProductDto(product);
+        return new ProductCategoryNameDto(productDto, categoryName);
+    }
+    
 }

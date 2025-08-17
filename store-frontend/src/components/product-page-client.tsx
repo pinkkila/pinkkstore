@@ -1,12 +1,13 @@
 "use client";
 
-import { TProduct } from "@/lib/types";
-import { cn } from "@/lib/utils";
+import { TProductWithCategoryName } from "@/lib/types";
+import { capitalize, cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import React from "react";
 import { useCartContext } from "@/hooks/use-contexts";
+import Breadcrumps from "@/components/breadcrumps";
 
 type ProductPageClientProps = {
   productId: string;
@@ -19,13 +20,15 @@ export default function ProductPageClient({
 }: ProductPageClientProps) {
   const { handleCartChange } = useCartContext();
   const {
-    data: product,
+    data: {productDto: product, categoryName},
   } = useSuspenseQuery({
     queryKey: ["product", productId],
     queryFn: () => getProduct(productId),
   });
 
   return (
+    <>
+    <Breadcrumps crumps={[{path: `/categories/${categoryName}`, name: capitalize(categoryName)}]} currentPage={product.productName} />
     <div
       className={cn(
         "w-full grid grid-rows-[45px_300px_500px] md:grid-cols-3 md:grid-rows-[70px_1fr] md:h-[800px] gap-4",
@@ -66,10 +69,11 @@ export default function ProductPageClient({
         </div>
       </div>
     </div>
+      </>
   );
 }
 
-const getProduct = async (productId: string): Promise<TProduct> => {
+const getProduct = async (productId: string): Promise<TProductWithCategoryName> => {
   await new Promise((resolve) => setTimeout(resolve, 2000));
   const response = await fetch(`/api/products/${productId}`);
   if (!response.ok) {

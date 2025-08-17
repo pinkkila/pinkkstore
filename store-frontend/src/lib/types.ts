@@ -56,3 +56,8 @@ export type TProductDetailsSmall = {
   price: number;
   inStock: boolean;
 };
+
+export type TProductWithCategoryName = {
+  productDto: TProduct;
+  categoryName: string;
+}

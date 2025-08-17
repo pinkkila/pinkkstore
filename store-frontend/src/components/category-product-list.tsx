@@ -23,6 +23,7 @@ import {
 import { useMediaQuery } from "@/hooks/use-media-query";
 import { useCartContext } from "@/hooks/use-contexts";
 import { useDebounce } from "@/hooks/use-debounce";
+import Breadcrumps from "@/components/breadcrumps";
 
 type CategoryProductsListProps = {
   categoryName: string;
@@ -78,6 +79,9 @@ export default function CategoryProductList({
 
   return (
     <div className={cn("flex flex-col", className)}>
+
+      <Breadcrumps crumps={[]} currentPage={capitalize(categoryName)} />
+
       <h1 className="text-4xl font-bold md:mb-6">{capitalize(categoryName)}</h1>
 
       <div className="flex flex-col md:flex-row justify-between">

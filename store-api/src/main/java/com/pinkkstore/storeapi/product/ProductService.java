@@ -39,6 +39,14 @@ public class ProductService {
                 .orElseThrow(() -> new ProductNotFoundException(productId));
     }
     
+    // Use this only with the products/{id} (categoryName is needed for breadcrumps).
+    public ProductCategoryNameDto getProductCategoryNameDto(Long productId) {
+        var product = productRepository.findById(productId)
+                .orElseThrow(() -> new ProductNotFoundException(productId));
+        var categoryName = categoryService.getCategoryById(product.getCategoryId()).getCategoryName();
+        return productMapper.toProductCategoryNameDto(product, categoryName);
+    }
+    
     public Page<ProductDto> getProductsDtoByCategoryName(String categoryName, Pageable pageable) {
         var category = categoryService.getCategoryByName(categoryName);
         return productRepository.findAllByCategoryId(category.getId(), pageable)
