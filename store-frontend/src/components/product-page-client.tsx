@@ -11,7 +11,6 @@ import Breadcrumps from "@/components/breadcrumps";
 
 type ProductPageClientProps = {
   productId: string;
-
 };
 
 export default function ProductPageClient({
@@ -75,10 +74,8 @@ export default function ProductPageClient({
   );
 }
 
-const getProduct = async (
-  productId: string,
-): Promise<TProductWithCategoryName> => {
-  await new Promise((resolve) => setTimeout(resolve, 2000));
+const getProduct = async (productId: string): Promise<TProductWithCategoryName> => {
+  // await new Promise((resolve) => setTimeout(resolve, 2000));
   const response = await fetch(`/api/products/${productId}`);
   if (!response.ok) {
     throw new Error(response.statusText);

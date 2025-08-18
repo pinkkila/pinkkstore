@@ -1,8 +1,8 @@
 "use client";
 
-import { capitalize, cn } from "@/lib/utils";
+import { buildParams, capitalize, cn } from "@/lib/utils";
 import React, { useEffect, useState } from "react";
-import { TProduct } from "@/lib/types";
+import { TProduct, TProductsPage } from "@/lib/types";
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
@@ -24,6 +24,8 @@ import { useMediaQuery } from "@/hooks/use-media-query";
 import { useCartContext } from "@/hooks/use-contexts";
 import { useDebounce } from "@/hooks/use-debounce";
 import Breadcrumps from "@/components/breadcrumps";
+import { useQuery } from "@tanstack/react-query";
+import { getProducts } from "@/lib/queries";
 
 type CategoryProductsListProps = {
   categoryName: string;
@@ -32,50 +34,76 @@ type CategoryProductsListProps = {
 
 // type SortOption = "popularity,desc" | "price,asc" | "price,desc" | "productName";
 
+
+
+
 export default function CategoryProductList({
   categoryName,
   className,
 }: CategoryProductsListProps) {
-  const [products, setProducts] = useState<TProduct[]>([]);
+  // const [products, setProducts] = useState<TProduct[]>([]);
   const [sortBy, setSortBy] = useState<string>("popularity,desc");
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 100]);
   const debouncedPriceRange = useDebounce(priceRange, 1000);
   const isMobile = useMediaQuery("(max-width: 768px)");
   // Fix for Accordion hydration error.
-  const [isMounted,setIsMounted] = useState(false)
+  const [isMounted,setIsMounted] = useState(false);
+
+  // const endpointParams = buildParams({sortBy, minPrice: debouncedPriceRange[0], maxPrice: debouncedPriceRange[1]})
+
+  // const endpointParams = () => (debouncedPriceRange[0] !== 0 || debouncedPriceRange[1] !== 100) ? `/price-range?minPrice=${debouncedPriceRange[0]}&maxPrice=${debouncedPriceRange[1]}&page=0&size=10&sort=${sortBy}` : `?page=0&size=10&sort=${sortBy}`;
+
+    let endpointParams = `?page=0&size=10&sort=${sortBy}`;
+    if (debouncedPriceRange[0] !== 0 || debouncedPriceRange[1] !== 100) {
+      endpointParams = `/price-range?minPrice=${debouncedPriceRange[0]}&maxPrice=${debouncedPriceRange[1]}&page=0&size=10&sort=${sortBy}`;
+    }
+
+  const { data: content } = useQuery({
+    queryKey: ["products", categoryName, { sortBy, debouncedPriceRange }],
+    queryFn: () => getProducts(
+      categoryName,
+      endpointParams,
+      // buildParams({
+      //   sortBy,
+      //   minPrice: debouncedPriceRange[0] !== 0 ? debouncedPriceRange[0] : undefined,
+      //   maxPrice: debouncedPriceRange[1] !== 100 ? debouncedPriceRange[1] : undefined,
+      // })
+    ),
+  })
+  const products  = content?.content;
 
   // Fix for Accordion hydration error.
   useEffect(() => {
     setIsMounted(true)
   },[])
 
-  useEffect(() => {
-    let endpointParams = `?page=0&size=10&sort=${sortBy}`;
-    if (debouncedPriceRange[0] !== 0 || debouncedPriceRange[1] !== 100) {
-      endpointParams = `/price-range?minPrice=${debouncedPriceRange[0]}&maxPrice=${debouncedPriceRange[1]}&page=0&size=10&sort=${sortBy}`;
-    }
-
-    const fetchOrder = async () => {
-      try {
-        const response = await fetch(
-          `/api/products/categories/${categoryName}${endpointParams}`,
-        );
-        if (!response.ok) {
-          throw new Error(response.statusText);
-        }
-        const data = await response.json();
-        setProducts(data.content);
-      } catch (e) {
-        console.error(e);
-      }
-    };
-    fetchOrder();
-  }, [categoryName, sortBy, debouncedPriceRange]);
+  // useEffect(() => {
+  //   let endpointParams = `?page=0&size=10&sort=${sortBy}`;
+  //   if (debouncedPriceRange[0] !== 0 || debouncedPriceRange[1] !== 100) {
+  //     endpointParams = `/price-range?minPrice=${debouncedPriceRange[0]}&maxPrice=${debouncedPriceRange[1]}&page=0&size=10&sort=${sortBy}`;
+  //   }
+  //
+  //   const fetchOrder = async () => {
+  //     try {
+  //       const response = await fetch(
+  //         `/api/products/categories/${categoryName}${endpointParams}`,
+  //       );
+  //       if (!response.ok) {
+  //         throw new Error(response.statusText);
+  //       }
+  //       const data = await response.json();
+  //       setProducts(data.content);
+  //     } catch (e) {
+  //       console.error(e);
+  //     }
+  //   };
+  //   fetchOrder();
+  // }, [categoryName, sortBy, debouncedPriceRange]);
 
   // Fix for Accordion hydration error.
-  if(!isMounted){
-    return null
-  }
+  // if(!isMounted){
+  //   return null
+  // }
 
   return (
     <div className={cn("flex flex-col", className)}>
@@ -86,8 +114,8 @@ export default function CategoryProductList({
 
       <div className="flex flex-col md:flex-row justify-between">
 
-        {isMobile && (
-          <Accordion asChild type="single" collapsible>
+        {isMobile && isMounted && (
+          <Accordion asChild type="single" collapsible className="mb-4">
             <AccordionItem value="item-1">
               <AccordionTrigger>
                 <h2 className="text-xl font-semibold">Filters</h2>
@@ -129,7 +157,7 @@ export default function CategoryProductList({
 
         <section className="md:w-2/3">
           <ul>
-            {products.map((product) => (
+            {products?.map((product) => (
               <li key={product.id}>
                 <Link href={`/product/${product.id}`}>
                   <ProductListElement product={product} isMobile={isMobile} />

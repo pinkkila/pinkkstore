@@ -61,3 +61,15 @@ export type TProductWithCategoryName = {
   productDto: TProduct;
   categoryName: string;
 }
+
+export type TPage = {
+  size: number;
+  number: number;
+  totalElements: number;
+  totalPages: number;
+}
+
+export type TProductsPage = {
+  content: TProduct[];
+  page: TPage;
+}
