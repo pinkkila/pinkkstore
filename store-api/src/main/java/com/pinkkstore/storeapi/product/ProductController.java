@@ -17,21 +17,6 @@ public class ProductController {
         return ResponseEntity.ok(this.productService.getProductCategoryNameDto(requestedId));
     }
     
-//    @GetMapping
-//    public ResponseEntity<List<ProductDto>> findAll() {
-//        return ResponseEntity.ok(this.productService.getAllProducts());
-//    }
-    
-//    @GetMapping
-//    public ResponseEntity<List<Product>> findAllPage(Pageable pageable) {
-//        Page<Product> page = productRepository.findAll(
-//                PageRequest.of(
-//                        pageable.getPageNumber(),
-//                        pageable.getPageSize()
-//                ));
-//        return ResponseEntity.ok(page.getContent());
-//    }
-    
     @GetMapping
     public ResponseEntity<Page<ProductDto>> getProducts(
             @RequestParam(required = false) String categoryName,
@@ -41,16 +26,6 @@ public class ProductController {
         return ResponseEntity.ok(this.productService.getProductsDtoWithFilters(categoryName, minPrice, maxPrice, pageable));
     }
     
-//    @GetMapping("/categories/{categoryName}")
-//    public ResponseEntity<Page<ProductDto>> findAllByCategoryName(@PathVariable String categoryName, Pageable pageable) {
-//        return ResponseEntity.ok(this.productService.getProductsDtoByCategoryName(categoryName, pageable));
-//    }
-//
-//    @GetMapping("/categories/{categoryName}/price-range")
-//    public ResponseEntity<Page<ProductDto>> findAllByCategoryNameWithPrice(@PathVariable String categoryName, @RequestParam double minPrice, @RequestParam double maxPrice, Pageable pageable) {
-//        return ResponseEntity.ok(this.productService.getProductsDtoByCategoryNameAndPriceRange(categoryName, minPrice, maxPrice, pageable));
-//    }
-        
     @GetMapping("/details/{requestedId}")
     public ResponseEntity<ProductDetailsSmallDto> getProductDetails(@PathVariable Long requestedId) {
         return ResponseEntity.ok(this.productService.getProductDetailsSmallDto(requestedId));

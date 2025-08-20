@@ -18,25 +18,8 @@ public class ProductService {
     private final ProductMapper productMapper;
     private final CategoryService categoryService;
     
-    public Product getById(Long productId) {
-        return productRepository.findById(productId)
-                .orElseThrow(() -> new ProductNotFoundException(productId));
-    }
-    
-    public List<ProductDto> getAllProducts() {
-        return productRepository.findAll().stream()
-                .map(productMapper::toProductDto)
-                .collect(Collectors.toList());
-    }
-    
     public List<Product> getAllById(List<Long> productIds) {
         return productRepository.findAllById(productIds);
-    }
-    
-    public ProductDto getProductDto(Long productId) {
-        return productRepository.findById(productId)
-                .map(productMapper::toProductDto)
-                .orElseThrow(() -> new ProductNotFoundException(productId));
     }
     
     // Use this only with the products/{id} (categoryName is needed for breadcrumps).
@@ -45,18 +28,6 @@ public class ProductService {
                 .orElseThrow(() -> new ProductNotFoundException(productId));
         var categoryName = categoryService.getCategoryById(product.getCategoryId()).getCategoryName();
         return productMapper.toProductCategoryNameDto(product, categoryName);
-    }
-    
-    public Page<ProductDto> getProductsDtoByCategoryName(String categoryName, Pageable pageable) {
-        var category = categoryService.getCategoryByName(categoryName);
-        return productRepository.findAllByCategoryId(category.getId(), pageable)
-                .map(productMapper::toProductDto);
-    }
-    
-    public Page<ProductDto> getProductsDtoByCategoryNameAndPriceRange(String categoryName, double minPrice, double maxPrice, Pageable pageable) {
-        var category = categoryService.getCategoryByName(categoryName);
-        return productRepository.findAllByCategoryIdAndPriceBetween(category.getId(), minPrice, maxPrice, pageable)
-                .map(productMapper::toProductDto);
     }
     
     public Page<ProductDto> getProductsDtoWithFilters(String categoryName, Double minPrice, Double maxPrice, Pageable pageable) {
@@ -93,14 +64,6 @@ public class ProductService {
         }
     }
 
-//    public boolean isProductInStock(Long productId) {
-//        var product = productRepository.findById(productId)
-//                .orElseThrow(() -> new ProductNotFoundException(productId));
-//
-//        var availability = product.getStockQty() - product.getReservedQty();
-//        return availability > 0;
-//    }
-    
     public Product reduceStockQty(Long productId, int stockReduction) {
         var product = productRepository.findById(productId)
                 .orElseThrow(() -> new ProductNotFoundException(productId));
