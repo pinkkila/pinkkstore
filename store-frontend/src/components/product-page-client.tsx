@@ -76,7 +76,9 @@ export default function ProductPageClient({
 
 const getProduct = async (productId: string): Promise<TProductWithCategoryName> => {
   // await new Promise((resolve) => setTimeout(resolve, 2000));
-  const response = await fetch(`/api/products/${productId}`);
+  console.log("Fetching on", typeof window === "undefined" ? "SERVER" : "CLIENT");
+  // const response = await fetch(`/api/products/${productId}`);
+  const response = await fetch(`http://127.0.0.1:8070/api/products/${productId}`);
   if (!response.ok) {
     throw new Error(response.statusText);
   }
