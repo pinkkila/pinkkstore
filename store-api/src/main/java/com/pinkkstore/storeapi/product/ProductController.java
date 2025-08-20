@@ -32,15 +32,24 @@ public class ProductController {
 //        return ResponseEntity.ok(page.getContent());
 //    }
     
-    @GetMapping("/categories/{categoryName}")
-    public ResponseEntity<Page<ProductDto>> findAllByCategoryName(@PathVariable String categoryName, Pageable pageable) {
-        return ResponseEntity.ok(this.productService.getProductsDtoByCategoryName(categoryName, pageable));
+    @GetMapping
+    public ResponseEntity<Page<ProductDto>> getProducts(
+            @RequestParam(required = false) String categoryName,
+            @RequestParam(required = false) Double minPrice,
+            @RequestParam(required = false) Double maxPrice,
+            Pageable pageable) {
+        return ResponseEntity.ok(this.productService.getProductsDtoWithFilters(categoryName, minPrice, maxPrice, pageable));
     }
     
-    @GetMapping("/categories/{categoryName}/price-range")
-    public ResponseEntity<Page<ProductDto>> findAllByCategoryNameWithPrice(@PathVariable String categoryName, @RequestParam double minPrice, @RequestParam double maxPrice, Pageable pageable) {
-        return ResponseEntity.ok(this.productService.getProductsDtoByCategoryNameAndPriceRange(categoryName, minPrice, maxPrice, pageable));
-    }
+//    @GetMapping("/categories/{categoryName}")
+//    public ResponseEntity<Page<ProductDto>> findAllByCategoryName(@PathVariable String categoryName, Pageable pageable) {
+//        return ResponseEntity.ok(this.productService.getProductsDtoByCategoryName(categoryName, pageable));
+//    }
+//
+//    @GetMapping("/categories/{categoryName}/price-range")
+//    public ResponseEntity<Page<ProductDto>> findAllByCategoryNameWithPrice(@PathVariable String categoryName, @RequestParam double minPrice, @RequestParam double maxPrice, Pageable pageable) {
+//        return ResponseEntity.ok(this.productService.getProductsDtoByCategoryNameAndPriceRange(categoryName, minPrice, maxPrice, pageable));
+//    }
         
     @GetMapping("/details/{requestedId}")
     public ResponseEntity<ProductDetailsSmallDto> getProductDetails(@PathVariable Long requestedId) {

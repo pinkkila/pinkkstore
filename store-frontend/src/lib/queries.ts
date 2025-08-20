@@ -6,7 +6,7 @@ export  const getProducts = async (categoryName:string, endpointParams: string):
   console.log("Fetching on", typeof window === "undefined" ? "SERVER" : "CLIENT");
   const response = await fetch(
     // `${API_URL}/products/categories/${categoryName}${endpointParams}`,
-    `http://127.0.0.1:8070/api/products/categories/${categoryName}${endpointParams}`,
+    `http://127.0.0.1:8070/api/products?categoryName=${categoryName}${endpointParams}`,
   );
   if (!response.ok) {
     throw new Error(response.statusText);

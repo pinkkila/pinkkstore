@@ -14,9 +14,9 @@ type ProductListFetcherProps = {
 export default function ProductListFetcher({categoryName, sortBy, priceRange, isMobile}: ProductListFetcherProps) {
   const [minPrice, maxPrice] = priceRange;
 
-  let endpointParams = `?page=0&size=10&sort=${sortBy}`;
+  let endpointParams = `&page=0&size=10&sort=${sortBy}`;
   if (minPrice !== 0 || maxPrice !== 100) {
-    endpointParams = `/price-range?minPrice=${minPrice}&maxPrice=${maxPrice}&page=0&size=10&sort=${sortBy}`;
+    endpointParams = `&minPrice=${minPrice}&maxPrice=${maxPrice}&page=0&size=10&sort=${sortBy}`;
   }
 
   const { data, isPending, isError, error } = useQuery({

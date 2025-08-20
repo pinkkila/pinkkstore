@@ -16,7 +16,7 @@ public class Product {
     private String imageUrl;
     private int stockQty;
     private int reservedQty;
-    private double price;
+    private Double price;
     private int popularity;
     private Long categoryId;
 }

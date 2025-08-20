@@ -59,6 +59,23 @@ public class ProductService {
                 .map(productMapper::toProductDto);
     }
     
+    public Page<ProductDto> getProductsDtoWithFilters(String categoryName, Double minPrice, Double maxPrice, Pageable pageable) {
+        if (categoryName != null && minPrice != null && maxPrice != null) {
+            var category = categoryService.getCategoryByName(categoryName);
+            return productRepository.findAllByCategoryIdAndPriceBetween(category.getId(), minPrice, maxPrice, pageable)
+                    .map(productMapper::toProductDto);
+        } else if (categoryName != null) {
+            var category = categoryService.getCategoryByName(categoryName);
+            return productRepository.findAllByCategoryId(category.getId(), pageable)
+                    .map(productMapper::toProductDto);
+        } else if (minPrice != null && maxPrice != null) {
+            return productRepository.findAllByPriceBetween(minPrice, maxPrice, pageable)
+                    .map(productMapper::toProductDto);
+        }
+        return productRepository.findAll(pageable)
+                .map(productMapper::toProductDto);
+    }
+    
     // TODO: Does this need inStock (already in cart)
     public ProductDetailsSmallDto getProductDetailsSmallDto(Long productId) {
         return productRepository.findById(productId)

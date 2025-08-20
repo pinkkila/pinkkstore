@@ -17,7 +17,7 @@ export default async function CategoriesPage({ params }: CategoriesPageProps) {
 
   await queryClient.prefetchQuery({
     queryKey: ["products", categoryName, { sortBy: "popularity,desc", priceRange: [0,100] }],
-    queryFn: () => getProducts(categoryName, "?page=0&size=10&sort=popularity,desc"),
+    queryFn: () => getProducts(categoryName, "&page=0&size=10&sort=popularity,desc"),
   })
 
   return (

@@ -5,9 +5,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.ListCrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
-import java.util.List;
-
 public interface ProductRepository extends ListCrudRepository<Product, Long>, PagingAndSortingRepository<Product, Long> {
     Page<Product> findAllByCategoryId(Long categoryId, Pageable pageable);
-    Page<Product> findAllByCategoryIdAndPriceBetween(Long categoryId, double minPrice, double maxPrice, Pageable pageable);
+    Page<Product> findAllByCategoryIdAndPriceBetween(Long categoryId, Double minPrice, Double maxPrice, Pageable pageable);
+    Page<Product> findAllByPriceBetween(Double minPrice, Double maxPrice, Pageable pageable);
 }
