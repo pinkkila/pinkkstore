@@ -1,19 +1,7 @@
-"use client"
-
 import { Skeleton } from "@/components/ui/skeleton";
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 export default function Loading() {
-  // const [isClient, setIsClient] = useState(false);
-  //
-  // useEffect(() => {
-  //   setIsClient(true);
-  // }, []);
-  //
-  // if (!isClient) {
-  //   return null;
-  // }
-
   return (
     <div className="flex items-center space-x-4">
       <Skeleton className="h-12 w-12 rounded-full" />

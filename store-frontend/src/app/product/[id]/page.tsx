@@ -10,6 +10,8 @@ type ProductPageProps = {
 export default async function ProductPage({ params }: ProductPageProps) {
   const id = (await params).id;
 
+  // const product = await getProduct(id);
+
   return (
     <main>
       <ApiErrorBoundary>

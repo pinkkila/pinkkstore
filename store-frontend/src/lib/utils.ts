@@ -28,7 +28,7 @@ export function capitalize(str: string) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
-
+// Todo: Fix this and use in product-list-fetcher
 export function buildParams({
   sortBy,
   minPrice,
