@@ -26,6 +26,7 @@ export default function ProductListFetcher({ categoryName, sortBy, priceRange, i
     throw new Error(`${error}`);
   }
 
+  // TODO: Add correctly shaped skeleton
   if (isPending) return <div>Loading products...</div>;
 
   return <ProductList products={data.content} isMobile={isMobile} />;
