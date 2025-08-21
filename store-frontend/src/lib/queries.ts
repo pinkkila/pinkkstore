@@ -1,4 +1,4 @@
-import { TProduct, TProductsPage, TProductWithCategoryName } from "@/lib/types";
+import { TProductDetailsSmall, TProductsPage, TProductWithCategoryName } from "@/lib/types";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -10,7 +10,7 @@ type GetProductsParams = {
   sortBy?: string;
 }
 
-export const getProducts = async ({categoryName, priceRange, page, size = 10, sortBy = "popularity,desc"} :GetProductsParams): Promise<TProductsPage> => {
+export async function getProducts({categoryName, priceRange, page, size = 10, sortBy = "popularity,desc"} :GetProductsParams): Promise<TProductsPage> {
   console.log("Fetching on", typeof window === "undefined" ? "SERVER" : "CLIENT");
 
   const params = new URLSearchParams();
@@ -42,6 +42,16 @@ export async function getProduct(productId: string): Promise<TProductWithCategor
   console.log("Fetching on", typeof window === "undefined" ? "SERVER" : "CLIENT");
 
   const response = await fetch(`${API_URL}/products/${productId}`);
+  if (!response.ok) {
+    throw new Error(response.statusText);
+  }
+  return await response.json();
+}
+
+export async function getProductDetailsSmall(productId: number): Promise<TProductDetailsSmall> {
+  console.log("Fetching on", typeof window === "undefined" ? "SERVER" : "CLIENT");
+
+  const response = await fetch(`${API_URL}/products/details/${productId}`);
   if (!response.ok) {
     throw new Error(response.statusText);
   }

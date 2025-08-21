@@ -28,32 +28,3 @@ export function capitalize(str: string) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
-// Todo: Fix this and use in product-list-fetcher
-export function buildParams({
-  sortBy,
-  minPrice,
-  maxPrice,
-  page = 0,
-  size = 10,
-}: {
-  sortBy: string;
-  minPrice?: number;
-  maxPrice?: number;
-  page?: number;
-  size?: number;
-}): string {
-  const params = new URLSearchParams({
-    page: String(page),
-    size: String(size),
-    sort: sortBy,
-  });
-
-  if (minPrice !== undefined) {
-    params.set("minPrice", String(minPrice));
-  }
-  if (maxPrice !== undefined) {
-    params.set("maxPrice", String(maxPrice));
-  }
-
-  return params.toString(); // e.g. "page=0&size=10&sort=popularity,desc&minPrice=10&maxPrice=90"
-}

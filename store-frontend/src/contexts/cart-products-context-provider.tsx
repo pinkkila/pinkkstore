@@ -1,61 +1,54 @@
 "use client";
 
-import React, { createContext, useEffect, useState, useRef } from "react";
+import React, { createContext } from "react";
 import { TProductDetailsSmall } from "@/lib/types";
 import { useCartContext } from "@/hooks/use-contexts";
+import { useQueries } from "@tanstack/react-query";
+import { getProductDetailsSmall } from "@/lib/queries";
 
 type CartProductsContext = {
   productDetailsMap: Map<number, TProductDetailsSmall>;
+  isPending: boolean;
+  isError: boolean;
 };
 
-export const CartProductsContext =
-  createContext<CartProductsContext | null>(null);
+export const CartProductsContext = createContext<CartProductsContext | null>(
+  null,
+);
 
 export default function CartProductsContextProvider({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const [productDetailsMap, setProductDetailsMap] = useState(
-    new Map<number, TProductDetailsSmall>(),
-  );
-  const fetchedIdsRef = useRef(new Set<number>());
   const { cart } = useCartContext();
+  const cartIds = cart?.items.map((p) => p.productId) ?? [];
 
-  useEffect(() => {
-    const cartIds = cart?.items.map((p) => p.productId) ?? [];
-    const idsToFetch = cartIds.filter((id) => !fetchedIdsRef.current.has(id));
+  const productDetailQueries = useQueries({
+    queries: cartIds.map((id) => ({
+      queryKey: ["productDetail", id],
+      queryFn: () => getProductDetailsSmall(id),
+      enabled: !!id,
+      staleTime: 5 * 60 * 1000,
+    })),
+    combine: (results) => {
+      const productDetailsMap = new Map<number, TProductDetailsSmall>();
+      results.forEach((result) => {
+        if (result.data) {
+          productDetailsMap.set(result.data.productId, result.data);
+        }
+      });
 
-    if (idsToFetch.length === 0) return;
-
-    const fetchDetails = async () => {
-      try {
-        const newDetails: TProductDetailsSmall[] = await Promise.all(
-          idsToFetch.map((id) =>
-            fetch(`/api/products/details/${id}`).then((res) =>
-              res.json(),
-            ),
-          ),
-        );
-
-        setProductDetailsMap((prev) => {
-          const updated = new Map(prev);
-          for (const detail of newDetails) {
-            updated.set(detail.productId, detail);
-            fetchedIdsRef.current.add(detail.productId);
-          }
-          return updated;
-        });
-      } catch (error) {
-        console.error("Error fetching product details", error);
-      }
-    };
-
-    fetchDetails();
-  }, [cart]);
+      return {
+        productDetailsMap,
+        isPending: results.some((result) => result.isPending),
+        isError: results.some((result) => result.isError),
+      };
+    },
+  });
 
   return (
-    <CartProductsContext.Provider value={{ productDetailsMap }}>
+    <CartProductsContext.Provider value={productDetailQueries}>
       {children}
     </CartProductsContext.Provider>
   );
