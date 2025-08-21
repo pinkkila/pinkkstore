@@ -1,4 +1,4 @@
-import { TProductsPage } from "@/lib/types";
+import { TProduct, TProductsPage, TProductWithCategoryName } from "@/lib/types";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -32,6 +32,16 @@ export const getProducts = async ({categoryName, priceRange, page, size = 10, so
   const response = await fetch(
     `${API_URL}/products?${params.toString()}`,
   );
+  if (!response.ok) {
+    throw new Error(response.statusText);
+  }
+  return await response.json();
+}
+
+export async function getProduct(productId: string): Promise<TProductWithCategoryName> {
+  console.log("Fetching on", typeof window === "undefined" ? "SERVER" : "CLIENT");
+
+  const response = await fetch(`${API_URL}/products/${productId}`);
   if (!response.ok) {
     throw new Error(response.statusText);
   }

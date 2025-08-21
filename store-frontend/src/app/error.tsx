@@ -16,7 +16,7 @@ export default function Error({
   }, [error]);
 
   return (
-    <div className="flex flex-col items-center m-auto gap-4">
+    <div className="flex flex-col items-center justify-center min-h-[calc(100vh-156px)] gap-4">
       <h2 className="text-lg">Something went wrong!</h2>
       <Button
         onClick={
