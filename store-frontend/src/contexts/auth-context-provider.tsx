@@ -1,13 +1,14 @@
 "use client";
 
 import React, { createContext } from "react";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getUserinfo, logoutRequest } from "@/lib/queries";
 
 type AuthContextProvider = {
   username: string | null;
   isPending: boolean;
-  logout: () => Promise<void>;
+  logout: () => void;
+  logoutIsPending: boolean;
 };
 
 export const AuthContext = createContext<AuthContextProvider | null>(null);
@@ -23,22 +24,31 @@ export default function AuthContextProvider({
     queryKey: ["auth", "userinfo"],
     queryFn: getUserinfo,
     retry: false,
+    staleTime: Infinity,
   });
 
-  const logout = async () => {
-    try {
-      await logoutRequest();
-    } finally {
+  const { mutate, isPending: logoutIsPending } = useMutation({
+    mutationFn: logoutRequest,
+    onMutate: () => {
       queryClient.setQueryData(["auth", "userinfo"], null);
-    }
-  };
+    },
+    onError: (error) => {
+      console.error("Logout failed:", error);
+      // TODO: Add toaster.
+    },
+    onSuccess: () => {
+      // TODO: Add toaster.
+      queryClient.invalidateQueries({ queryKey: ["auth", "userinfo"] });
+    },
+  })
 
   return (
     <AuthContext.Provider
       value={{
         username: data?.sub ?? null,
         isPending,
-        logout,
+        logout: mutate,
+        logoutIsPending
       }}
     >
       {children}
