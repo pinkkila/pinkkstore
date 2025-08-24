@@ -1,14 +1,18 @@
 "use client";
 
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext } from "react";
 import { TCart, TCartRequest } from "@/lib/types";
-import { getCsrfToken } from "@/lib/utils";
 import { useAuthContext } from "@/hooks/use-contexts";
+import { putCart, getCart } from "@/lib/queries";
+import { useQueryClient, useQuery, useMutation } from "@tanstack/react-query";
 
 type CartContext = {
   cart: TCart | undefined;
   handleCartChange: (cartRequest: TCartRequest) => void;
-  getCart: () => void;
+  getCartIsPending: boolean;
+  getCartIsError: boolean;
+  cartChangeIsPending: boolean;
+  cartChangeIsError: boolean;
 };
 
 export const CartContext = createContext<CartContext | null>(null);
@@ -18,55 +22,28 @@ export default function CartContextProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const [cart, setCart] = useState<TCart | undefined>();
-  const { username, isPending } = useAuthContext();
+  const { username, isPending: usernameIsPending } = useAuthContext();
+  const queryClient = useQueryClient();
 
-  useEffect(() => {
-    if (!isPending && username) {
-      getCart();
-    }
-  }, [username, isPending]);
+  const { data: cart, isPending: getCartIsPending, isError: getCartIsError } = useQuery({
+    queryKey: ["cart", username],
+    queryFn: getCart,
+    enabled: !!username && !usernameIsPending,
+  });
 
-  const getCart = async () => {
-    try {
-      const response = await fetch("/api/carts", {
-        credentials: "include",
-      });
-      if (!response.ok) {
-        throw new Error(`Not able to fetch cart ${response.statusText}`);
-      }
-      const data = await response.json();
-      setCart(data);
-    } catch (e) {
-      console.error(e);
+  const { mutate, isPending: cartChangeIsPending, isError: cartChangeIsError } = useMutation({
+    mutationFn: (cartReques: TCartRequest) => putCart(cartReques),
+    onSuccess: (data) => {
+     queryClient.setQueryData(["cart", username], data);
     }
-  };
+  })
 
   const handleCartChange = async (cartRequest: TCartRequest) => {
-    const csrfToken = getCsrfToken();
-
-    try {
-      const response = await fetch("/api/carts", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          ...(csrfToken ? { "X-XSRF-TOKEN": csrfToken } : {}),
-        },
-        credentials: "include",
-        body: JSON.stringify(cartRequest),
-      });
-      if (!response.ok) {
-        throw new Error(response.statusText);
-      }
-      const data = await response.json();
-      setCart(data);
-    } catch (error) {
-      console.error(error);
-    }
+    mutate(cartRequest)
   };
 
   return (
-    <CartContext.Provider value={{ cart, handleCartChange, getCart }}>
+    <CartContext.Provider value={{ cart, handleCartChange, getCartIsPending, getCartIsError , cartChangeIsPending, cartChangeIsError }}>
       {children}
     </CartContext.Provider>
   );

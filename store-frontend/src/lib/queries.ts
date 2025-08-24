@@ -1,4 +1,4 @@
-import { TProductDetailsSmall, TProductsPage, TProductWithCategoryName } from "@/lib/types";
+import { TCart, TCartRequest, TProductDetailsSmall, TProductsPage, TProductWithCategoryName } from "@/lib/types";
 import { getCsrfToken } from "@/lib/utils";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
@@ -79,4 +79,32 @@ export async function logoutRequest() {
       ...(csrfToken ? { "X-XSRF-TOKEN": csrfToken } : {}),
     },
   });
+}
+
+export async function getCart(): Promise<TCart> {
+  const response = await fetch("/api/carts", {
+    credentials: "include",
+  });
+  if (!response.ok) {
+    throw new Error(response.statusText);
+  }
+  return await response.json();
+}
+
+export async function putCart(cartRequest: TCartRequest): Promise<TCart> {
+  const csrfToken = getCsrfToken();
+
+  const response = await fetch("/api/carts", {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      ...(csrfToken ? { "X-XSRF-TOKEN": csrfToken } : {}),
+    },
+    credentials: "include",
+    body: JSON.stringify(cartRequest),
+  });
+  if (!response.ok) {
+    throw new Error(response.statusText);
+  }
+  return await response.json();
 }

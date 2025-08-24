@@ -27,18 +27,20 @@ export default function AuthContextProvider({
     staleTime: Infinity,
   });
 
-  const { mutate, isPending: logoutIsPending } = useMutation({
+  const { mutate: logout, isPending: logoutIsPending } = useMutation({
     mutationFn: logoutRequest,
-    onMutate: () => {
+    onMutate: async () => {
+      await queryClient.cancelQueries({ queryKey: ["auth", "userinfo"] });
       queryClient.setQueryData(["auth", "userinfo"], null);
+    },
+    onSuccess: () => {
+      queryClient.removeQueries({ queryKey: ["auth"] });
+      queryClient.removeQueries({ queryKey: ["cart"] });
+      // TODO: Add toaster?
     },
     onError: (error) => {
       console.error("Logout failed:", error);
-      // TODO: Add toaster.
-    },
-    onSuccess: () => {
-      // TODO: Add toaster.
-      queryClient.invalidateQueries({ queryKey: ["auth", "userinfo"] });
+      // TODO: Add toaster?
     },
   })
 
@@ -47,7 +49,7 @@ export default function AuthContextProvider({
       value={{
         username: data?.sub ?? null,
         isPending,
-        logout: mutate,
+        logout,
         logoutIsPending
       }}
     >
