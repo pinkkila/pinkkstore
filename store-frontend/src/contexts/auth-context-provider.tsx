@@ -1,11 +1,13 @@
 "use client";
 
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext } from "react";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { getUserinfo, logoutRequest } from "@/lib/queries";
 
 type AuthContextProvider = {
   username: string | null;
-  setUsername: React.Dispatch<React.SetStateAction<string | null>>
-  isLoading: boolean;
+  isPending: boolean;
+  logout: () => Promise<void>;
 };
 
 export const AuthContext = createContext<AuthContextProvider | null>(null);
@@ -15,35 +17,30 @@ export default function AuthContextProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const [username, setUsername] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const queryClient = useQueryClient();
 
-  useEffect(() => {
-    const getUsername = async () => {
-      try {
-        const response = await fetch("/bff/userinfo", {
-          credentials: "include",
-        });
-        if (!response.ok) {
-          setUsername(null);
-          return;
-        }
-        const userData = await response.json();
-        setUsername(userData.sub);
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setIsLoading(false);
-      }
-    };
+  const { data, isPending } = useQuery({
+    queryKey: ["auth", "userinfo"],
+    queryFn: getUserinfo,
+    retry: false,
+  });
 
-    getUsername();
-  }, []);
-
-
+  const logout = async () => {
+    try {
+      await logoutRequest();
+    } finally {
+      queryClient.setQueryData(["auth", "userinfo"], null);
+    }
+  };
 
   return (
-    <AuthContext.Provider value={{ username, setUsername, isLoading }}>
+    <AuthContext.Provider
+      value={{
+        username: data?.sub ?? null,
+        isPending,
+        logout,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

@@ -1,4 +1,5 @@
 import { TProductDetailsSmall, TProductsPage, TProductWithCategoryName } from "@/lib/types";
+import { getCsrfToken } from "@/lib/utils";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -30,7 +31,7 @@ export async function getProducts({categoryName, priceRange, page, size = 10, so
   params.set("sort", sortBy);
 
   const response = await fetch(
-    `${API_URL}/products?${params.toString()}`,
+    `${API_URL}/api/products?${params.toString()}`,
   );
   if (!response.ok) {
     throw new Error(response.statusText);
@@ -41,7 +42,7 @@ export async function getProducts({categoryName, priceRange, page, size = 10, so
 export async function getProduct(productId: string): Promise<TProductWithCategoryName> {
   console.log("Fetching on", typeof window === "undefined" ? "SERVER" : "CLIENT");
 
-  const response = await fetch(`${API_URL}/products/${productId}`);
+  const response = await fetch(`${API_URL}/api/products/${productId}`);
   if (!response.ok) {
     throw new Error(response.statusText);
   }
@@ -51,9 +52,31 @@ export async function getProduct(productId: string): Promise<TProductWithCategor
 export async function getProductDetailsSmall(productId: number): Promise<TProductDetailsSmall> {
   console.log("Fetching on", typeof window === "undefined" ? "SERVER" : "CLIENT");
 
-  const response = await fetch(`${API_URL}/products/details/${productId}`);
+  const response = await fetch(`${API_URL}/api/products/details/${productId}`);
   if (!response.ok) {
     throw new Error(response.statusText);
   }
   return await response.json();
+}
+
+export async function getUserinfo(): Promise<{ sub: string }> {
+  console.log("Fetching on", typeof window === "undefined" ? "SERVER" : "CLIENT");
+
+  const response = await fetch(`${API_URL}/bff/userinfo`, { credentials: "include" });
+  if (!response.ok) {
+    throw new Error(`Not authenticated. ${response.statusText}`);
+  }
+  return await response.json();
+}
+
+export async function logoutRequest() {
+  const csrfToken = getCsrfToken();
+  await fetch(`${API_URL}/bff/logout`, {
+    method: "POST",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+      ...(csrfToken ? { "X-XSRF-TOKEN": csrfToken } : {}),
+    },
+  });
 }

@@ -19,13 +19,13 @@ export default function CartContextProvider({
   children: React.ReactNode;
 }) {
   const [cart, setCart] = useState<TCart | undefined>();
-  const { username, isLoading } = useAuthContext();
+  const { username, isPending } = useAuthContext();
 
   useEffect(() => {
-    if (!isLoading && username) {
+    if (!isPending && username) {
       getCart();
     }
-  }, [username, isLoading]);
+  }, [username, isPending]);
 
   const getCart = async () => {
     try {

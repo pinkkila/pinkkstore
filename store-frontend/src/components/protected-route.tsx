@@ -5,17 +5,18 @@ import { useRouter } from "next/navigation";
 import { useAuthContext } from "@/hooks/use-contexts";
 
 export default function ProtectedRoute({ children }: { children: React.ReactNode }) {
-  const {username, isLoading} = useAuthContext()
+  const {username, isPending} = useAuthContext()
   const router = useRouter();
 
   useEffect(() => {
-    if ( !isLoading && !username) {
+    if ( !isPending && !username) {
+      // TODO: add toaster
       router.replace("/");
     }
-  }, [username, isLoading, router]);
+  }, [username, isPending, router]);
 
-  // TODO refactor with loading sprinner after implementing useQuery
-  if (isLoading) {
+  // TODO: refactor with loading sprinner after implementing useQuery
+  if (isPending) {
     return null;
   }
 
