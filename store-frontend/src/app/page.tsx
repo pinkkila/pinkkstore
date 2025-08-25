@@ -1,5 +1,6 @@
 import AdCarousel from "@/components/ad-carousel";
 import ProductCategories from "@/components/product-categories";
+import AdCarouselTwo from "@/components/ad-carousel-two";
 
 export default function Home() {
   return (
@@ -12,7 +13,8 @@ export default function Home() {
           We have Amazing AI generated pictures.
         </p>
       </div>
-      <AdCarousel className="" />
+      {/*<AdCarousel className="" />*/}
+      <AdCarouselTwo />
       <ProductCategories className="" />
     </main>
   );

@@ -37,7 +37,7 @@ export default function AdCarousel({className}: AddCarouselProps) {
             <CarouselItem className="md:basis-1/2 lg:basis-1/3">
               <Card className="relative">
                 <CardContent className="flex items-center justify-center h-50">
-                  <Image src="/images/banana.jpg" alt="banana picture" fill={true} className="object-cover rounded-md"/>
+                  <Image priority={true} src="/images/banana.jpg" alt="banana picture" sizes="100vw" fill={true} className="object-cover rounded-md"/>
                 </CardContent>
               </Card>
             </CarouselItem>
@@ -45,7 +45,7 @@ export default function AdCarousel({className}: AddCarouselProps) {
             <CarouselItem className="md:basis-1/2 lg:basis-1/3">
               <Card className="relative">
                 <CardContent className="flex items-center justify-center h-50">
-                  <Image src="/images/dog.jpg" alt="dog picture" fill={true} className="object-cover rounded-md"/>
+                  <Image priority={true} src="/images/dog.jpg" alt="dog picture" fill={true} className="object-cover rounded-md"/>
                 </CardContent>
               </Card>
             </CarouselItem>
@@ -53,7 +53,7 @@ export default function AdCarousel({className}: AddCarouselProps) {
             <CarouselItem className="md:basis-1/2 lg:basis-1/3">
               <Card className="relative">
                 <CardContent className="flex items-center justify-center h-50">
-                  <Image src="/images/spring.jpg" alt="spring picture" fill={true} className="object-cover rounded-md"/>
+                  <Image priority={true} src="/images/spring.jpg" alt="spring picture" fill={true} className="object-cover rounded-md"/>
                 </CardContent>
               </Card>
             </CarouselItem>
@@ -61,7 +61,7 @@ export default function AdCarousel({className}: AddCarouselProps) {
             <CarouselItem className="md:basis-1/2 lg:basis-1/3">
               <Card className="relative">
                 <CardContent className="flex items-center justify-center h-50">
-                  <Image src="/images/orange.jpg" alt="orange picture" fill={true} className="object-cover rounded-md"/>
+                  <Image priority={true} src="/images/orange.jpg" alt="orange picture" fill={true} className="object-cover rounded-md"/>
                 </CardContent>
               </Card>
             </CarouselItem>
@@ -69,7 +69,7 @@ export default function AdCarousel({className}: AddCarouselProps) {
             <CarouselItem className="md:basis-1/2 lg:basis-1/3">
               <Card className="relative">
                 <CardContent className="flex items-center justify-center h-50">
-                  <Image src="/images/desert.jpg" alt="desert picture" fill={true} className="object-cover rounded-md"/>
+                  <Image priority={true} src="/images/desert.jpg" alt="desert picture" fill={true} className="object-cover rounded-md"/>
                 </CardContent>
               </Card>
             </CarouselItem>
