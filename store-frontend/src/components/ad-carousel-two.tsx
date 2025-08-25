@@ -25,10 +25,8 @@ const images = [
 ];
 
 export default function AdCarouselTwo({ className }: AdCarouselProps) {
-  const aspectRatio = "1/1"
-
   return (
-    <section className={cn("md:w-full group md:px-16", className)}>
+    <section className={cn("w-[100%] md:w-full group md:px-16", className)}>
       <Carousel
         opts={{ align: "start", loop: true }}
         plugins={[
@@ -42,20 +40,18 @@ export default function AdCarouselTwo({ className }: AdCarouselProps) {
         <CarouselContent>
           {images.map((img, index) => (
             <CarouselItem key={img.src} className="md:basis-1/2 lg:basis-1/3">
-              <Card className="relative">
-                <CardContent className="p-0">
-                  <div className="relative w-full" style={{ aspectRatio }}>
+              <Card className="p-0">
+                <CardContent className="relative aspect-square">
                     <Image
                       src={img.src}
                       alt={img.alt}
                       fill
                       priority={index === 0}
-                      sizes="(max-width: 768px) 100vw,
-                             (max-width: 1200px) 100vw,
-                             100vw"
+                      sizes="(max-width: 640px) 100vw,
+                             (max-width: 1024px) 90vw,
+                             33vw"
                       className="object-cover rounded-md"
                     />
-                  </div>
                 </CardContent>
               </Card>
             </CarouselItem>
