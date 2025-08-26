@@ -3,7 +3,7 @@ import Breadcrumps from "@/components/breadcrumps";
 import { capitalize } from "@/lib/utils";
 import React from "react";
 import Image from "next/image";
-import AddCartBtn from "@/components/add-cart-btn";
+import AddCartButton from "@/components/add-cart-button";
 
 type ProductPageProps = {
   params: Promise<{ id: string }>;
@@ -48,7 +48,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
         <div className="md:row-start-1 md:row-span-full md:col-start-3 md:col-span-full">
           <div className="h-full w-full flex flex-col items-center md:items-start ">
             <p className="text-4xl font-bold p-6">{product.price} coins</p>
-              <AddCartBtn productId={product.id} />
+              <AddCartButton productId={product.id} />
             <p>{product.productDesc}</p>
           </div>
         </div>

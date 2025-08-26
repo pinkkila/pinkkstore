@@ -23,14 +23,16 @@ const images = [
     alt: "banana picture",
     title: "Fresh Banana pic 19.95",
     positionClassName: "absolute top-0 left-0",
-    titleClassName: "text-black text-2xl md:text-xl lg:text-2xl font-semibold p-3",
+    titleClassName:
+      "text-black text-2xl md:text-xl lg:text-2xl font-semibold p-3",
     link: "/product/99",
   },
   {
     src: "/images/dog.jpg",
     alt: "dog picture",
     title: "Animal AI pictures starting at 9.99",
-    positionClassName: "absolute bottom-3 left-2 bg-gradient-to-t from-black/10 via-black/50 to-transparent rounded-md px-1",
+    positionClassName:
+      "absolute bottom-3 left-2 bg-gradient-to-t from-black/10 via-black/50 to-transparent rounded-md px-1",
     titleClassName: "text-white text-xl md:text-lg font-semibold p-3",
     link: "/product/101",
   },
@@ -38,7 +40,8 @@ const images = [
     src: "/images/spring.jpg",
     alt: "spring picture",
     title: "Spring collection 2025",
-    positionClassName: "absolute bottom-5 xl:bottom-10 left-3 bg-gradient-to-t from-black/10 via-black/50 to-transparent rounded-md",
+    positionClassName:
+      "absolute bottom-5 xl:bottom-10 left-3 bg-gradient-to-t from-black/10 via-black/50 to-transparent rounded-md",
     titleClassName: "text-white text-3xl md:text-xl lg:text-3xl font-bold p-4",
     link: "/product/105",
   },
@@ -55,47 +58,46 @@ const images = [
     alt: "desert picture",
     title: "Travel to the Desert AI experience",
     positionClassName: "absolute",
-    titleClassName: "text-black text-2xl md:text-xl lg:text-2xl font-semibold p-3",
+    titleClassName:
+      "text-black text-2xl md:text-xl lg:text-2xl font-semibold p-3",
     link: "/product/103",
   },
 ];
 
 export default function AdCarousel({ className }: AdCarouselProps) {
   return (
-    <section className={cn("w-[100%] md:w-full group md:px-16", className)}>
+    <section className={cn("w-full group overflow-hidden md:px-16", className)}>
       <Carousel
         opts={{ align: "start", loop: true }}
         plugins={[
           Autoplay({
-            delay: 3000,
+            delay: 4000,
             stopOnInteraction: false,
             stopOnMouseEnter: true,
           }),
         ]}
+        className="w-full"
       >
         <CarouselContent>
           {images.map((img, index) => (
-            <CarouselItem key={img.src} className="md:basis-1/2 lg:basis-1/3">
+            <CarouselItem key={img.src} className="md:basis-1/2 lg:basis-1/3 pl-3">
               <Card className="p-0">
-
-                  <Link href={img.link}>
-                <CardContent className="relative aspect-square">
+                <Link href={img.link}>
+                  <CardContent className="relative aspect-square">
                     <Image
-                    src={img.src}
-                    alt={img.alt}
-                    fill
-                    priority={index === 0}
-                    sizes="(max-width: 640px) 100vw,
+                      src={img.src}
+                      alt={img.alt}
+                      fill
+                      priority={index === 0}
+                      sizes="(max-width: 640px) 100vw,
                              (max-width: 1024px) 90vw,
                              33vw"
-                    className="object-cover rounded-md"
-                  />
-                  <div className={img.positionClassName}>
-                    <p className={img.titleClassName}>
-                      {img.title}
-                    </p>
-                  </div>
-                </CardContent>
+                      className="object-cover rounded-md"
+                    />
+                    <div className={img.positionClassName}>
+                      <p className={img.titleClassName}>{img.title}</p>
+                    </div>
+                  </CardContent>
                 </Link>
               </Card>
             </CarouselItem>

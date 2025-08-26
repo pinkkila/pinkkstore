@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { useCartContext } from "@/hooks/use-contexts";
 
-export default function AddCartBtn( {productId}: {productId: number} ) {
+export default function AddCartButton({productId}: {productId: number} ) {
   const { handleCartChange } = useCartContext()
 
   return (

@@ -12,7 +12,7 @@ export default function Header() {
           <h2 className="text-xl md:text-3xl text-fuchsia-500">PinkkStore</h2>
         </Link>
       </div>
-      <div className="flex items-center gap-6 ">
+      <div className="flex items-center gap-1 ">
         <AccountLoginNavigation />
         <CartLogo />
       </div>
