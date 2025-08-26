@@ -1,5 +1,5 @@
 import Link from "next/link";
-import UserNavigation from "@/components/user-navigation";
+import AccountLoginNavigation from "@/components/account-login-navigation";
 import CartLogo from "@/components/cart-logo";
 import DrawerMenu from "@/components/drawer-menu";
 
@@ -13,7 +13,7 @@ export default function Header() {
         </Link>
       </div>
       <div className="flex items-center gap-6 ">
-        <UserNavigation />
+        <AccountLoginNavigation />
         <CartLogo />
       </div>
     </div>

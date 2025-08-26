@@ -51,8 +51,6 @@ export async function getProduct(productId: string): Promise<TProductWithCategor
 }
 
 export async function getProductDetailsSmall(productId: number): Promise<TProductDetailsSmall> {
-  console.log("Fetching on", typeof window === "undefined" ? "SERVER" : "CLIENT");
-
   const response = await fetch(`${API_URL}/api/products/details/${productId}`);
   if (!response.ok) {
     throw new Error(response.statusText);
@@ -61,8 +59,6 @@ export async function getProductDetailsSmall(productId: number): Promise<TProduc
 }
 
 export async function getUserinfo(): Promise<{ sub: string }> {
-  console.log("Fetching on", typeof window === "undefined" ? "SERVER" : "CLIENT");
-
   const response = await fetch(`${API_URL}/bff/userinfo`, { credentials: "include" });
   if (!response.ok) {
     throw new Error(`Not authenticated. ${response.statusText}`);
