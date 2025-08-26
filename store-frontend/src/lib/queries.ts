@@ -1,8 +1,8 @@
 import { TCart, TCartRequest, TProductDetailsSmall, TProductsPage, TProductWithCategoryName } from "@/lib/types";
 import { getCsrfToken } from "@/lib/utils";
 
-// const API_URL = process.env.NEXT_PUBLIC_API_URL;
-const API_URL = "https://pinkkstore.com";
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
+// const API_URL = "https://pinkkstore.com";
 
 type GetProductsParams = {
   categoryName?: string;
