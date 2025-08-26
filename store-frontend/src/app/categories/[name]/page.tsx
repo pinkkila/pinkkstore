@@ -26,9 +26,9 @@ export default async function CategoriesPage({ params }: CategoriesPageProps) {
   );
 
   return (
-    <main>
+    <main className="md:space-y-6">
       <Breadcrumps crumps={[]} currentPage={capitalize(categoryName)} />
-      <h1 className="text-4xl font-bold md:mb-6">{capitalize(categoryName)}</h1>
+      <h1 className="text-4xl font-bold mt-4 md:mt-0">{capitalize(categoryName)}</h1>
       <HydrationBoundary state={dehydrate(queryClient)}>
         <CategoriesPageClient categoryName={categoryName} />
       </HydrationBoundary>

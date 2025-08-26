@@ -3,6 +3,7 @@
 import { useQuery } from "@tanstack/react-query";
 import ProductList from "@/components/product-list";
 import { createProductsByCategoryQueryOptions } from "@/lib/query-options";
+import ProductListSkeleton from "@/components/product-list-skeleton";
 
 type ProductListFetcherProps = {
   categoryName: string;
@@ -26,8 +27,7 @@ export default function ProductListFetcher({ categoryName, sortBy, priceRange, i
     throw new Error(`${error}`);
   }
 
-  // TODO: Add correctly shaped skeleton
-  if (isPending) return <div>Loading products...</div>;
+  if (isPending) return <ProductListSkeleton />;
 
   return <ProductList products={data.content} isMobile={isMobile} />;
 }

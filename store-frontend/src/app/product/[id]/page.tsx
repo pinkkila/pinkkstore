@@ -1,3 +1,5 @@
+// "use cache" https://nextjs.org/docs/app/api-reference/directives/use-cache
+
 import { getProduct } from "@/lib/queries";
 import Breadcrumps from "@/components/breadcrumps";
 import { capitalize } from "@/lib/utils";
