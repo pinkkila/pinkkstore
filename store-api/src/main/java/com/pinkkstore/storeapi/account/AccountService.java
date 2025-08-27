@@ -14,6 +14,8 @@ public class AccountService {
                 .orElseThrow(()  -> new AccountNotFoundException(authentication));
     }
     
-    
+    public void createAccount(String appUsername) {
+        accountRepository.save(new Account(null, appUsername, 100.00));
+    }
     
 }

@@ -22,6 +22,10 @@ spring:
 #      schema-locations: file:api-db/schema.sql
 #      data-locations: file:api-db/data.sql
 
+  rabbitmq:
+    password: secret
+    username: myuser
+
   security:
     oauth2:
       resourceserver:
