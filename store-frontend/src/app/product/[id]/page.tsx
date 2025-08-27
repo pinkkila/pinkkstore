@@ -6,6 +6,8 @@ import { capitalize } from "@/lib/utils";
 import React from "react";
 import Image from "next/image";
 import AddCartButton from "@/components/add-cart-button";
+import { Check, X } from "lucide-react";
+import StockStatus from "@/components/stock-status";
 
 type ProductPageProps = {
   params: Promise<{ id: string }>;
@@ -17,7 +19,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
   const { productDto: product, categoryName } = await getProduct(id);
 
   return (
-    <main>
+    <main className="space-y-6">
       <Breadcrumps
         crumps={[
           {
@@ -27,35 +29,36 @@ export default async function ProductPage({ params }: ProductPageProps) {
         ]}
         currentPage={product.productName}
       />
-      <div className="grid grid-rows-[45px_300px_500px] md:grid-cols-3 md:grid-rows-[70px_1fr] md:h-[800px] gap-4">
-        <div className="md:row-start-1 md:row-span-1 md:col-start-1 md:col-span-2">
-          <div className="h-full w-full flex items-center ">
-            <h1 className="text-2xl lg:text-5xl font-bold pl-6">
-              {product.productName}
-            </h1>
-          </div>
-        </div>
+      <div className="flex flex-col md:flex-row gap-4 md:gap-5">
+        <div className="md:w-2/3 flex flex-col gap-4 md:gap-6">
+          <h1 className="text-2xl lg:text-4xl font-bold">
+            {product.productName}
+          </h1>
 
-        <div className="md:row-start-2 md:row-span-full md:col-start-1 md:col-span-2">
-          <div className="h-full w-full relative">
+          <div className="m-auto">
             <Image
               className="rounded-md"
               src={product.imageUrl}
               alt={`Product picture of ${product.productName}`}
-              fill={true}
+              width={800}
+              height={800}
+              sizes="(max-width: 768px) 100vw, 66vw"
             />
           </div>
         </div>
 
-        <div className="md:row-start-1 md:row-span-full md:col-start-3 md:col-span-full">
-          <div className="h-full w-full flex flex-col items-center md:items-start ">
-            <p className="text-4xl font-bold p-6">{product.price} coins</p>
-              <AddCartButton productId={product.id} />
-            <p>{product.productDesc}</p>
-          </div>
+        <div className="md:w-1/3 flex flex-col gap-4">
+          <p className="text-3xl md:text-4xl font-bold">
+            {product.price} coins
+          </p>
+          <AddCartButton
+            productId={product.id}
+            className="w-full md:w-[80%] p-6 md:p-7 mx-auto md:mx-0"
+          />
+          <StockStatus inStock={product.inStock} withIcon={true} />
+          <p>{product.productDesc}</p>
         </div>
       </div>
-
     </main>
   );
 }
