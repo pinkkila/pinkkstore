@@ -6,7 +6,6 @@ import { capitalize } from "@/lib/utils";
 import React from "react";
 import Image from "next/image";
 import AddCartButton from "@/components/add-cart-button";
-import { Check, X } from "lucide-react";
 import StockStatus from "@/components/stock-status";
 
 type ProductPageProps = {
