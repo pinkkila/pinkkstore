@@ -2,6 +2,7 @@ drop table if exists cart_item;
 drop table if exists cart;
 drop table if exists order_item;
 drop table if exists customer_order;
+drop table if exists payment;
 drop table if exists product;
 drop table if exists category;
 drop table if exists account;
@@ -40,12 +41,19 @@ create table if not exists cart_item
     cart_id     bigint  not null references cart (id)
 );
 
+create table if not exists payment
+(
+    id     bigserial primary key,
+    amount decimal not null
+);
+
 create table if not exists customer_order
 (
     id           bigserial primary key,
     app_username text      not null,
     order_date   timestamp not null,
-    total_price  decimal   not null
+    total_price  decimal   not null,
+    payment_id   bigint    not null references payment (id)
 );
 
 create table if not exists order_item

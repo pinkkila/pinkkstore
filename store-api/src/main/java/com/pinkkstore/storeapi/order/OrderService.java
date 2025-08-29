@@ -1,6 +1,6 @@
 package com.pinkkstore.storeapi.order;
 
-import com.pinkkstore.storeapi.product.ProductNotEnoughStockException;
+import com.pinkkstore.storeapi.payment.PaymentService;
 import com.pinkkstore.storeapi.product.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 public class OrderService {
     private final OrderRepository orderRepository;
     private final ProductService productService;
+    private final PaymentService paymentService;
     
     public List<Order> getAllOrders(Authentication authentication) {
         return orderRepository.findAllByAppUsername(authentication.getName());
@@ -40,7 +41,9 @@ public class OrderService {
                 .mapToDouble(item -> item.getProductPrice() * item.getProductQty())
                 .sum();
         
-        var newOrder = new Order(null, authentication.getName(), LocalDateTime.now(), priceTotal, orderItems);
+        var payment = paymentService.pay(authentication, priceTotal);
+        
+        var newOrder = new Order(null, authentication.getName(), LocalDateTime.now(), priceTotal, payment.getId() ,orderItems);
         return orderRepository.save(newOrder);
     }
     

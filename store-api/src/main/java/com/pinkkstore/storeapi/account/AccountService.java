@@ -18,4 +18,18 @@ public class AccountService {
         accountRepository.save(new Account(null, appUsername, 100.00));
     }
     
+    // This has been implemented to make the payment service work more "realistically".
+    public boolean reduceCoins(Authentication authentication, double orderPrice) {
+        var account = getAccountByAppUsername(authentication);
+        
+        var coinBalance = account.getCoins() - orderPrice;
+        
+        if (coinBalance > 0) {
+            account.setCoins(coinBalance);
+            accountRepository.save(account);
+            return true;
+        }
+        return false;
+    }
+    
 }

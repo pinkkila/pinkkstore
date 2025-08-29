@@ -1,8 +1,10 @@
 package com.pinkkstore.storeapi.exception;
 
+import com.pinkkstore.storeapi.account.AccountNotFoundException;
 import com.pinkkstore.storeapi.cart.CartNotFoundException;
 import com.pinkkstore.storeapi.category.CategoryNotFoundException;
 import com.pinkkstore.storeapi.order.OrderNotFoundException;
+import com.pinkkstore.storeapi.payment.PaymentException;
 import com.pinkkstore.storeapi.product.ProductNotFoundException;
 import com.pinkkstore.storeapi.product.ProductNotEnoughStockException;
 import lombok.extern.slf4j.Slf4j;
@@ -65,6 +67,29 @@ public class GlobalExceptionHandler {
                 ex.getMessage()
         );
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception);
+    }
+    
+    @ExceptionHandler(AccountNotFoundException.class)
+    public ResponseEntity<ApiException> handleAccountNotFound(AccountNotFoundException ex) {
+        log.error(ex.getMessage());
+        var exception = new ApiException(
+                HttpStatus.NOT_FOUND.value(),
+                "Account not found.",
+                "Service was not able to find the account."
+        );
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception);
+    }
+    
+    
+    @ExceptionHandler(PaymentException.class)
+    public ResponseEntity<ApiException> handlePaymentException(PaymentException ex) {
+        log.error(ex.getMessage());
+        var exception = new ApiException(
+                HttpStatus.BAD_REQUEST.value(),
+                "Payment failed.",
+                "The service failed to complete the payment."
+        );
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception);
     }
     
     

@@ -1,4 +1,6 @@
 delete
+from payment;
+delete
 from order_item;
 delete
 from customer_order;
@@ -23,8 +25,11 @@ values (99, 'Banana', 'Really beautiful picture of banana', '/images/banana.jpg'
        (104, 'Jungle', 'Only book is missing from this Jungle', '/images/jungle.jpg', 23, 0, 89.49, 10, 3),
        (105, 'Spring', 'Spring comes after winter', '/images/spring.jpg', 11, 0, 79.95, 40, 3);
 
-insert into customer_order(id, app_username, order_date, total_price)
-values (50, 'user', '2025-01-28T17:23:19', 69.85);
+insert into payment(id, amount)
+values (50, 69.85);
+
+insert into customer_order(id, app_username, order_date, total_price, payment_id)
+values (50, 'user', '2025-01-28T17:23:19', 69.85, 50);
 
 insert into order_item(id, product_qty, product_price, product_id, customer_order_id)
 values (200, 1, 19.95, 99, 50),

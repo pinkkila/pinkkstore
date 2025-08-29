@@ -18,6 +18,7 @@ public class Order {
     private String appUsername;
     private LocalDateTime orderDate;
     private double totalPrice;
+    private Long paymentId;
     @MappedCollection(idColumn = "customer_order_id")
     private Set<OrderItem> orderItems;
 }
