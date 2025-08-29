@@ -80,7 +80,6 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception);
     }
     
-    
     @ExceptionHandler(PaymentException.class)
     public ResponseEntity<ApiException> handlePaymentException(PaymentException ex) {
         log.error(ex.getMessage());
@@ -91,7 +90,6 @@ public class GlobalExceptionHandler {
         );
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception);
     }
-    
     
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiException> handleGenericException(Exception ex) {

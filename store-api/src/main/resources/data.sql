@@ -43,6 +43,7 @@ SELECT setval('category_id_seq', (SELECT MAX(id) FROM category));
 SELECT setval('product_id_seq', (SELECT MAX(id) FROM product));
 SELECT setval('cart_id_seq', (SELECT MAX(id) FROM cart));
 SELECT setval('cart_item_id_seq', (SELECT MAX(id) FROM cart_item));
+SELECT setval('payment_id_seq', (SELECT MAX(id) FROM payment));
 SELECT setval('customer_order_id_seq', (SELECT MAX(id) FROM customer_order));
 SELECT setval('order_item_id_seq', (SELECT MAX(id) FROM order_item));
 SELECT setval('account_id_seq', (SELECT MAX(id) FROM account));
