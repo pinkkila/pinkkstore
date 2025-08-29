@@ -37,7 +37,7 @@ export default function CartPageClient({ className }: CartPageClientProps) {
 
   return (
     <div className={cn(className)}>
-      <h1 className="text-4xl font-bold text-center mb-10">Your Cart</h1>
+      <h1 className="text-4xl font-bold text-center mb-8">Your Cart</h1>
 
       <div className="flex flex-col md:flex-row gap-8">
         <div className="md:w-2/3">
