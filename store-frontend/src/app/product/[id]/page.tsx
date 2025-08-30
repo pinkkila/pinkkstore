@@ -54,7 +54,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
             productId={product.id}
             className="w-full md:w-[80%] p-6 md:p-7 mx-auto md:mx-0"
           />
-          <StockStatus inStock={product.inStock} withIcon={true} />
+          <StockStatus inStock={product.inStock} withIcon={true} textSmall={false} />
           <p>{product.productDesc}</p>
         </div>
       </div>

@@ -1,6 +1,5 @@
 "use client";
 
-import { cn } from "@/lib/utils";
 import React, { useEffect, useState } from "react";
 import {
   Select,
@@ -18,19 +17,17 @@ import ApiErrorBoundary from "@/components/error/api-error-boundary";
 
 type CategoryProductsListProps = {
   categoryName: string;
-  className?: string;
 };
 
 export default function CategoriesPageClient({
   categoryName,
-  className,
 }: CategoryProductsListProps) {
   const [sortBy, setSortBy] = useState<string>("popularity,desc");
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 100]);
   const debouncedPriceRange = useDebounce(priceRange, 1000);
 
   const [isMounted, setIsMounted] = useState(false);
-  const isMobile = useMediaQuery("(max-width: 768px)");
+  const isMobile = useMediaQuery("(max-width: 767px)");
 
   useEffect(() => {
     setIsMounted(true);
@@ -41,13 +38,14 @@ export default function CategoriesPageClient({
   }
 
   return (
-    <div className={cn("flex flex-col", className)}>
+    <div className="">
       <div className="flex flex-col md:flex-row justify-between">
         {isMobile && (
           <BasicAccordion title="Filters">
             <PriceFilter
               priceRange={priceRange}
               setPriceRange={setPriceRange}
+              className="w-[85%]"
             />
           </BasicAccordion>
         )}
@@ -73,12 +71,11 @@ export default function CategoriesPageClient({
       <div className="flex flex-col md:flex-row">
         {!isMobile && (
           <section className="md:w-1/3">
-            <div className="w-[80%] mb-4 md:mt-4 border-2 p-4 rounded-lg">
               <PriceFilter
                 priceRange={priceRange}
                 setPriceRange={setPriceRange}
+                className="w-[80%] mb-4 md:mt-4 border-2 p-4 rounded-lg"
               />
-            </div>
           </section>
         )}
 

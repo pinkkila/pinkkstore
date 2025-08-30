@@ -22,7 +22,7 @@ const routes = [
 
 export default function NavBar() {
   const [isMounted, setIsMounted] = useState(false);
-  const isMobile = useMediaQuery("(max-width: 768px)");
+  const isMobile = useMediaQuery("(max-width: 767px)");
 
   useEffect(() => {
     setIsMounted(true);

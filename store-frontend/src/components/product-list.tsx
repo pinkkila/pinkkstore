@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { TProduct } from "@/lib/types";
 import Link from "next/link";
+import StockStatus from "@/components/stock-status";
 
 type ProductListProps = {
   products: TProduct[];
@@ -14,7 +15,7 @@ export default function ProductList({products, isMobile}: ProductListProps) {
   return (
     <ul>
       {products?.map((product) => (
-        <li key={product.id}>
+        <li key={product.id} className="my-4">
           <Link href={`/product/${product.id}`}>
             <ProductListElement product={product} isMobile={isMobile} />
           </Link>
@@ -39,8 +40,8 @@ function ProductListElement({ product, isMobile }: ProductListElementProps) {
   };
 
   return (
-    <div className="flex items-center justify-between bg-white/10 hover:bg-white/15 rounded-md my-4 p-2">
-      <div className="flex items-center">
+    <div className="flex items-center justify-between bg-white/10 hover:bg-white/15 rounded-md p-2">
+      <div className="flex items-center gap-3 md:gap-6">
         <Image
           className="rounded-md"
           src={product.imageUrl}
@@ -49,19 +50,15 @@ function ProductListElement({ product, isMobile }: ProductListElementProps) {
           height={100}
         />
 
-        <div className="flex flex-col px-4">
-          <p className="text-2xl px-4">{product.productName}</p>
-          {product.inStock ? (
-            <p className="text-green-500 px-4">In Stock</p>
-          ) : (
-            <p className="text-red-700 px-4">Not in Stock</p>
-          )}
+        <div className="flex flex-col">
+          <p className="text-xl md:text-2xl">{product.productName}</p>
+          <StockStatus inStock={product.inStock} withIcon={false} textSmall={true} />
         </div>
       </div>
 
       {!isMobile && (
-        <div className="ml-4 text-sm text-gray-300 break-words overflow-wrap-anywhere flex-1">
-          <p>{product.productDesc}</p>
+        <div className="flex-1 min-w-0 text-sm text-gray-300 break-words md:pl-4 lg:pl-16">
+          <p className="whitespace-normal">{product.productDesc}</p>
         </div>
       )}
 
