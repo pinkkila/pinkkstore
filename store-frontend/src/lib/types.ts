@@ -14,15 +14,13 @@ export type TCartRequest = {
   productQty: number;
 };
 
-export type TOrderRequest = {
-  totalPrice: number;
-  orderItems: TOrderItemRequest[];
+export type TNewOrderRequest = {
+  orderItems: TNewOrderItemRequest[];
 };
 
-type TOrderItemRequest = {
-  productQty: number;
-  productPrice: number;
+type TNewOrderItemRequest = {
   productId: number;
+  productQty: number;
 };
 
 export type TOrder = {

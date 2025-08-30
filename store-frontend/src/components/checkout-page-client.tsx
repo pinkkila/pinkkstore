@@ -3,9 +3,11 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import { TCartItem, TProductDetailsSmall } from "@/lib/types";
-import { getCsrfToken } from "@/lib/utils";
+import { TCartItem, TNewOrderRequest, TProductDetailsSmall } from "@/lib/types";
 import { useCartContext, useCartProductsContext } from "@/hooks/use-contexts";
+import { useMutation } from "@tanstack/react-query";
+import { postOrder } from "@/lib/queries";
+import { Spinner } from "@/components/ui/shadcn-io/spinner";
 
 export default function CheckoutPageClient() {
   const { cart } = useCartContext();
@@ -17,38 +19,29 @@ export default function CheckoutPageClient() {
     return sum + item.productQty * productDetails.price;
   }, 0);
 
+  const { mutate, isPending, isError } = useMutation({
+    mutationFn: (newOrderRequest: TNewOrderRequest) => postOrder(newOrderRequest)
+  })
+
   const handleOnClick = async () => {
+    if (!cart) {
+      throw new Error("Something went wrong!");
+    }
+
     const newOrderRequest = {
       orderItems: cart?.items.map((item) => ({
         productId: item.productId,
         productQty: item.productQty,
       })),
     };
-    const csrfToken = getCsrfToken();
-
-    try {
-      const response = await fetch("/api/orders", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          ...(csrfToken ? { "X-XSRF-TOKEN": csrfToken } : {}),
-        },
-        credentials: "include",
-        body: JSON.stringify(newOrderRequest),
-      });
-      if (!response.ok) {
-        throw new Error(response.statusText);
-      }
-    } catch (error) {
-      console.log(error);
-    }
+    mutate(newOrderRequest)
   };
 
   if (!cart || cart.items.length === 0) {
     return (
       <section className="max-w-4xl mx-auto px-4 mt-6">
         <p className="text-center text-xl text-muted-foreground">
-          Your cart is empty.
+          Your cart is empty so there is nothing to order.
         </p>
       </section>
     );
@@ -80,7 +73,7 @@ export default function CheckoutPageClient() {
             <p className="text-2xl font-bold">{totalPrice?.toFixed(2)} coins</p>
           </div>
           <Button onClick={handleOnClick} size="lg" className="w-full mt-6 text-base">
-            Confirm and Pay
+            {isPending ? <Spinner variant="ring" /> : "Confirm and Pay"}
           </Button>
         </CardContent>
       </Card>
@@ -101,11 +94,7 @@ function CartRow({ cartItem, productDetails }: CartRowProps) {
       <div className="flex items-center">
         <Image
           className="rounded-md"
-          src={
-            productDetails.productName === "Banana poster"
-              ? "/images/banana.jpg"
-              : "/images/orange.jpg"
-          }
+          src={productDetails.imageUrl}
           alt={`${productDetails.productName} image`}
           width={80}
           height={80}

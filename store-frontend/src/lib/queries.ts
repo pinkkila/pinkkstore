@@ -1,4 +1,10 @@
-import { TCart, TCartRequest, TProductDetailsSmall, TProductsPage, TProductWithCategoryName } from "@/lib/types";
+import {
+  TCart,
+  TCartRequest, TNewOrderRequest,
+  TProductDetailsSmall,
+  TProductsPage,
+  TProductWithCategoryName
+} from "@/lib/types";
 import { getCsrfToken } from "@/lib/utils";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
@@ -104,4 +110,21 @@ export async function putCart(cartRequest: TCartRequest): Promise<TCart> {
     throw new Error(response.statusText);
   }
   return await response.json();
+}
+
+export async function postOrder(orderRequest: TNewOrderRequest) {
+  const csrfToken = getCsrfToken();
+
+  const response = await fetch("/api/orders", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      ...(csrfToken ? { "X-XSRF-TOKEN": csrfToken } : {}),
+    },
+    credentials: "include",
+    body: JSON.stringify(orderRequest),
+  });
+  if (!response.ok) {
+    throw new Error(response.statusText);
+  }
 }
