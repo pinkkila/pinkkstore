@@ -5,13 +5,17 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { TCartItem, TNewOrderRequest, TProductDetailsSmall } from "@/lib/types";
 import { useCartContext, useCartProductsContext } from "@/hooks/use-contexts";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { postOrder } from "@/lib/queries";
 import { Spinner } from "@/components/ui/shadcn-io/spinner";
+import { useRouter } from "next/navigation";
+import StockStatus from "@/components/stock-status";
 
 export default function CheckoutPageClient() {
   const { cart } = useCartContext();
   const { productDetailsMap } = useCartProductsContext();
+  const queryClient = useQueryClient();
+  const router = useRouter();
 
   const totalPrice = cart?.items.reduce((sum, item) => {
     const productDetails = productDetailsMap.get(item.productId);
@@ -19,8 +23,17 @@ export default function CheckoutPageClient() {
     return sum + item.productQty * productDetails.price;
   }, 0);
 
-  const { mutate, isPending, isError } = useMutation({
-    mutationFn: (newOrderRequest: TNewOrderRequest) => postOrder(newOrderRequest)
+  const { mutate, isPending } = useMutation({
+    mutationFn: (newOrderRequest: TNewOrderRequest) => postOrder(newOrderRequest),
+    onSuccess: (data) => {
+      queryClient.setQueryData(["order", data.id], data);
+      router.push(`/account/order/${data.id}`);
+      void queryClient.invalidateQueries({ queryKey: ["cart"] });
+    },
+    onError: (error) => {
+      console.error("Order failed:", error);
+      // TODO: Add toaster and info if the failure was due to a product being out of stock
+    },
   })
 
   const handleOnClick = async () => {
@@ -101,11 +114,7 @@ function CartRow({ cartItem, productDetails }: CartRowProps) {
         />
         <div className="ml-4">
           <p className="text-lg font-medium">{productDetails.productName}</p>
-          <p
-            className={`text-sm ${cartItem.inStock ? "text-green-600" : "text-red-600"}`}
-          >
-            {cartItem.inStock ? "In Stock" : "Not in Stock"}
-          </p>
+          <StockStatus inStock={cartItem.inStock} withIcon={false} textSmall={true} />
           <p className="text-sm text-muted-foreground mt-1">
             {productDetails.price} coins × {cartItem.productQty}
           </p>

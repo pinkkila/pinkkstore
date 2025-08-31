@@ -1,5 +1,6 @@
 package com.pinkkstore.storeapi.order;
 
+import com.pinkkstore.storeapi.cart.CartService;
 import com.pinkkstore.storeapi.payment.PaymentService;
 import com.pinkkstore.storeapi.product.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,7 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final ProductService productService;
     private final PaymentService paymentService;
+    private final CartService cartService;
     
     public List<Order> getAllOrders(Authentication authentication) {
         return orderRepository.findAllByAppUsername(authentication.getName());
@@ -42,6 +44,8 @@ public class OrderService {
                 .sum();
         
         var payment = paymentService.pay(authentication, priceTotal);
+        
+        cartService.removeCart(authentication);
         
         var newOrder = new Order(null, authentication.getName(), LocalDateTime.now(), priceTotal, payment.getId() ,orderItems);
         return orderRepository.save(newOrder);

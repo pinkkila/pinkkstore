@@ -1,11 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { TOrder } from "@/lib/types";
 import { cn, formatDate } from "@/lib/utils";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import OrderItem from "@/components/order-item";
+import { useQuery } from "@tanstack/react-query";
+import { getOrder } from "@/lib/queries";
 
 type OrderPageClientProps = {
   orderId: string;
@@ -13,29 +13,13 @@ type OrderPageClientProps = {
 };
 
 export default function OrderPageClient({ orderId, className}: OrderPageClientProps) {
-  const [order, setOrder] = useState<TOrder | undefined>();
-  const formattedOrderDate = order ? formatDate(order.orderDate) : "";
 
-  useEffect(() => {
-    const fetchOrder = async () => {
-      try {
-        const response = await fetch(
-          `/api/orders/${orderId}`,
-          {
-            credentials: "include",
-          },
-        );
-        if (!response.ok) {
-          throw new Error(response.statusText);
-        }
-        const data = await response.json();
-        setOrder(data);
-      } catch (e) {
-        console.error(e);
-      }
-    };
-    fetchOrder();
-  }, [orderId]);
+  const { data: order } = useQuery({
+    queryFn: () => getOrder(orderId),
+    queryKey: ["order", +orderId],
+  })
+
+  const formattedOrderDate = order ? formatDate(order.orderDate) : "";
 
   return (
     <>

@@ -60,4 +60,10 @@ public class CartService {
         }
     }
     
+    public void removeCart(Authentication authentication) {
+        Cart cart = cartRepository.findByAppUsername(authentication.getName())
+                .orElseThrow(() -> new CartNotFoundException(authentication));
+        cartRepository.delete(cart);
+    }
+    
 }

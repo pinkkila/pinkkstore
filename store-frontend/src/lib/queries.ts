@@ -1,6 +1,6 @@
 import {
   TCart,
-  TCartRequest, TNewOrderRequest,
+  TCartRequest, TNewOrderRequest, TOrder,
   TProductDetailsSmall,
   TProductsPage,
   TProductWithCategoryName
@@ -112,7 +112,7 @@ export async function putCart(cartRequest: TCartRequest): Promise<TCart> {
   return await response.json();
 }
 
-export async function postOrder(orderRequest: TNewOrderRequest) {
+export async function postOrder(orderRequest: TNewOrderRequest): Promise<TOrder> {
   const csrfToken = getCsrfToken();
 
   const response = await fetch("/api/orders", {
@@ -127,4 +127,15 @@ export async function postOrder(orderRequest: TNewOrderRequest) {
   if (!response.ok) {
     throw new Error(response.statusText);
   }
+  return await response.json();
+}
+
+export async function getOrder(orderId: string): Promise<TOrder> {
+  const response = await fetch(`/api/orders/${orderId}`, {
+    credentials: "include",
+  });
+  if (!response.ok) {
+    throw new Error(response.statusText);
+  }
+  return await response.json();
 }
