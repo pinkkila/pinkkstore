@@ -141,3 +141,13 @@ export async function getOrder(orderId: string): Promise<TOrder> {
   }
   return await response.json();
 }
+
+export async function getOrders(): Promise<TOrder[]> {
+  await new Promise((resolve) => setTimeout(resolve, 4000));
+
+  const response = await fetch("/api/orders");
+  if (!response.ok) {
+    throw new Error(response.statusText);
+  }
+  return await response.json();
+}

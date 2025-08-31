@@ -1,29 +1,15 @@
 "use client";
 
-import { TOrder } from "@/lib/types";
-import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { getOrders } from "@/lib/queries";
 
 export default function OrderList() {
-  const [orders, setOrders] = useState<TOrder[]>([]);
 
-  useEffect(() => {
-    const fetchOrders = async () => {
-      try {
-        const response = await fetch(`/api/orders`, {
-          credentials: "include",
-        });
-        if (!response.ok) {
-          throw new Error(response.statusText);
-        }
-        const data = await response.json();
-        setOrders(data);
-      } catch (e) {
-        console.error(e);
-      }
-    };
-    fetchOrders();
-  }, []);
+  const { data: orders } = useSuspenseQuery({
+    queryFn: getOrders,
+    queryKey: ["orders"]
+  })
 
   return (
     <div>

@@ -1,9 +1,12 @@
 import OrderList from "@/components/order-list";
+import ApiErrorBoundary from "@/components/error/api-error-boundary";
 
 export default function Page() {
   return (
     <main>
-      <OrderList />
+      <ApiErrorBoundary>
+        <OrderList />
+      </ApiErrorBoundary>
     </main>
   );
 }
