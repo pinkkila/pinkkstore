@@ -9,7 +9,7 @@ export default async function OrderPage({ params }: OrderPageProps) {
 
   return (
     <main className="flex justify-center items-center">
-     <OrderPageClient orderId={id} className="mt-30" />
+        <OrderPageClient orderId={id} className="mt-30" />
     </main>
   );
 }

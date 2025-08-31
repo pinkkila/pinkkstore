@@ -4,7 +4,7 @@ import { cn, formatDate } from "@/lib/utils";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import OrderItem from "@/components/order-item";
-import { useQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { getOrder } from "@/lib/queries";
 
 type OrderPageClientProps = {
@@ -14,7 +14,7 @@ type OrderPageClientProps = {
 
 export default function OrderPageClient({ orderId, className}: OrderPageClientProps) {
 
-  const { data: order } = useQuery({
+  const { data: order } = useSuspenseQuery({
     queryFn: () => getOrder(orderId),
     queryKey: ["order", +orderId],
   })
