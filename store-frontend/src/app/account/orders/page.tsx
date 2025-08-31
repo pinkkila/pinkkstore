@@ -5,7 +5,10 @@ import Breadcrumps from "@/components/breadcrumps";
 export default function Page() {
   return (
     <main className="space-y-6">
-      <Breadcrumps crumps={[{name: "Account", path: "/account"}]} currentPage={"Orders"} />
+      <Breadcrumps
+        crumps={[{ name: "Account", path: "/account" }]}
+        currentPage={"Orders"}
+      />
       <h1 className="text-2xl">Your Orders</h1>
       <ApiErrorBoundary>
         <OrdersPageClient />
