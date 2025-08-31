@@ -10,12 +10,14 @@ import { postOrder } from "@/lib/queries";
 import { Spinner } from "@/components/ui/shadcn-io/spinner";
 import { useRouter } from "next/navigation";
 import StockStatus from "@/components/stock-status";
+import { useState } from "react";
 
 export default function CheckoutPageClient() {
   const { cart } = useCartContext();
   const { productDetailsMap } = useCartProductsContext();
   const queryClient = useQueryClient();
   const router = useRouter();
+  const [isRedirecting, setIsRedirecting] = useState(false);
 
   const totalPrice = cart?.items.reduce((sum, item) => {
     const productDetails = productDetailsMap.get(item.productId);
@@ -24,17 +26,20 @@ export default function CheckoutPageClient() {
   }, 0);
 
   const { mutate, isPending } = useMutation({
-    mutationFn: (newOrderRequest: TNewOrderRequest) => postOrder(newOrderRequest),
+    mutationFn: (newOrderRequest: TNewOrderRequest) =>
+      postOrder(newOrderRequest),
     onSuccess: (data) => {
+      setIsRedirecting(true)
       queryClient.setQueryData(["order", data.id], data);
-      router.push(`/account/order/${data.id}`);
+      queryClient.removeQueries({ queryKey: ["orders"] });
       void queryClient.invalidateQueries({ queryKey: ["cart"] });
+      router.push(`/account/order/${data.id}`);
     },
     onError: (error) => {
       console.error("Order failed:", error);
       // TODO: Add toaster and info if the failure was due to a product being out of stock
     },
-  })
+  });
 
   const handleOnClick = async () => {
     if (!cart) {
@@ -47,16 +52,27 @@ export default function CheckoutPageClient() {
         productQty: item.productQty,
       })),
     };
-    mutate(newOrderRequest)
+    mutate(newOrderRequest);
   };
+
+  if (isPending || isRedirecting) {
+    return (
+      <div className=" flex flex-col gap-2 h-72 items-center justify-center">
+        <p className="text-xl text-center text-muted-foreground">
+          Creating your order...
+        </p>
+        <Spinner variant="circle" />
+      </div>
+    );
+  }
 
   if (!cart || cart.items.length === 0) {
     return (
-      <section className="max-w-4xl mx-auto px-4 mt-6">
-        <p className="text-center text-xl text-muted-foreground">
+      <div className=" flex h-72 items-center justify-center">
+        <p className="text-xl text-center text-muted-foreground">
           Your cart is empty so there is nothing to order.
         </p>
-      </section>
+      </div>
     );
   }
 
@@ -65,7 +81,7 @@ export default function CheckoutPageClient() {
       <Card>
         <CardContent>
           <ul className="divide-y divide-border">
-            {cart.items.map((item) => {
+            {cart?.items.map((item) => {
               const productDetails = productDetailsMap.get(item.productId);
               if (!productDetails) return null; // TODO: Loading spinner??
 
@@ -85,8 +101,12 @@ export default function CheckoutPageClient() {
             <h2 className="text-xl font-semibold">Total</h2>
             <p className="text-2xl font-bold">{totalPrice?.toFixed(2)} coins</p>
           </div>
-          <Button onClick={handleOnClick} size="lg" className="w-full mt-6 text-base">
-            {isPending ? <Spinner variant="ring" /> : "Confirm and Pay"}
+          <Button
+            onClick={handleOnClick}
+            size="lg"
+            className="w-full mt-6 text-base"
+          >
+            Confirm and Pay
           </Button>
         </CardContent>
       </Card>
@@ -114,7 +134,11 @@ function CartRow({ cartItem, productDetails }: CartRowProps) {
         />
         <div className="ml-4">
           <p className="text-lg font-medium">{productDetails.productName}</p>
-          <StockStatus inStock={cartItem.inStock} withIcon={false} textSmall={true} />
+          <StockStatus
+            inStock={cartItem.inStock}
+            withIcon={false}
+            textSmall={true}
+          />
           <p className="text-sm text-muted-foreground mt-1">
             {productDetails.price} coins × {cartItem.productQty}
           </p>

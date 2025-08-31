@@ -9,7 +9,7 @@ export default async function OrderPage({ params }: OrderPageProps) {
   const id = (await params).id;
 
   return (
-    <main className="flex justify-center items-center">
+    <main className="">
       <ApiErrorBoundary>
         <OrderPageClient orderId={id} className="mt-30" />
       </ApiErrorBoundary>

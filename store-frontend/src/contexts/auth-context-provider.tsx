@@ -36,6 +36,8 @@ export default function AuthContextProvider({
     onSuccess: () => {
       queryClient.removeQueries({ queryKey: ["auth"] });
       queryClient.removeQueries({ queryKey: ["cart"] });
+      queryClient.removeQueries({ queryKey: ["order"] });
+      queryClient.removeQueries({ queryKey: ["orders"] });
       // TODO: Add toaster?
     },
     onError: (error) => {

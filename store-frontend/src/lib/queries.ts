@@ -131,7 +131,7 @@ export async function postOrder(orderRequest: TNewOrderRequest): Promise<TOrder>
 }
 
 export async function getOrder(orderId: string): Promise<TOrder> {
-  await new Promise((resolve) => setTimeout(resolve, 4000));
+  await new Promise((resolve) => setTimeout(resolve, 10000));
 
   const response = await fetch(`/api/orders/${orderId}`, {
     credentials: "include",
@@ -143,7 +143,7 @@ export async function getOrder(orderId: string): Promise<TOrder> {
 }
 
 export async function getOrders(): Promise<TOrder[]> {
-  await new Promise((resolve) => setTimeout(resolve, 4000));
+  await new Promise((resolve) => setTimeout(resolve, 10000));
 
   const response = await fetch("/api/orders");
   if (!response.ok) {
