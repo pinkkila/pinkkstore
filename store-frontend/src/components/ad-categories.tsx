@@ -7,7 +7,7 @@ type ProductCategoriesProps = {
   className?: string;
 }
 
-export default function ProductCategories({className}: ProductCategoriesProps) {
+export default function AdCategories({className}: ProductCategoriesProps) {
   return (
     <section className={cn("flex flex-col", className)}>
       <h2 className="text-2xl font-bold">Product Categories</h2>

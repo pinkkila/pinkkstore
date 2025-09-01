@@ -5,8 +5,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { getOrder } from "@/lib/queries";
-import OrderItem from "@/components/order-item";
 import Breadcrumps from "@/components/breadcrumps";
+import { TOrderItem } from "@/lib/types";
 
 type OrderPageClientProps = {
   orderId: string;
@@ -57,5 +57,36 @@ export default function OrderPageClient({
         <p className="text-lg">Total price: {order.totalPrice} coins</p>
       </CardContent>
     </Card></>
+  );
+}
+
+type OrderItemProps = {
+  item: TOrderItem;
+  className?: string;
+};
+
+function OrderItem({ item, className }: OrderItemProps) {
+  return (
+    <div className={cn("flex flex-col", className)}>
+      <h3 className="text-lg">Items productName</h3>
+      <div className="flex items-center justify-between">
+        <div className="">
+          <p className="text-sm text-muted-foreground">ITEM ID</p>
+          <p className="text-sm">{item.productId}</p>
+        </div>
+        <div className="">
+          <p className="text-sm text-muted-foreground">UNIT PRICE</p>
+          <p className="text-sm">{item.productPrice}</p>
+        </div>
+        <div className="">
+          <p className="text-sm text-muted-foreground">QUANTITY</p>
+          <p className="text-sm">{item.productQty}</p>
+        </div>
+        <div className="">
+          <p className="text-sm text-muted-foreground">TOTAL PRICE</p>
+          <p className="text-sm">{item.productPrice * item.productQty}</p>
+        </div>
+      </div>
+    </div>
   );
 }

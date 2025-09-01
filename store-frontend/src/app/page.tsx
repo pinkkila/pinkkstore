@@ -1,4 +1,4 @@
-import ProductCategories from "@/components/product-categories";
+import AdCategories from "@/components/ad-categories";
 import AdCarousel from "@/components/ad-carousel";
 
 export default function Home() {
@@ -13,7 +13,7 @@ export default function Home() {
         </p>
       </div>
       <AdCarousel />
-      <ProductCategories className="" />
+      <AdCategories className="" />
     </main>
   );
 }
