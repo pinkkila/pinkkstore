@@ -29,10 +29,9 @@ export default function CheckoutPageClient() {
     mutationFn: (newOrderRequest: TNewOrderRequest) =>
       postOrder(newOrderRequest),
     onSuccess: (data) => {
-      setIsRedirecting(true)
       queryClient.setQueryData(["order", data.id], data);
-      queryClient.removeQueries({ queryKey: ["orders"] });
       void queryClient.invalidateQueries({ queryKey: ["cart"] });
+      queryClient.removeQueries({ queryKey: ["orders"] });
       router.push(`/account/order/${data.id}`);
     },
     onError: (error) => {
@@ -45,6 +44,7 @@ export default function CheckoutPageClient() {
     if (!cart) {
       throw new Error("Something went wrong!");
     }
+    setIsRedirecting(true)
 
     const newOrderRequest = {
       orderItems: cart?.items.map((item) => ({
