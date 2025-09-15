@@ -15,7 +15,7 @@ It consists of two main applications:
 - Frontend with Next.js, shadcn-ui, and TanStack Query (server & client fetching, hydration prefetching)
 
 
-## Project Structure
+### Project Structure
 
 
 | Directory            | Description                              |
@@ -27,17 +27,14 @@ It consists of two main applications:
 | store-reverse-proxy/ | Reverse proxy - Spring Boot              |     
 
 
-
-
-
-## Frontend
+### Frontend
 
 - Built with Next.js
 - Styled using shadcn/ui + Tailwind CSS
 - Data fetching with Next.js server components and TanStack Query
 
 
-## Backend 
+### Backend 
 
 - Reverse proxy using Spring Cloud Gateway to achieve the same origin for frontend and bff-server → no need for CORS configuration and cookies can be flagged SameSite=Lax.
 
