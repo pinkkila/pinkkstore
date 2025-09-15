@@ -18,13 +18,13 @@ It consists of two main applications:
 ## Project Structure
 
 
-| Directory            |             App type             | Description          |
-|:---------------------|:--------------------------------:|:---------------------|
-| store-frontend/      |             Next.js              | React frontend       |
-| store-api/           |           Spring Boot            | Resource Server      |
-| store-auth-server/   |           Spring Boot            | Authorization Server |     
-| store-bff/           |           Spring Boot            | BFF Server           |
-| store-reverse-proxy/ |           Spring Boot            | Reverse proxy        |     
+| Directory            |                Description                |
+|:---------------------|:-----------------------------------------:|
+| store-frontend/      |         React frontend - Next.js          |
+| store-api/           |       Resource Server - Spring Boot       |
+| store-auth-server/   |    Authorization Server - Spring Boot     |
+| store-bff/           |         BFF Server - Spring Boot          |
+| store-reverse-proxy/ |        Reverse proxy - Spring Boot        |     
 
 
 
