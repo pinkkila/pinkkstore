@@ -18,13 +18,13 @@ It consists of two main applications:
 ## Project Structure
 
 
-| Directory            |                Description                |
-|:---------------------|:-----------------------------------------:|
-| store-frontend/      |         React frontend - Next.js          |
-| store-api/           |       Resource Server - Spring Boot       |
-| store-auth-server/   |    Authorization Server - Spring Boot     |
-| store-bff/           |         BFF Server - Spring Boot          |
-| store-reverse-proxy/ |        Reverse proxy - Spring Boot        |     
+| Directory            | Description                              |
+|:---------------------|:-----------------------------------------|
+| store-frontend/      | React frontend - Next.js                 |
+| store-api/           | Resource Server - Spring Boot            |
+| store-auth-server/   | Authorization Server - Spring Boot       |
+| store-bff/           | BFF Server - Spring Boot                 |
+| store-reverse-proxy/ | Reverse proxy - Spring Boot              |     
 
 
 
@@ -39,8 +39,7 @@ It consists of two main applications:
 
 ## Backend 
 
-
-- Reverse proxy using Spring Cloud Gateway (to achieve the same origin for frontend and bff-server → no need for CORS configuration and cookies can be flagged SameSite=Lax)
+- Reverse proxy using Spring Cloud Gateway to achieve the same origin for frontend and bff-server → no need for CORS configuration and cookies can be flagged SameSite=Lax.
 
 
 ## What's Next
