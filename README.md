@@ -15,16 +15,16 @@ It consists of two main applications:
 - Frontend with Next.js, shadcn-ui, and TanStack Query (server & client fetching, hydration prefetching)
 
 
-## Project Structure (only store-)
+## Project Structure
 
 
-| Directory            |             App type             | Description          |
-|:---------------------|:--------------------------------:|:---------------------|
-| store-frontend/      |             Next.js              | React frontend       |
-| store-api/           |           Spring Boot            | Resource Server      |
-| store-auth-server/   |           Spring Boot            | Authorization Server |     
-| store-bff/           |           Spring Boot            | BFF Server           |
-| store-reverse-proxy/ |           Spring Boot            | Reverse proxy        |     
+| Directory            |             App type             | Description                                                                                                                                                              |
+|:---------------------|:--------------------------------:|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| store-frontend/      |             Next.js              | React frontend                                                                                                                                                           |
+| store-api/           |           Spring Boot            | Resource Server                                                                                                                                                          |
+| store-auth-server/   |           Spring Boot            | Authorization Server                                                                                                                                                     |     
+| store-bff/           |           Spring Boot            | BFF Server                                                                                                                                                               |
+| store-reverse-proxy/ |           Spring Boot            | Reverse proxy using Spring Cloud Gateway to achieve the same origin for frontend and bff-server → no need for CORS configuration and cookies can be flagged SameSite=Lax |     
 
 
 
