@@ -54,7 +54,6 @@ Webstore platform project that consists of two main applications:
 
 - Ensures the frontend and BFF share the same origin, eliminating CORS issues and allowing secure cookies to be set with `SameSite=Lax`.
 
----
 
 ## What's Next
 
