@@ -1,7 +1,6 @@
 # Webstore Platform Project
 
-This is a fullstack e-commerce platform built to demonstrate web application design and architecture.
-It consists of two main applications:
+This is an e-commerce platform built that consists of two main applications:
 
 - Webstore (store-) → customer-facing online store
 - CRM (crm-) → administration and operations panel (❗️ in progress, currently only initial placeholder code ❗️)
@@ -11,9 +10,9 @@ It consists of two main applications:
 - Backend for Frontend (BFF) architecture with Spring Boot & React
 - Authentication & Authorization using OAuth2 + OpenID Connect
 - Data persistence with PostgreSQL
-- Reverse proxy gateway using Spring Cloud Gateway (for routing and security)
-- Frontend with Next.js, shadcn-ui, and TanStack Query (server & client fetching, hydration prefetching)
+- Frontend with Next.js, shadcn-ui, and TanStack Query.
 
+---
 
 ### Project Structure
 
@@ -26,18 +25,39 @@ It consists of two main applications:
 | store-bff/           | BFF Server - Spring Boot                 |
 | store-reverse-proxy/ | Reverse proxy - Spring Boot              |     
 
+---
 
 ### Frontend
 
-- Built with Next.js
-- Styled using shadcn/ui + Tailwind CSS
-- Data fetching with Next.js server components and TanStack Query
+- Built with Next.js.
+- Styled using shadcn/ui + Tailwind CSS.
+- Data fetching with Next.js server components and TanStack Query.
 
+---
 
 ### Backend 
 
-- Reverse proxy using Spring Cloud Gateway to achieve the same origin for frontend and bff-server → no need for CORS configuration and cookies can be flagged SameSite=Lax.
+#### BFF Server (store-bff)
 
+- Interacts with the authorization server as a confidential OAuth client.
+- Manages sessions securely using HTTP-only cookies, so the frontend never needs to handle OAuth tokens directly.
+- Forwards API requests to the Resource Server (store-api).
+
+#### Authorization Server (store-auth-server)
+
+- Handles user registration and login.
+- Provides OAuth2 + OpenID Connect authentication and issues tokens.
+
+#### Resource Server (store-api)
+
+- Exposes domain data (products, orders, etc.) as a stateless REST API.
+- Protected by OAuth2 access tokens and scopes.
+
+#### Reverse Proxy (store-reverse-proxy)
+
+- Ensures the frontend and BFF share the same origin, eliminating CORS issues and allowing secure cookies to be set with `SameSite=Lax`.
+
+---
 
 ## What's Next
 
