@@ -37,7 +37,7 @@ Webstore platform project that consists of two main applications:
 #### BFF Server (store-bff)
 
 - Interacts with the authorization server as a confidential OAuth client.
-- Manages sessions securely using HTTP-only cookies, so the frontend never needs to handle OAuth tokens directly.
+- Manages OAuth tokens in the context of a cookie-based session, so the frontend never needs to handle OAuth tokens directly.
 - Forwards API requests to the Resource Server (store-api).
 
 #### Authorization Server (store-auth-server)
@@ -48,7 +48,7 @@ Webstore platform project that consists of two main applications:
 #### Resource Server (store-api)
 
 - Exposes domain data (products, orders, etc.) as a stateless REST API.
-- Protected by OAuth2 access tokens and scopes.
+- Protected by OAuth access tokens and scopes.
 
 #### Reverse Proxy (store-reverse-proxy)
 
