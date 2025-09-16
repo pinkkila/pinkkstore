@@ -24,7 +24,7 @@ ext {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'org.springframework.cloud:spring-cloud-starter-gateway-server-webflux'
-	runtimeOnly("io.netty:netty-resolver-dns-native-macos:4.2.6.Final")
+	runtimeOnly 'io.netty:netty-resolver-dns-native-macos'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'io.projectreactor:reactor-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'

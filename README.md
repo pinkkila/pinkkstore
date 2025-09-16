@@ -1,9 +1,9 @@
 # Webstore Platform Project
 
-This is an e-commerce platform built that consists of two main applications:
+Webstore platform project that consists of two main applications:
 
 - Webstore (store-) → customer-facing online store
-- CRM (crm-) → administration and operations panel (❗️ in progress, currently only initial placeholder code ❗️)
+- CRM (crm-) → administration and operations panel (❗️In progress, currently only initial placeholder code️)
 
 ## Key Features
 
@@ -12,10 +12,8 @@ This is an e-commerce platform built that consists of two main applications:
 - Data persistence with PostgreSQL
 - Frontend with Next.js, shadcn-ui, and TanStack Query.
 
----
 
-### Project Structure
-
+## Project Structure
 
 | Directory            | Description                              |
 |:---------------------|:-----------------------------------------|
@@ -25,17 +23,16 @@ This is an e-commerce platform built that consists of two main applications:
 | store-bff/           | BFF Server - Spring Boot                 |
 | store-reverse-proxy/ | Reverse proxy - Spring Boot              |     
 
----
+## Frontend
 
-### Frontend
-
-- Built with Next.js.
+- Built with Next.js combining server and client components.
 - Styled using shadcn/ui + Tailwind CSS.
-- Data fetching with Next.js server components and TanStack Query.
+- Data fetching with Next.js server components and TanStack Query, providing: 
+  - caching
+  - prefetching & router integration
+  - loading and error state handling.
 
----
-
-### Backend 
+## Backend 
 
 #### BFF Server (store-bff)
 
