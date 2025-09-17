@@ -27,10 +27,11 @@ Webstore platform project that consists of two main applications:
 
 - Built with Next.js combining server and client components.
 - Styled using shadcn/ui + Tailwind CSS.
-- Data fetching with Next.js server components and TanStack Query, providing: 
-  - caching
-  - prefetching & router integration
-  - loading and error state handling.
+- Data fetching with Next.js server components and TanStack Query, providing:
+  - Server-side and client-side fetching
+  - Prefetching with router integration
+  - Caching
+  - Loading and error handling
 
 ## Backend 
 
