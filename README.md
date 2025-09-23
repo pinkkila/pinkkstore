@@ -62,9 +62,11 @@ Webstore platform project that consists of two main applications:
 - store-api (resource-server) migration for Spring Monolith
 
 
-## UI Images
+## Store UI Images
 
-![img.png](README-img/product_by_categories.png)
+![img.png](README-img/front_page.png)
+
+![img.png](README-img/products_by_category.png)
 
 ![img.png](README-img/cart.png)
 
