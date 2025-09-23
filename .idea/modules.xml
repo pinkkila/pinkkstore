@@ -2,6 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/crm-api.main.iml" filepath="$PROJECT_DIR$/.idea/modules/crm-api.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/crm-auth-server.main.iml" filepath="$PROJECT_DIR$/.idea/modules/crm-auth-server.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/crm-bff.main.iml" filepath="$PROJECT_DIR$/.idea/modules/crm-bff.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/crm-frontend/crm-frontend.iml" filepath="$PROJECT_DIR$/crm-frontend/crm-frontend.iml" />
       <module fileurl="file://$PROJECT_DIR$/pinkkstore.iml" filepath="$PROJECT_DIR$/pinkkstore.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/store-api.main.iml" filepath="$PROJECT_DIR$/.idea/modules/store-api.main.iml" />

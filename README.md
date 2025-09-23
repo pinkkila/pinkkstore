@@ -7,9 +7,10 @@ Webstore platform project that consists of two main applications:
 
 ## Key Features
 
-- Backend for Frontend (BFF) architecture with Spring Boot & React
-- Authentication & Authorization using OAuth2 + OpenID Connect
+- Backend for Frontend (BFF) architecture with Spring Boot and React
+- Authentication and authorization using OAuth2 and OpenID Connect
 - Data persistence with PostgreSQL
+- Resource server (store-api) exposing a REST API
 - Frontend with Next.js, shadcn-ui, and TanStack Query.
 
 
@@ -59,4 +60,11 @@ Webstore platform project that consists of two main applications:
 ## What's Next
 
 - store-api (resource-server) migration for Spring Monolith
+
+
+## UI Images
+
+![img.png](README-img/product_by_categories.png)
+
+![img.png](README-img/cart.png)
 
