@@ -49,7 +49,7 @@ Webstore platform project that consists of two main applications:
 
 #### Resource Server (store-api)
 
-- Exposes domain data (products, orders, etc.) as a stateless REST API.
+- Exposes domain data (products, orders, etc.) as a REST API.
 - Protected by OAuth access tokens and scopes.
 
 #### Reverse Proxy (store-reverse-proxy)
