@@ -17,13 +17,13 @@ values (1, 'fruits'),
        (3, 'nature');
 
 insert into product(id, product_name, product_desc, image_url, stock_qty, reserved_qty, price, popularity, category_id)
-values (99, 'Banana', 'Really beautiful picture of banana', '/images/banana.jpg', 15, 0, 19.95, 88, 1),
-       (100, 'Orange', 'Amazing potret of an orange', '/images/orange.jpg', 66, 0, 24.95, 70, 1),
-       (101, 'Dog', 'Quite amazing picture of the dog', '/images/dog.jpg', 30, 0, 9.95, 80, 2),
-       (102, 'Cat', 'This is the Cat', '/images/cat.jpg', 99, 0, 39.98, 99, 2),
-       (103, 'Desert', 'More sand that you can handle', '/images/desert.jpg',48, 0, 13.95, 23, 3 ),
-       (104, 'Jungle', 'Only book is missing from this Jungle', '/images/jungle.jpg', 23, 0, 89.49, 10, 3),
-       (105, 'Spring', 'Spring comes after winter', '/images/spring.jpg', 11, 0, 79.95, 40, 3);
+values (99, 'Banana', 'Really beautiful picture of banana.', '/images/banana.jpg', 15, 0, 19.95, 88, 1),
+       (100, 'Orange', 'Amazing potret of an orange.', '/images/orange.jpg', 66, 0, 24.95, 70, 1),
+       (101, 'Dog', 'Quite amazing picture of the dog.', '/images/dog.jpg', 30, 0, 9.95, 80, 2),
+       (102, 'Cat', 'This is the Cat.', '/images/cat.jpg', 99, 0, 39.98, 99, 2),
+       (103, 'Desert', 'More sand that you can handle.', '/images/desert.jpg',48, 0, 13.95, 23, 3 ),
+       (104, 'Jungle', 'Only book is missing from this Jungle.', '/images/jungle.jpg', 23, 0, 89.49, 10, 3),
+       (105, 'Spring', 'Spring comes after winter.', '/images/spring.jpg', 11, 0, 79.95, 40, 3);
 
 insert into payment(id, amount)
 values (50, 69.85);
