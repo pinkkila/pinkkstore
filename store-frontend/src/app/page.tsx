@@ -9,7 +9,7 @@ export default function Home() {
           Welcome to <span className="text-[#FF00D0]">PinkkStore</span>
         </h1>
         <p className="text-lg lg:text-2xl opacity-75">
-          We have Amazing AI generated pictures.
+          We have Amazing AI Generated Images.
         </p>
       </div>
       <AdCarousel />

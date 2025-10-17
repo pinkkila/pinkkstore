@@ -41,7 +41,7 @@ export default function CategoriesPageClient({
     <div className="">
       <div className="flex flex-col md:flex-row justify-between">
         {isMobile && (
-          <BasicAccordion title="Filters">
+          <BasicAccordion title="Filters" className="mb-4">
             <PriceFilter
               priceRange={priceRange}
               setPriceRange={setPriceRange}

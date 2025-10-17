@@ -14,6 +14,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { Separator } from "@/components/ui/separator";
 
 const routes = [
   {
@@ -28,6 +29,9 @@ const routes = [
     label: "Account",
     path: "/account",
   },
+];
+
+const routesCategories = [
   {
     label: "Fruits",
     path: "/categories/fruits",
@@ -54,15 +58,16 @@ export default function DrawerMenu() {
         <DrawerHeader>
           <div className="flex justify-between items-center">
             <div>
-              <DrawerTitle>Pinkk Store</DrawerTitle>
-              <DrawerDescription>Where you wanna go?</DrawerDescription>
+              <DrawerTitle>PinkkStore</DrawerTitle>
+              <DrawerDescription>Where do you want to go?</DrawerDescription>
             </div>
             <DrawerClose asChild>
               <Button variant="outline"><X/></Button>
             </DrawerClose>
           </div>
         </DrawerHeader>
-        <ul className="pl-5">
+        <div className="px-5">
+        <ul>
           {routes.map((route) => (
             <li key={route.path}>
               <DrawerClose asChild>
@@ -81,6 +86,28 @@ export default function DrawerMenu() {
             </li>
           ))}
         </ul>
+        <Separator className="my-2" />
+          <h2 className="text-white/35 mb-1">Categories:</h2>
+          <ul>
+            {routesCategories.map((route) => (
+              <li key={route.path}>
+                <DrawerClose asChild>
+                  <Link
+                    href={route.path}
+                    className={cn(
+                      "text-white/60 text-lg font-bold py-1 hover:text-white focus:text-white transition",
+                      {
+                        " text-white": route.path === activePathname
+                      }
+                    )}
+                  >
+                    {route.label}
+                  </Link>
+                </DrawerClose>
+              </li>
+            ))}
+          </ul>
+        </div>
       </DrawerContent>
     </Drawer>
   );

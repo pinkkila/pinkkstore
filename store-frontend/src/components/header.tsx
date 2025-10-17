@@ -10,7 +10,7 @@ export default function Header() {
       <div className="flex items-center gap-4 xl:gap-6">
         <DrawerMenu />
         <Link href="/">
-          <Image src="pinkkstore-logo.svg" alt="PinkkStore logo" height={0} width={0} className="h-8 xl:h-10 w-auto" />
+          <Image src="logo.svg" alt="PinkkStore logo" height={0} width={0} className="h-8 xl:h-10 w-auto" priority/>
         </Link>
       </div>
       <div className="flex items-center gap-1 lg:gap-3 ">
