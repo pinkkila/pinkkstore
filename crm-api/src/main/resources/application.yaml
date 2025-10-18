@@ -5,7 +5,6 @@ spring:
   application:
     name: crm-api
 
-
   datasource:
     username: myuser
     password: secret
@@ -17,14 +16,20 @@ spring:
       schema-locations: file:api-db/schema.sql
       data-locations: file:api-db/data.sql
 
-
   security:
     oauth2:
       resourceserver:
         jwt:
           jwk-set-uri: http://localhost:9001/oauth2/jwks
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
 
 logging:
   level:
     org.springframework.security: trace
+#    org.springframework.data: trace
+#    org.springframework.web: trace

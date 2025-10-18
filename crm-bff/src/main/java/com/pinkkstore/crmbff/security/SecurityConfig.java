@@ -65,7 +65,7 @@ public class SecurityConfig {
     
     private AuthenticationEntryPoint authenticationEntryPoint() {
         AuthenticationEntryPoint authenticationEntryPoint =
-                new LoginUrlAuthenticationEntryPoint("/oauth2/authorization/crm-client-oidc");
+                new LoginUrlAuthenticationEntryPoint("/oauth2/authorization/crm-client");
         MediaTypeRequestMatcher textHtmlMatcher =
                 new MediaTypeRequestMatcher(MediaType.TEXT_HTML);
         textHtmlMatcher.setUseEquals(true);

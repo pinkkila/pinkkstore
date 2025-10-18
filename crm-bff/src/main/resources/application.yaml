@@ -10,22 +10,14 @@ spring:
     oauth2:
       client:
         registration:
-          crm-client-oidc:
+          crm-client:
             provider: spring
-            client-id: crm-client
+            client-id: crm-bff-client
             client-secret: secret
             authorization-grant-type: authorization_code
             redirect-uri: "http://127.0.0.1:8081/login/oauth2/code/{registrationId}"
             scope: openid,profile
-            client-name: crm-client-oidc
-          crm-client-authorization-code:
-            provider: spring
-            client-id: crm-client
-            client-secret: secret
-            authorization-grant-type: authorization_code
-            redirect-uri: "http://127.0.0.1:8081/authorized"
-            scope: openid,profile
-            client-name: crm-client-authorization-code
+            client-name: crm-client
         provider:
           spring:
             issuer-uri: http://localhost:9001
@@ -51,7 +43,7 @@ spring:
 
 
 app:
-  base-uri: http://127.0.0.1:3001/
+  base-uri: http://127.0.0.1:3001
 
 logging:
   level:
