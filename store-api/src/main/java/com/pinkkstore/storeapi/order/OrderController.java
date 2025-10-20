@@ -21,16 +21,16 @@ public class OrderController {
     }
     
     @GetMapping("/{requestedId}")
-    public ResponseEntity<Order> getOrder(@PathVariable Long requestedId, Authentication authentication) {
+    public ResponseEntity<OrderDto> getOrder(@PathVariable Long requestedId, Authentication authentication) {
         return ResponseEntity.ok(orderService.getOrder(authentication, requestedId));
     }
     
     @PostMapping
-    public ResponseEntity<Order> createOrder(@RequestBody OrderRequest orderRequest, Authentication authentication, UriComponentsBuilder ucb) {
+    public ResponseEntity<OrderDto> createOrder(@RequestBody OrderRequest orderRequest, Authentication authentication, UriComponentsBuilder ucb) {
         var createdOrder = orderService.createOrder(authentication, orderRequest);
         URI locationOfCreatedOrder = ucb
                 .path("/orders/{id}")
-                .buildAndExpand(createdOrder.getId())
+                .buildAndExpand(createdOrder.orderId())
                 .toUri();
         return ResponseEntity.created(locationOfCreatedOrder).body(createdOrder);
     }

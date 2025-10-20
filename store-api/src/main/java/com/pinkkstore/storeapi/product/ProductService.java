@@ -18,6 +18,10 @@ public class ProductService {
     private final ProductMapper productMapper;
     private final CategoryService categoryService;
     
+    public Product getProductById(Long id) {
+        return productRepository.findById(id).orElseThrow(() -> new ProductNotFoundException(id));
+    }
+    
     public List<Product> getAllById(List<Long> productIds) {
         return productRepository.findAllById(productIds);
     }

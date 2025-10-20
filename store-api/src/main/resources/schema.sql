@@ -60,7 +60,7 @@ create table if not exists order_item
 (
     id                bigserial primary key,
     product_qty       integer not null,
-    product_price     decimal not null,
+    product_order_price     decimal not null,
     product_id        bigint  not null references product (id),
     customer_order_id bigint  not null references customer_order (id)
 );

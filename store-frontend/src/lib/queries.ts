@@ -131,6 +131,9 @@ export async function postOrder(orderRequest: TNewOrderRequest): Promise<TOrder>
 }
 
 export async function getOrder(orderId: string): Promise<TOrder> {
+  console.log("Fetching on", typeof window === "undefined" ? "SERVER" : "CLIENT");
+  await new Promise((resolve) => setTimeout(resolve, 5000));
+
   const response = await fetch(`/api/orders/${orderId}`, {
     credentials: "include",
   });

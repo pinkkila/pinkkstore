@@ -24,18 +24,18 @@ type TNewOrderItemRequest = {
 };
 
 export type TOrder = {
-  id: number;
-  appUsername: string;
+  orderId: number;
   orderDate: string; //TODO refactor to date
   totalPrice: number;
   orderItems: TOrderItem[];
 };
 
 export type TOrderItem = {
-  id: number;
+  orderItemId: number;
   productQty: number;
-  productPrice: number;
-  productId: number;
+  productOrderPrice: number;
+  productName: string;
+  imageUrl: string;
 };
 
 export type TProduct = {

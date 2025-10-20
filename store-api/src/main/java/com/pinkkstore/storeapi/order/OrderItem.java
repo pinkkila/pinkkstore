@@ -12,6 +12,6 @@ public class OrderItem {
     @Id
     private Long id;
     private int productQty;
-    private double productPrice;
+    private double productOrderPrice;
     private Long productId;
 }

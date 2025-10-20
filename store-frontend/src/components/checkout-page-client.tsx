@@ -29,10 +29,10 @@ export default function CheckoutPageClient() {
     mutationFn: (newOrderRequest: TNewOrderRequest) =>
       postOrder(newOrderRequest),
     onSuccess: (data) => {
-      queryClient.setQueryData(["order", data.id], data);
+      queryClient.setQueryData(["order", data.orderId], data);
       void queryClient.invalidateQueries({ queryKey: ["cart"] });
       queryClient.removeQueries({ queryKey: ["orders"] });
-      router.push(`/account/order/${data.id}`);
+      router.push(`/account/order/${data.orderId}`);
     },
     onError: (error) => {
       console.error("Order failed:", error);

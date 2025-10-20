@@ -9,9 +9,9 @@ export default async function OrderPage({ params }: OrderPageProps) {
   const id = (await params).id;
 
   return (
-    <main className="">
+    <main>
       <ApiErrorBoundary>
-        <OrderPageClient orderId={id} className="mt-30" />
+        <OrderPageClient orderId={id} />
       </ApiErrorBoundary>
     </main>
   );
