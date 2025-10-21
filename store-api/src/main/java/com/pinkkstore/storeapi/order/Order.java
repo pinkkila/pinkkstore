@@ -15,10 +15,10 @@ import java.util.Set;
 public class Order {
     @Id
     private Long id;
-    private String appUsername;
     private LocalDateTime orderDate;
     private double totalPrice;
     private Long paymentId;
+    private Long accountId;
     @MappedCollection(idColumn = "customer_order_id")
     private Set<OrderItem> orderItems;
 }

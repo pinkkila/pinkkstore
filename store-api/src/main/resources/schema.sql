@@ -47,13 +47,20 @@ create table if not exists payment
     amount decimal not null
 );
 
+create table if not exists account
+(
+    id bigserial primary key,
+    app_username text not null,
+    coins decimal not null
+);
+
 create table if not exists customer_order
 (
     id           bigserial primary key,
-    app_username text      not null,
     order_date   timestamp not null,
     total_price  decimal   not null,
-    payment_id   bigint    not null references payment (id)
+    payment_id   bigint    not null references payment (id),
+    account_id   bigint    not null references account (id)
 );
 
 create table if not exists order_item
@@ -63,11 +70,4 @@ create table if not exists order_item
     product_order_price     decimal not null,
     product_id        bigint  not null references product (id),
     customer_order_id bigint  not null references customer_order (id)
-);
-
-create table if not exists account
-(
-    id bigserial primary key,
-    app_username text not null,
-    coins decimal not null
 )

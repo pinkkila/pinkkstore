@@ -1,5 +1,6 @@
 package com.pinkkstore.storeapi.order;
 
+import com.pinkkstore.storeapi.account.AccountService;
 import com.pinkkstore.storeapi.cart.Cart;
 import com.pinkkstore.storeapi.cart.CartService;
 import com.pinkkstore.storeapi.payment.PaymentService;
@@ -19,22 +20,27 @@ import java.util.stream.Collectors;
 public class OrderService {
     private final OrderRepository orderRepository;
     private final OrderMapper orderMapper;
+    private final AccountService accountService;
     private final ProductService productService;
     private final PaymentService paymentService;
     private final CartService cartService;
     
-    public List<Order> getAllOrders(Authentication authentication) {
-        return orderRepository.findAllByAppUsername(authentication.getName());
+    public List<OrderDto> getAllOrders(Authentication authentication) {
+        var account = accountService.getAccountByAppUsername(authentication);
+        return orderRepository.findAllByAccountId(account.getId()).stream().map(orderMapper::toOrderDto).toList();
     }
     
     public OrderDto getOrder(Authentication authentication, Long orderId) {
-        return orderRepository.findByAppUsernameAndId(authentication.getName(), orderId)
+        var account = accountService.getAccountByAppUsername(authentication);
+        return orderRepository.findByIdAndAccountId(orderId, account.getId())
                 .map(orderMapper::toOrderDto)
                 .orElseThrow(() -> new OrderNotFoundException(authentication));
     }
     
     @Transactional
     public OrderDto createOrder(Authentication authentication, OrderRequest orderRequest) {
+        var account = accountService.getAccountByAppUsername(authentication);
+        
         Set<OrderItem> orderItems = orderRequest.orderItems().stream()
                 .map(orderItemRequest ->{
                     var product = productService.reduceStockQty(orderItemRequest.productId(), orderItemRequest.productQty());
@@ -50,7 +56,7 @@ public class OrderService {
         
         cartService.removeCart(authentication);
         
-        var newOrder = new Order(null, authentication.getName(), LocalDateTime.now(), priceTotal, payment.getId() ,orderItems);
+        var newOrder = new Order(null, LocalDateTime.now(), priceTotal, payment.getId(), account.getId(), orderItems);
         var savedOrder = orderRepository.save(newOrder);
         return orderMapper.toOrderDto(savedOrder);
     }

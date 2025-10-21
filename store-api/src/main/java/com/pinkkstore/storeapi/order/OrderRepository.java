@@ -6,6 +6,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface OrderRepository extends ListCrudRepository<Order, Long> {
-    List<Order> findAllByAppUsername(String appUsername);
-    Optional<Order> findByAppUsernameAndId(String appUsername, Long id);
+    List<Order> findAllByAccountId(Long accountId);
+    Optional<Order> findByIdAndAccountId(Long id, Long accountId);
 }

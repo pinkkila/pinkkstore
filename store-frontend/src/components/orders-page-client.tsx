@@ -23,8 +23,8 @@ export default function OrdersPageClient() {
     <div>
       <ul>
         {orders.map((order) => (
-          <li key={order.id}>
-            <Link href={`/account/order/${order.id}`}>Go to order. Order ID {order.id}</Link>
+          <li key={order.orderId}>
+            <Link href={`/account/order/${order.orderId}`}>Go to order. Order ID {order.orderId}</Link>
           </li>
         ))}
       </ul>

@@ -28,15 +28,15 @@ values (99, 'Banana', 'Really beautiful picture of banana.', '/images/banana.jpg
 insert into payment(id, amount)
 values (50, 69.85);
 
-insert into customer_order(id, app_username, order_date, total_price, payment_id)
-values (50, 'user', '2025-01-28T17:23:19', 69.85, 50);
+insert into account(id, app_username, coins)
+values (1, 'user', 100.00);
+
+insert into customer_order(id, order_date, total_price, payment_id, account_id)
+values (50, '2025-01-28T17:23:19', 69.85, 50, 1);
 
 insert into order_item(id, product_qty, product_order_price, product_id, customer_order_id)
 values (200, 1, 19.95, 99, 50),
        (201, 2, 24.95, 100, 50);
-
-insert into account(id, app_username, coins)
-values (1, 'user', 100.00);
 
 
 SELECT setval('category_id_seq', (SELECT MAX(id) FROM category));

@@ -16,7 +16,7 @@ public class OrderController {
     private final OrderService orderService;
     
     @GetMapping
-    public ResponseEntity<List<Order>> getAll(Authentication authentication) {
+    public ResponseEntity<List<OrderDto>> getAll(Authentication authentication) {
         return ResponseEntity.ok(orderService.getAllOrders(authentication));
     }
     
