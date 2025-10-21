@@ -64,10 +64,10 @@ Webstore platform project that consists of two main applications:
 
 ## Store UI Images
 
-![img.png](README-img/front-page.png)
+![img.png](readme-img/front-page.png)
 
-![img.png](README-img/category-page.png)
+![img.png](readme-img/category-page.png)
 
-![img_1.png](README-img/cart-page.png)
+![img_1.png](readme-img/cart-page.png)
 
-![img_2.png](README-img/drawer-menu.png)
+![img_2.png](readme-img/drawer-menu.png)
