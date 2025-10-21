@@ -10,6 +10,11 @@ import { getCsrfToken } from "@/lib/utils";
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 // const API_URL = "https://pinkkstore.com";
 
+/*
+console.log("Fetching on", typeof window === "undefined" ? "SERVER" : "CLIENT");
+await new Promise((resolve) => setTimeout(resolve, 5000));
+*/
+
 type GetProductsParams = {
   categoryName?: string;
   priceRange?: [number, number];
@@ -132,7 +137,7 @@ export async function postOrder(orderRequest: TNewOrderRequest): Promise<TOrder>
 
 export async function getOrder(orderId: string): Promise<TOrder> {
   console.log("Fetching on", typeof window === "undefined" ? "SERVER" : "CLIENT");
-  await new Promise((resolve) => setTimeout(resolve, 5000));
+  // await new Promise((resolve) => setTimeout(resolve, 5000));
 
   const response = await fetch(`/api/orders/${orderId}`, {
     credentials: "include",

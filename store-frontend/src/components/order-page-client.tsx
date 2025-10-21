@@ -27,17 +27,21 @@ export default function OrderPageClient({ orderId }: OrderPageClientProps) {
           { name: "Account", path: "/account" },
           { name: "Orders", path: "/account/orders" },
         ]}
-        currentPage={`Your order ${formattedOrderDate}`}
+        currentPage={`Order ${formattedOrderDate}`}
       />
-      <div className="mt-4">
-        <h1 className="text-3xl font-bold">Your order {formattedOrderDate}</h1>
+      <div className="space-y-4 mt-8">
+        <h1 className="text-3xl font-bold text-center">
+          Your order from {formattedOrderDate}
+        </h1>
+
+        <h2 className="text-2xl font-bold">Ordered Items</h2>
 
         <Separator />
 
-        <div className="flex flex-col gap-1">
-          <ul>
-            {order.orderItems.map((orderItem) => (
-              <li key={orderItem.orderItemId}>
+        <ul className="space-y-4">
+          {order.orderItems.map((orderItem) => (
+            <li key={orderItem.orderItemId} className="space-y-2">
+              <div className="flex items-center gap-4 md:gap-10">
                 <Image
                   className="rounded-md"
                   src={orderItem.imageUrl}
@@ -45,72 +49,40 @@ export default function OrderPageClient({ orderId }: OrderPageClientProps) {
                   width={80}
                   height={80}
                 />
-              </li>
-            ))}
-          </ul>
-        </div>
+                <div className="flex flex-col lg:flex-row gap-1 lg:w-2/3 xl:w-2/5 lg:justify-between">
+                  <p className="text-xl font-bold ">{orderItem.productName}</p>
 
-{/*        <Card>*/}
-{/*          <CardHeader>*/}
-{/*            <CardTitle className="text-3xl">*/}
-{/*              Order from {formattedOrderDate}*/}
-{/*            </CardTitle>*/}
-{/*          </CardHeader>*/}
-{/*          <CardContent>*/}
-{/*            <div>*/}
-{/*              <ul>*/}
-{/*                /!*<li>Total price: {order.totalPrice} coins</li>*!/*/}
-{/*                <li>Order ID: {order.id}</li>*/}
-{/*                <li>Customer name: {order.appUsername}</li>*/}
-{/*                /!*<li>Order Date: {formatDate(order.orderDate)}</li>*!/*/}
-{/*              </ul>*/}
-{/*            </div>*/}
-{/*            <Separator className="my-4" />*/}
-{/*            <div>*/}
-{/*              <ul>*/}
-{/*                {order.orderItems.map((item) => (*/}
-{/*                  <li key={item.id}>*/}
-{/*                    <OrderItem item={item} className="py-1.5" />*/}
-{/*                  </li>*/}
-{/*                ))}*/}
-{/*              </ul>*/}
-{/*            </div>*/}
-{/*            <Separator className="my-4" />*/}
-{/*            <p className="text-lg">Total price: {order.totalPrice} coins</p>*/}
-{/*          </CardContent>*/}
-{/*        </Card>*/}
+                  <div className="flex gap-5 md:gap-10">
+                    <div className="flex flex-col">
+                      <span className="text-muted-foreground text-sm">
+                        QUANTITY
+                      </span>
+                      <span>{orderItem.productQty}</span>
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="text-muted-foreground text-sm">
+                        UNIT PRICE
+                      </span>
+                      <span>{orderItem.productOrderPrice}</span>
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="text-muted-foreground text-sm">
+                        TOTAL PRICE
+                      </span>
+                      <span>
+                        {(
+                          orderItem.productOrderPrice * orderItem.productQty
+                        ).toFixed(2)}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <Separator />
+            </li>
+          ))}
+        </ul>
       </div>
     </>
   );
 }
-
-{/*type OrderItemProps = {*/}
-{/*  item: TOrderItem;*/}
-{/*  className?: string;*/}
-{/*};*/}
-
-{/*function OrderItem({ item, className }: OrderItemProps) {*/}
-{/*  return (*/}
-{/*    <div className={cn("flex flex-col", className)}>*/}
-{/*      <h3 className="text-lg">Items productName</h3>*/}
-{/*      <div className="flex items-center justify-between">*/}
-{/*        <div className="">*/}
-{/*          <p className="text-sm text-muted-foreground">ITEM ID</p>*/}
-{/*          <p className="text-sm">{item.productId}</p>*/}
-{/*        </div>*/}
-{/*        <div className="">*/}
-{/*          <p className="text-sm text-muted-foreground">UNIT PRICE</p>*/}
-{/*          <p className="text-sm">{item.productPrice}</p>*/}
-{/*        </div>*/}
-{/*        <div className="">*/}
-{/*          <p className="text-sm text-muted-foreground">QUANTITY</p>*/}
-{/*          <p className="text-sm">{item.productQty}</p>*/}
-{/*        </div>*/}
-{/*        <div className="">*/}
-{/*          <p className="text-sm text-muted-foreground">TOTAL PRICE</p>*/}
-{/*          <p className="text-sm">{item.productPrice * item.productQty}</p>*/}
-{/*        </div>*/}
-{/*      </div>*/}
-{/*    </div>*/}
-{/*  );*/}
-{/*}*/}
